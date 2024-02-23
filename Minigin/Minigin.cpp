@@ -9,6 +9,7 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
+#include <ctime>
 
 SDL_Window* g_window{};
 
@@ -41,6 +42,9 @@ void PrintSDLVersion()
 }
 
 dae::Minigin::Minigin(const std::string &dataPath)
+	: m_MsPerUpdate{20}
+	, m_TimeOfLastLooped{ static_cast<double>(std::time(0)) }
+	, m_Lag{0.0}
 {
 	PrintSDLVersion();
 	
@@ -78,17 +82,34 @@ dae::Minigin::~Minigin()
 void dae::Minigin::Run(const std::function<void()>& load)
 {
 	load();
-
+	
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
 
-	// todo: this update loop could use some work.
+
+
 	bool doContinue = true;
 	while (doContinue)
 	{
+		double currentTime = static_cast<double>(std::time(0));
+		double elapsedTime = currentTime - m_TimeOfLastLooped;
+		m_TimeOfLastLooped = currentTime;
+		m_Lag += elapsedTime;
+
 		doContinue = input.ProcessInput();
-		sceneManager.Update();
+
+		while (m_Lag >= m_MsPerUpdate)
+		{
+			sceneManager.Update();
+			m_Lag -= m_MsPerUpdate;
+		}
+
 		renderer.Render();
 	}
+
+
+
+
+
 }

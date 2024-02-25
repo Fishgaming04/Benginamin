@@ -1,69 +1,82 @@
 #pragma once
-
+#include "GameObject.h"
 
 namespace dae {
-    class GameObject;
 
     class Component
     {
     public:
-        Component() {};
+        Component(GameObject* obj);
         virtual ~Component() {};
 
-        virtual void Update(GameObject& obj) = 0;
-        virtual void Render(GameObject& obj)const = 0;
+        virtual void Update() = 0;
+        virtual void Render()const = 0;
 
         Component(const Component& other) = delete;
         Component(Component&& other) = delete;
         Component& operator=(const Component& other) = delete;
         Component& operator=(Component&& other) = delete;
+
+    protected:
+        GameObject* m_ObjectPtr;
+
     };
 
 
     class GraphicalComponent: public Component
     {
     public:
-        GraphicalComponent() {};
+        GraphicalComponent(GameObject* obj);
         virtual ~GraphicalComponent() {};
 
-        virtual void Update(GameObject&) override {};
-        virtual void Render(GameObject& obj) const override =0;
+        virtual void Update() override {};
+        virtual void Render() const override = 0;
 
         GraphicalComponent(const GraphicalComponent& other) = delete;
         GraphicalComponent(GraphicalComponent&& other) = delete;
         GraphicalComponent& operator=(const GraphicalComponent& other) = delete;
         GraphicalComponent& operator=(GraphicalComponent&& other) = delete;
+
+    protected:
+        GameObject* m_ObjectPtr;
     };
 
     class UpdatingComponent : public Component
     {
     public:
     
-        UpdatingComponent() {};
+        UpdatingComponent(GameObject* obj);
         virtual ~UpdatingComponent() {}
 
-        virtual void Update(GameObject& obj) override = 0 ;
+        virtual void Update() override = 0 ;
 
-        virtual void Render(GameObject&) const override {};
+        virtual void Render() const override {};
 
         UpdatingComponent(const UpdatingComponent& other) = delete;
         UpdatingComponent(UpdatingComponent&& other) = delete;
         UpdatingComponent& operator=(const UpdatingComponent& other) = delete;
         UpdatingComponent& operator=(UpdatingComponent&& other) = delete;
+
+
+    protected:
+        GameObject* m_ObjectPtr;
     };
 
-    class InputComponent
-    {
-    public:
 
-        virtual ~InputComponent() {}
 
-        virtual void Update(GameObject& obj) = 0;
+    //not in use Probably won't be used
+    //class InputComponent
+    //{
+    //public:
 
-        InputComponent(const InputComponent& other) = delete;
-        InputComponent(InputComponent&& other) = delete;
-        InputComponent& operator=(const InputComponent& other) = delete;
-        InputComponent& operator=(InputComponent&& other) = delete;
-    };
+    //    virtual ~InputComponent() {}
+
+    //    virtual void Update(GameObject& obj) = 0;
+
+    //    InputComponent(const InputComponent& other) = delete;
+    //    InputComponent(InputComponent&& other) = delete;
+    //    InputComponent& operator=(const InputComponent& other) = delete;
+    //    InputComponent& operator=(InputComponent&& other) = delete;
+    //};
 }
 

@@ -5,15 +5,19 @@
 #include "Font.h"
 #include "Texture2D.h"
 
-dae::TextComponent::TextComponent(const std::string& text, std::shared_ptr<Font> font, SDL_Color color)
-	: m_needsUpdate(true), m_text(text), m_font(std::move(font)), m_textTexture(nullptr), m_Color(color)
+dae::TextComponent::TextComponent(GameObject* obj, const std::string& text, std::shared_ptr<Font> font, SDL_Color color)
+	: UpdatingComponent(obj)
+	, m_needsUpdate(true)
+	, m_text(text)
+	, m_font(std::move(font))
+	, m_textTexture(nullptr)
+	, m_Color(color)
 { }
 
-void dae::TextComponent::Update(GameObject& obj)
+void dae::TextComponent::Update()
 {
 	if (m_needsUpdate)
 	{
-		obj;
 		const auto surf = TTF_RenderText_Blended(m_font->GetFont(), m_text.c_str(), m_Color);
 		if (surf == nullptr) 
 		{

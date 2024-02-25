@@ -10,7 +10,7 @@ namespace dae {
 	void GameObject::Update() {
 		for (Component* Comp : m_ComponentPtr)
 		{
-			Comp->Update(*this);
+			Comp->Update();
 		}
 	}
 
@@ -49,7 +49,7 @@ namespace dae {
 	template<typename Comp>
 	bool GameObject::AddComponent() {
 		if (std::is_base_of<Component, Comp>) {
-			Comp* temp{ new Comp() };
+			Comp* temp{ new Comp(this*) };
 			m_ComponentPtr.push_back(temp);
 			return true;
 		}

@@ -6,6 +6,8 @@
 #include "Transform.h"
 #include "Components.h"
 #include <type_traits>
+
+
 namespace dae
 {
 	class Texture2D;
@@ -49,7 +51,6 @@ namespace dae
 
 		std::vector<Component*> m_ComponentPtr;
 
-		//std::unordered_map<std::string, Component*> m_Components;
 
 		// todo: mmm, every gameobject has a texture? Is that correct?
 		// std::shared_ptr<Texture2D> m_texture{};

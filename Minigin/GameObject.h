@@ -1,9 +1,11 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <string>
+#include <unordered_map>
 #include "Transform.h"
 #include "Components.h"
-
+#include <type_traits>
 namespace dae
 {
 	class Texture2D;
@@ -16,7 +18,14 @@ namespace dae
 		virtual void Render() const;
 
 		template<typename Comp>
-		bool addComponent();
+		bool AddComponent();
+
+		template<typename Comp>
+		bool RemoveComponent();
+
+		template<typename Comp>
+		Comp* GetComponent();
+
 
 
 		//void SetTexture(const std::string& filename);
@@ -35,10 +44,13 @@ namespace dae
 		//std::vector<UpdatingComponent*> m_UpdatingComponent;
 		//std::vector<InputComponent*> m_InputComponent;
 
-		std::vector<Component*> m_Component;
+		std::vector<Component*> m_ComponentPtr;
+
+		//std::unordered_map<std::string, Component*> m_Components;
 
 		// todo: mmm, every gameobject has a texture? Is that correct?
 		// std::shared_ptr<Texture2D> m_texture{};
 	};
+
 
 }

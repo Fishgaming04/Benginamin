@@ -2,15 +2,16 @@
 
 
 namespace dae {
-    class GameObject;\
+    class GameObject;
 
     class Component
     {
     public:
-
-        virtual ~Component() {}
+        Component();
+        virtual ~Component() {};
 
         virtual void Update(GameObject& obj) = 0;
+        virtual void Render(GameObject& obj)const = 0;
 
         Component(const Component& other) = delete;
         Component(Component&& other) = delete;
@@ -19,13 +20,14 @@ namespace dae {
     };
 
 
-    class GraphicalComponent
+    class GraphicalComponent: public Component
     {
     public:
+        GraphicalComponent() {};
+        virtual ~GraphicalComponent() {};
 
-        virtual ~GraphicalComponent() {}
-
-        virtual void Update(GameObject& obj) = 0;
+        virtual void Update(GameObject& obj) override =0;
+        virtual void Render(GameObject& obj) const override { obj; };
 
         GraphicalComponent(const GraphicalComponent& other) = delete;
         GraphicalComponent(GraphicalComponent&& other) = delete;
@@ -33,13 +35,16 @@ namespace dae {
         GraphicalComponent& operator=(GraphicalComponent&& other) = delete;
     };
 
-    class UpdatingComponent
+    class UpdatingComponent : public Component
     {
     public:
     
+        UpdatingComponent() {};
         virtual ~UpdatingComponent() {}
 
-        virtual void Update(GameObject& obj) = 0;
+        virtual void Update(GameObject& obj) override = 0 ;
+
+        virtual void Render(GameObject&) const override {};
 
         UpdatingComponent(const UpdatingComponent& other) = delete;
         UpdatingComponent(UpdatingComponent&& other) = delete;

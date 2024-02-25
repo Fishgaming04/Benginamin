@@ -13,7 +13,7 @@ void dae::TextComponent::Update(GameObject& obj)
 {
 	if (m_needsUpdate)
 	{
-
+		obj;
 		const auto surf = TTF_RenderText_Blended(m_font->GetFont(), m_text.c_str(), m_Color);
 		if (surf == nullptr) 
 		{

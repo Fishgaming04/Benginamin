@@ -7,7 +7,7 @@ namespace dae {
     class Component
     {
     public:
-        Component();
+        Component() {};
         virtual ~Component() {};
 
         virtual void Update(GameObject& obj) = 0;

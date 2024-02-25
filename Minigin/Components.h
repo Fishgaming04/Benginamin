@@ -26,8 +26,8 @@ namespace dae {
         GraphicalComponent() {};
         virtual ~GraphicalComponent() {};
 
-        virtual void Update(GameObject& obj) override =0;
-        virtual void Render(GameObject& obj) const override { obj; };
+        virtual void Update(GameObject&) override {};
+        virtual void Render(GameObject& obj) const override =0;
 
         GraphicalComponent(const GraphicalComponent& other) = delete;
         GraphicalComponent(GraphicalComponent&& other) = delete;

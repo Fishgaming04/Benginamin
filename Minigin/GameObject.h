@@ -24,6 +24,9 @@ namespace dae
 		bool RemoveComponent();
 
 		template<typename Comp>
+		bool HasComponent();
+
+		template<typename Comp>
 		Comp* GetComponent();
 
 

@@ -37,6 +37,16 @@ namespace dae {
 	}
 
 	template<typename Comp>
+	bool GameObject::HasComponent() {
+		for (Component* Components : m_ComponentPtr) {
+			if (dynamic_cast<Comp*>(Components)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	template<typename Comp>
 	bool GameObject::AddComponent() {
 		if (std::is_base_of<Component, Comp>) {
 			Comp* temp{ new Comp() };

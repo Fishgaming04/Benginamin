@@ -1,8 +1,7 @@
 #pragma once
-#include "GameObject.h"
 
 namespace dae {
-
+    class GameObject;
     class Component
     {
     public:

@@ -11,7 +11,7 @@
 namespace dae
 {
 	class Texture2D;
-
+	class Transform;
 	// todo: this should become final.
 	class GameObject
 	{
@@ -32,11 +32,12 @@ namespace dae
 		Comp* GetComponent();
 
 
+		Transform* GetTransform();
 
 		//void SetTexture(const std::string& filename);
 		//void SetPosition(float x, float y);
 
-		GameObject() = default;
+		GameObject();
 		virtual ~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -48,9 +49,9 @@ namespace dae
 		//std::vector<GraphicalComponent*> m_GraphicalComponent;
 		//std::vector<UpdatingComponent*> m_UpdatingComponent;
 		//std::vector<InputComponent*> m_InputComponent;
-
+		
+		Transform* m_TransformPtr;
 		std::vector<Component*> m_ComponentPtr;
-
 
 		// todo: mmm, every gameobject has a texture? Is that correct?
 		// std::shared_ptr<Texture2D> m_texture{};

@@ -5,6 +5,11 @@
 namespace dae {
 
 
+	GameObject::GameObject() 
+		:m_TransformPtr{ new Transform() }
+	{
+	}
+
 	GameObject::~GameObject() = default;
 
 	void GameObject::Update() {
@@ -49,7 +54,7 @@ namespace dae {
 	template<typename Comp>
 	bool GameObject::AddComponent() {
 		if (std::is_base_of<Component, Comp>) {
-			Comp* temp{ new Comp(this*) };
+			Comp* temp{ new Comp(this) };
 			m_ComponentPtr.push_back(temp);
 			return true;
 		}
@@ -69,6 +74,11 @@ namespace dae {
 		}
 		return false;
 	}
+
+	Transform* GameObject::GetTransform() {
+		return m_TransformPtr;
+	}
+
 
 	//template<typename Comp>
 	//Comp* findComponent() {

@@ -5,8 +5,9 @@ namespace dae {
 
 	TextureComponent::TextureComponent(GameObject* obj)
 		:GraphicalComponent(obj)
+		,m_TexturePtr{nullptr}
 	{
-
+		
 
 	}
 

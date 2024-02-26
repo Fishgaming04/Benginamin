@@ -99,12 +99,12 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 		doContinue = input.ProcessInput();
 
-		while (m_Lag >= m_MsPerUpdate)
-		{
-			sceneManager.Update();
-			m_Lag -= m_MsPerUpdate;
-		}
-
+		//while (m_Lag >= m_MsPerUpdate)
+		//{
+		//	sceneManager.Update();
+		//	m_Lag -= m_MsPerUpdate;
+		//}
+		sceneManager.Update();
 		renderer.Render();
 	}
 

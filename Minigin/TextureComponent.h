@@ -1,8 +1,9 @@
 #pragma once
 #include "Components.h"
+#include <memory>
 
 namespace dae {
-	class Transform;
+	
 	class Texture2D;
 	class TextureComponent final: public GraphicalComponent
 	{
@@ -11,7 +12,7 @@ namespace dae {
 
 
 		virtual void Render() const;
-		void SetTexture(Texture2D* texture);
+		void SetTexture(const std::shared_ptr<Texture2D>& texture);
 
 
 		virtual ~TextureComponent() = default;
@@ -20,6 +21,6 @@ namespace dae {
 		TextureComponent& operator=(const TextureComponent& other) = delete;
 		TextureComponent& operator=(TextureComponent&& other) = delete;
 	private: 
-		Texture2D* m_TexturePtr;
+		std::shared_ptr<Texture2D> m_TexturePtr;
 	};
 }

@@ -1,5 +1,8 @@
 #include "TextureComponent.h"
 #include "Components.h"
+#include "Renderer.h"
+#include "GameObject.h"
+#include "Texture2D.h"
 namespace dae {
 
 
@@ -7,16 +10,17 @@ namespace dae {
 		:GraphicalComponent(obj)
 		,m_TexturePtr{nullptr}
 	{
-		
-
 	}
 
 	void TextureComponent::Render() const {
+		if (m_TexturePtr != nullptr) {
+			const auto& pos = m_ObjectPtr->GetTransform()->GetPosition();
+			Renderer::GetInstance().RenderTexture(*m_TexturePtr, pos.x, pos.y);
+		}
 		
-
 	}
 
-	void TextureComponent::SetTexture(Texture2D* texture) {
+	void TextureComponent::SetTexture(const std::shared_ptr<Texture2D>& texture) {
 		m_TexturePtr = texture;
 	}
 }

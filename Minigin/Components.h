@@ -36,8 +36,7 @@ namespace dae {
         GraphicalComponent& operator=(const GraphicalComponent& other) = delete;
         GraphicalComponent& operator=(GraphicalComponent&& other) = delete;
 
-    protected:
-        GameObject* m_ObjectPtr;
+
     };
 
     class UpdatingComponent : public Component
@@ -57,8 +56,6 @@ namespace dae {
         UpdatingComponent& operator=(UpdatingComponent&& other) = delete;
 
 
-    protected:
-        GameObject* m_ObjectPtr;
     };
 
 

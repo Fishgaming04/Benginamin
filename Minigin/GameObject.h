@@ -58,4 +58,53 @@ namespace dae
 	};
 
 
+	template<typename Comp>
+	inline Comp* GameObject::GetComponent() {
+		for (Component* Components : m_ComponentPtr) {
+			auto temp = dynamic_cast<Comp*>(Components);
+			if (temp != nullptr) {
+				return temp;
+			}
+		}
+		return nullptr;
+	}
+
+	template<typename Comp>
+	inline bool GameObject::HasComponent() {
+		for (Component* Components : m_ComponentPtr) {
+			if (dynamic_cast<Comp*>(Components)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	template<typename Comp>
+	inline bool GameObject::AddComponent() {
+		if (std::is_base_of<Component, Comp>()) {
+			Comp* temp{ new Comp(this) };
+			m_ComponentPtr.push_back(temp);
+			return true;
+		}
+		return false;
+	}
+
+
+	template<typename Comp>
+	inline bool GameObject::RemoveComponent() {
+		for (int index{}; index < m_ComponentPtr.size(); index++) {
+			if (dynamic_cast<Comp*>(m_ComponentPtr[index])) {
+				delete m_ComponentPtr[index];
+				m_ComponentPtr = nullptr;
+				m_ComponentPtr.erase(m_ComponentPtr.begin() + index);
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+
+
+
 }

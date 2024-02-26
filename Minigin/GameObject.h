@@ -16,7 +16,7 @@ namespace dae
 	class GameObject
 	{
 	public:
-		virtual void Update();
+		virtual void Update(double elapsedTime);
 		virtual void Render() const;
 
 		template<typename Comp>

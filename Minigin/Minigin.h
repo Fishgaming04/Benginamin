@@ -19,8 +19,7 @@ namespace dae
 
 
 	private:
-		const double	m_MsPerUpdate;
-		double			m_TimeOfLastLooped;
+		const int		m_MsPerUpdate;
 		double			m_Lag;
 	};
 }

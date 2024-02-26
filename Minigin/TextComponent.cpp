@@ -1,12 +1,12 @@
 #include <stdexcept>
-#include <SDL_ttf.h>
 #include "TextComponent.h"
 #include "Renderer.h"
 #include "Font.h"
 #include "Texture2D.h"
 #include "GameObject.h"
 #include "TextureComponent.h"
-#include <memory>
+
+namespace dae {
 
 dae::TextComponent::TextComponent(GameObject* obj)
 	: UpdatingComponent(obj)
@@ -15,9 +15,8 @@ dae::TextComponent::TextComponent(GameObject* obj)
 	, m_font(nullptr)
 	, m_Color(SDL_Color(255, 255, 255, 255))
 { }
-namespace dae {
 
-void dae::TextComponent::Update()
+void dae::TextComponent::Update(double)
 {
 	if (m_needsUpdate)
 	{

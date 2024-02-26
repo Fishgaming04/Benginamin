@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <memory>
+#include <SDL_ttf.h>
 #include "Components.h"
 #include "Transform.h"
 
@@ -13,11 +14,11 @@ namespace dae
 	class TextComponent final : public UpdatingComponent
 	{
 	public:
-		virtual void Update();
+		virtual void Update(double elapsedTime);
 		//virtual void Render(GameObject& obj) const override;
 
 		void SetText(const std::string& text);
-		void SetColor(SDL_Color color = SDL_Color(255, 255, 255, 255));
+		void SetColor(SDL_Color color = SDL_Color{ 255, 255, 255, 255 });
 		void SetFont(std::shared_ptr<Font> font);
 
 		//this needs seperate function 

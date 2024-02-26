@@ -10,12 +10,21 @@ namespace dae {
 	{
 	}
 
-	GameObject::~GameObject() = default;
+	GameObject::~GameObject() {
+		delete m_TransformPtr;
+		m_TransformPtr = nullptr;
+		for (Component* Comp : m_ComponentPtr) {
+			delete Comp;
+			Comp = nullptr;
+		}
+		
 
-	void GameObject::Update() {
+	};
+
+	void GameObject::Update(double elapsedTime) {
 		for (Component* Comp : m_ComponentPtr)
 		{
-			Comp->Update();
+			Comp->Update(elapsedTime);
 		}
 	}
 

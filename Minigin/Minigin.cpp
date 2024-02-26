@@ -9,7 +9,8 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include <ctime>
+#include <chrono>
+#include <thread>
 
 SDL_Window* g_window{};
 
@@ -42,8 +43,7 @@ void PrintSDLVersion()
 }
 
 dae::Minigin::Minigin(const std::string &dataPath)
-	: m_MsPerUpdate{20}
-	, m_TimeOfLastLooped{ static_cast<double>(std::time(0)) }
+	: m_MsPerUpdate{6}
 	, m_Lag{0.0}
 {
 	PrintSDLVersion();
@@ -90,12 +90,13 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 
 	bool doContinue = true;
+	auto TimeOfLastLooped = std::chrono::high_resolution_clock::now();
 	while (doContinue)
 	{
-		double currentTime = static_cast<double>(std::time(0));
-		double elapsedTime = currentTime - m_TimeOfLastLooped;
-		m_TimeOfLastLooped = currentTime;
-		m_Lag += elapsedTime;
+		const auto currentTime = std::chrono::high_resolution_clock::now();
+		const double deltaTime = std::chrono::duration<double>(currentTime - TimeOfLastLooped).count();
+		TimeOfLastLooped = currentTime;
+		//m_Lag += deltaTime;
 
 		doContinue = input.ProcessInput();
 
@@ -104,8 +105,12 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		//	sceneManager.Update();
 		//	m_Lag -= m_MsPerUpdate;
 		//}
-		sceneManager.Update();
+		sceneManager.Update(deltaTime);
 		renderer.Render();
+
+		const auto sleepTime = currentTime + std::chrono::milliseconds(m_MsPerUpdate) - std::chrono::high_resolution_clock::now();
+		
+		std::this_thread::sleep_for(sleepTime);
 	}
 
 

@@ -4,8 +4,7 @@
 #include <SDL_ttf.h>
 #include "Components.h"
 #include "Transform.h"
-
-
+#include "TextureComponent.h"
 
 namespace dae
 {
@@ -33,5 +32,6 @@ namespace dae
 		std::string m_text;
 		SDL_Color m_Color;
 		std::shared_ptr<Font> m_font;
+		TextureComponent* m_TextureComponentPtr;
 	};
 }

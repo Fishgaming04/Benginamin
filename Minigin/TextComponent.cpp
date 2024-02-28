@@ -4,7 +4,6 @@
 #include "Font.h"
 #include "Texture2D.h"
 #include "GameObject.h"
-#include "TextureComponent.h"
 
 namespace dae {
 
@@ -14,7 +13,13 @@ dae::TextComponent::TextComponent(GameObject* obj)
 	, m_text("")
 	, m_font(nullptr)
 	, m_Color(SDL_Color(255, 255, 255, 255))
-{ }
+	, m_TextureComponentPtr()
+{ 
+	if (!m_ObjectPtr->HasComponent<TextureComponent>()) {
+		m_ObjectPtr->AddComponent<TextureComponent>();
+	}
+	m_TextureComponentPtr = m_ObjectPtr->GetComponent<TextureComponent>();
+}
 
 void dae::TextComponent::Update(double)
 {
@@ -31,11 +36,11 @@ void dae::TextComponent::Update(double)
 			throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
 		}
 		SDL_FreeSurface(surf);
-		if (!m_ObjectPtr->HasComponent<TextureComponent>()) {
-			m_ObjectPtr->AddComponent<TextureComponent>();
-		}
 
-		m_ObjectPtr->GetComponent<TextureComponent>()->SetTexture(std::make_shared<Texture2D>(texture));
+	
+		m_TextureComponentPtr->SetTexture(std::make_shared<Texture2D>(texture));
+
+		
 		m_needsUpdate = false;
 	}
 }

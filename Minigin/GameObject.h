@@ -13,7 +13,7 @@ namespace dae
 	class Texture2D;
 	class Transform;
 	// todo: this should become final.
-	class GameObject
+	class GameObject final
 	{
 	public:
 		virtual void Update(double elapsedTime);
@@ -32,10 +32,13 @@ namespace dae
 		Comp* GetComponent();
 
 
-		Transform* GetTransform();
+		GameObject* GetParent() const;
+		void SetParent(GameObject* parent);
+		int GetChildCount();
+		GameObject* GetChildAtIndex(int index) const ;
 
-		//void SetTexture(const std::string& filename);
-		//void SetPosition(float x, float y);
+
+		Transform* GetTransform();
 
 		GameObject();
 		virtual ~GameObject();
@@ -45,11 +48,14 @@ namespace dae
 		GameObject& operator=(GameObject&& other) = delete;
 
 	private:
-		//Transform m_transform{};
-		//std::vector<GraphicalComponent*> m_GraphicalComponent;
-		//std::vector<UpdatingComponent*> m_UpdatingComponent;
-		//std::vector<InputComponent*> m_InputComponent;
-		
+		void addChild(GameObject* child);
+		void removeChild(GameObject* orphan);
+
+		bool parentNotChildCheck(GameObject* parent);
+
+		GameObject* m_Parent;
+		std::vector<GameObject*> m_Childeren;
+				
 		Transform* m_TransformPtr;
 		std::vector<Component*> m_ComponentPtr;
 

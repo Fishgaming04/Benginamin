@@ -5,7 +5,6 @@ namespace dae {
     class Component
     {
     public:
-        Component(GameObject* obj);
         virtual ~Component() {};
 
         virtual void Update(double elapsedTime) = 0;
@@ -17,6 +16,7 @@ namespace dae {
         Component& operator=(Component&& other) = delete;
 
     protected:
+        Component(GameObject* obj);
         GameObject* m_ObjectPtr;
 
     };

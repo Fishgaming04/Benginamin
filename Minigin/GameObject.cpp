@@ -7,20 +7,18 @@ namespace dae {
 
 
 	GameObject::GameObject()
-		:m_TransformPtr{ new Transform() }
+		:m_PosPtr{new Transform()}
 		,m_Parent{nullptr}
 	{
 	}
 
 	GameObject::~GameObject() {
-		delete m_TransformPtr;
-		m_TransformPtr = nullptr;
+		delete m_PosPtr;
+		m_PosPtr = nullptr;
 		for (Component* Comp : m_ComponentPtr) {
 			delete Comp;
 			Comp = nullptr;
 		}
-
-
 	};
 
 	void GameObject::Update(double elapsedTime) {
@@ -30,17 +28,23 @@ namespace dae {
 		}
 	}
 
-	void GameObject::Render() const
-	{
+	void GameObject::Render() const {
 		for (Component* Comp : m_ComponentPtr)
 		{
 			Comp->Render();
 		}
 	}
 
+	void GameObject::setLocalPosition(int x, int y, int z) {
+		x;
+		y;
+		z;
+	}
+
+
 
 	Transform* GameObject::GetTransform() {
-		return m_TransformPtr;
+		return m_PosPtr;
 	}
 
 
@@ -89,8 +93,7 @@ namespace dae {
 
 	bool GameObject::parentNotChildCheck(GameObject* parent) {
 		for (GameObject* child : m_Childeren) {
-			if (child == parent)
-			{
+			if (child == parent){
 				return false;
 			}
 		}

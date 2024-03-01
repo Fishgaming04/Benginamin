@@ -14,8 +14,8 @@ namespace dae {
 
 	void TextureComponent::Render() const {
 		if (m_TexturePtr != nullptr) {
-			const auto& pos = m_ObjectPtr->GetTransform()->GetPosition();
-			Renderer::GetInstance().RenderTexture(*m_TexturePtr, pos.x, pos.y);
+			//const auto& pos = m_ObjectPtr->GetTransform()->GetPosition();
+			//Renderer::GetInstance().RenderTexture(*m_TexturePtr, pos.x, pos.y);
 		}
 		
 	}

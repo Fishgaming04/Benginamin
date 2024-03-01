@@ -36,7 +36,8 @@ namespace dae
 		void SetParent(GameObject* parent);
 		int GetChildCount();
 		GameObject* GetChildAtIndex(int index) const ;
-
+		void setLocalPosition(int x, int y, int z = 0);
+		Transform* GetLocalPosition();
 
 		Transform* GetTransform();
 
@@ -56,7 +57,9 @@ namespace dae
 		GameObject* m_Parent;
 		std::vector<GameObject*> m_Childeren;
 				
-		Transform* m_TransformPtr;
+		Transform* m_PosPtr;
+		
+		
 		std::vector<Component*> m_ComponentPtr;
 
 		// todo: mmm, every gameobject has a texture? Is that correct?

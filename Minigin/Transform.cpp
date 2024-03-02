@@ -1,5 +1,6 @@
 #include "Transform.h"
 
+
 void dae::Transform::SetLocalPosition(const float x, const float y, const float z){
 	SetLocalPosition(glm::vec3(x, y, z));
 }

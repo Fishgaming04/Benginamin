@@ -4,16 +4,15 @@
 
 namespace dae {
 	OrbitParentComponent::OrbitParentComponent(GameObject* obj)
-		:GraphicalComponent(obj)
+		:UpdatingComponent(obj)
 		,m_PivotPoint{}
-		,m_DistanceFromPivot{15}
+		,m_DistanceFromPivot{15.0f}
 		,m_CurrentAngle{}
 		,m_RotationSpeed{10}
-		//,m_TransformPtr{ m_ObjectPtr->GetTransform() }
 	{
 	}
 
-	void OrbitParentComponent::setDistanceFromPivot(int distance) {
+	void OrbitParentComponent::setDistanceFromPivot(float distance) {
 		m_DistanceFromPivot = distance;
 	}
 
@@ -21,11 +20,9 @@ namespace dae {
 	void OrbitParentComponent::Update(double elapsedTime) {
 		m_CurrentAngle += (elapsedTime * double(m_RotationSpeed));
 		
-		float x{};
-		float y{};
-		x = float(cos(m_CurrentAngle));
-		y = float(sin(m_CurrentAngle)); 
-		m_TransformPtr->SetLocalPosition(x, y, 1);
+		float x{ float(cos(m_CurrentAngle) * m_DistanceFromPivot) };
+		float y{ float(sin(m_CurrentAngle) * m_DistanceFromPivot) };
+		m_ObjectPtr->setLocalPosition(x, y);
 	}
 
 	void OrbitParentComponent::SetRotationSpeed(int speed) {

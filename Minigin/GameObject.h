@@ -32,14 +32,16 @@ namespace dae
 		Comp* GetComponent();
 
 
+
 		GameObject* GetParent() const;
-		void SetParent(GameObject* parent);
+		void SetParent(GameObject* parent, bool keepLocationChilderen = false);
 		int GetChildCount();
 		GameObject* GetChildAtIndex(int index) const ;
-		void setLocalPosition(int x, int y, int z = 0);
-		Transform* GetLocalPosition();
+		void setLocalPosition(float x, float y, float z = 0.0f);
+		void setLocalPosition(glm::vec3 Pos);
 
 		Transform* GetTransform();
+		void SetDirty();
 
 		GameObject();
 		virtual ~GameObject();
@@ -49,17 +51,20 @@ namespace dae
 		GameObject& operator=(GameObject&& other) = delete;
 
 	private:
+		void UpdatePos();
+
 		void addChild(GameObject* child);
-		void removeChild(GameObject* orphan);
+		void removeChild(GameObject* orphan, bool keepLocationChilderen);
 
 		bool parentNotChildCheck(GameObject* parent);
 
 		GameObject* m_Parent;
 		std::vector<GameObject*> m_Childeren;
-				
+		
 		Transform* m_PosPtr;
 		
-		
+		bool m_isDirty;
+
 		std::vector<Component*> m_ComponentPtr;
 
 		// todo: mmm, every gameobject has a texture? Is that correct?

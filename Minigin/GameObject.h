@@ -53,7 +53,7 @@ namespace dae
 	private:
 		void UpdatePos();
 
-		void addChild(GameObject* child);
+		void addChild(GameObject* child, bool keepLocationChilderen);
 		void removeChild(GameObject* orphan, bool keepLocationChilderen);
 
 		bool parentNotChildCheck(GameObject* parent);

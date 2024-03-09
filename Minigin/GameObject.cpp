@@ -83,25 +83,29 @@ namespace dae {
 			m_Parent = parent;
 			UpdatePos();
 			if (parent) {
-				parent->addChild(this);
-			};
+				parent->addChild(this, keepLocationChilderen);
+			}
 		}
 	}
 	
-	void GameObject::addChild(GameObject* child) {
+	void GameObject::addChild(GameObject* child, bool keepLocationChilderen) {
 		if (!child && child != m_Parent) {
-			for (int index{}; index < m_Childeren.size(); ++index) {
+			for (unsigned int index{}; index < m_Childeren.size(); ++index) {
 				if (m_Childeren[index] == child) {
 					return;
 				}
 			}
 			m_Childeren.push_back(child);
+			if (keepLocationChilderen) {
+				child->setLocalPosition(child->GetTransform()->getWorldposition() - m_PosPtr->getWorldposition());
+			}
+			child->SetDirty();
 		}
 	}
 
 	void GameObject::removeChild(GameObject* orphan, bool keepLocationChilderen) {
 		if (orphan != m_Parent && orphan) {
-			for (int index{ }; index < m_Childeren.size(); ++index) {
+			for (unsigned int index{}; index < m_Childeren.size(); ++index) {
 				if (m_Childeren[index] == orphan) {
 					if (keepLocationChilderen) {
 						m_Childeren[index]->setLocalPosition(m_Childeren[index]->GetTransform()->getWorldposition());

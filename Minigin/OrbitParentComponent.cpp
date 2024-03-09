@@ -19,6 +19,8 @@ namespace dae {
 
 	void OrbitParentComponent::Update(double elapsedTime) {
 		m_CurrentAngle += (elapsedTime * double(m_RotationSpeed));
+
+		//if (m_CurrentAngle > );
 		
 		float x{ float(cos(m_CurrentAngle) * m_DistanceFromPivot) };
 		float y{ float(sin(m_CurrentAngle) * m_DistanceFromPivot) };

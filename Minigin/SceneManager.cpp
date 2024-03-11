@@ -15,6 +15,11 @@ void dae::SceneManager::Render()
 	{
 		scene->Render();
 	}
+
+	for (auto& scene : m_scenes)
+	{
+		scene->UiRender();
+	}
 }
 
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name)

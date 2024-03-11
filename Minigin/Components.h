@@ -9,7 +9,7 @@ namespace dae {
 
         virtual void Update(double elapsedTime) = 0;
         virtual void Render()const = 0;
-
+        virtual void RenderUI() = 0;
         Component(const Component& other) = delete;
         Component(Component&& other) = delete;
         Component& operator=(const Component& other) = delete;
@@ -30,7 +30,7 @@ namespace dae {
 
         virtual void Update(double) override {};
         virtual void Render() const override = 0;
-
+        virtual void RenderUI() override {};
         GraphicalComponent(const GraphicalComponent& other) = delete;
         GraphicalComponent(GraphicalComponent&& other) = delete;
         GraphicalComponent& operator=(const GraphicalComponent& other) = delete;
@@ -45,7 +45,7 @@ namespace dae {
     
         UpdatingComponent(GameObject* obj);
         virtual ~UpdatingComponent() {}
-
+        virtual void RenderUI() override = 0;
         virtual void Update(double elapsedTime) override = 0 ;
 
         virtual void Render() const override {};

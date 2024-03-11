@@ -42,3 +42,11 @@ void Scene::Render() const
 	}
 }
 
+void dae::Scene::UiRender()
+{
+	for (auto& object : m_objects)
+	{
+		object->RenderUI();
+	}
+}
+

@@ -25,6 +25,12 @@
     <Filter Include="Source Files\mgui">
       <UniqueIdentifier>{ad673885-fecf-406c-ba97-0b6e10d4e71a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\mgui\mguiPlot">
+      <UniqueIdentifier>{e5fb877f-2ee1-41e9-895a-99ffcfc9e7a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\mgui\mguiPlot">
+      <UniqueIdentifier>{c7eda8e7-63d0-40be-a0a0-edc87b172f8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -99,6 +105,12 @@
     <ClInclude Include="..\3rdParty\imgui-1.90.4\backends\imgui_impl_sdl2.h">
       <Filter>Header Files\mgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\3rdParty\imguiPlot\imgui_plot.h">
+      <Filter>Header Files\mgui\mguiPlot</Filter>
+    </ClInclude>
+    <ClInclude Include="BenchmarkComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -169,6 +181,12 @@
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-1.90.4\backends\imgui_impl_opengl3.cpp">
       <Filter>Source Files\mgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imguiPlot\imgui_plot.cpp">
+      <Filter>Source Files\mgui\mguiPlot</Filter>
+    </ClCompile>
+    <ClCompile Include="BenchmarkComponent.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

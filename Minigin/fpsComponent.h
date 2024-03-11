@@ -7,7 +7,7 @@ namespace dae {
 	public:
 		FPSComponent(GameObject* obj);
 		virtual ~FPSComponent() {};
-
+		virtual void RenderUI() override {};
 		virtual void Update(double);
 		int GetFps();
 

@@ -36,6 +36,14 @@ namespace dae {
 		}
 	}
 
+	void GameObject::RenderUI()
+	{
+		for (Component* Comp : m_ComponentPtr)
+		{
+			Comp->RenderUI();
+		}
+	}
+
 	void GameObject::setLocalPosition(float x, float y, float z) {
 		setLocalPosition(glm::vec3(x, y, z));
 	}

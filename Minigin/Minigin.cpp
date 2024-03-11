@@ -57,15 +57,15 @@ dae::Minigin::Minigin(const std::string &dataPath)
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		640,
-		480,
+		1000,
+		1000,
 		SDL_WINDOW_OPENGL
 	);
 	if (g_window == nullptr) 
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
-
+	
 	Renderer::GetInstance().Init(g_window);
 
 	ResourceManager::GetInstance().Init(dataPath);
@@ -86,8 +86,6 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
-
-
 
 	bool doContinue = true;
 	auto TimeOfLastLooped = std::chrono::high_resolution_clock::now();
@@ -112,9 +110,6 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		
 		std::this_thread::sleep_for(sleepTime);
 	}
-
-
-
 
 
 }

@@ -15,6 +15,8 @@ namespace dae
 		void Update(double elapsedTime);
 		void Render() const;
 
+		void UiRender();
+
 		~Scene();
 		Scene(const Scene& other) = delete;
 		Scene(Scene&& other) = delete;

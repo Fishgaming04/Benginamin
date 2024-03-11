@@ -18,6 +18,7 @@ namespace dae
 	public:
 		virtual void Update(double elapsedTime);
 		virtual void Render() const;
+		virtual void RenderUI();
 
 		template<typename Comp>
 		bool AddComponent();
@@ -42,6 +43,8 @@ namespace dae
 
 		Transform* GetTransform();
 		void SetDirty();
+
+
 
 		GameObject();
 		virtual ~GameObject();

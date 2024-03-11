@@ -10,6 +10,8 @@ namespace dae {
         OrbitParentComponent(GameObject* obj);
         virtual ~OrbitParentComponent() {};
 
+
+        virtual void RenderUI() override {};
         virtual void Update(double elapsedTime);
         void SetRotationSpeed(int speed);
         void setDistanceFromPivot(float distance);

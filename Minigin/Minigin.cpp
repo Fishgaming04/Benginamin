@@ -98,7 +98,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		TimeOfLastLooped = currentTime;
 		//m_Lag += deltaTime;
 
-		doContinue = input.ProcessInput();
+		doContinue = input.ProcessInput(float(deltaTime));
 
 		//while (m_Lag >= m_MsPerUpdate)
 		//{
@@ -112,9 +112,5 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		
 		std::this_thread::sleep_for(sleepTime);
 	}
-
-
-
-
 
 }

@@ -2,7 +2,7 @@
 #include <vector>
 #include <SDL.h>
 
-class KeyboardInput
+class KeyboardInput final
 {
 public:
 

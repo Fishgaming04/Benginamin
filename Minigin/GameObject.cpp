@@ -90,7 +90,7 @@ namespace dae {
 	
 	void GameObject::addChild(GameObject* child) {
 		if (!child && child != m_Parent) {
-			for (int index{}; index < m_Childeren.size(); ++index) {
+			for (unsigned int index{}; index < m_Childeren.size(); ++index) {
 				if (m_Childeren[index] == child) {
 					return;
 				}
@@ -101,7 +101,7 @@ namespace dae {
 
 	void GameObject::removeChild(GameObject* orphan, bool keepLocationChilderen) {
 		if (orphan != m_Parent && orphan) {
-			for (int index{ }; index < m_Childeren.size(); ++index) {
+			for (unsigned int index{ }; index < m_Childeren.size(); ++index) {
 				if (m_Childeren[index] == orphan) {
 					if (keepLocationChilderen) {
 						m_Childeren[index]->setLocalPosition(m_Childeren[index]->GetTransform()->getWorldposition());

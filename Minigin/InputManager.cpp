@@ -115,8 +115,28 @@ dae::InputManager::~InputManager()
 	delete m_KeyboardPtr;
 	m_KeyboardPtr = nullptr;
 
+	for (auto& command : m_ControllerCommands)
+	{
+		if (command.second){
+			delete command.second;
+			command.second = nullptr;
+		}
+	}
+	m_ControllerCommands.clear();
+
+	for (auto& command : m_KeyboardCommands)
+	{
+		if (command.second) {
+			delete command.second;
+			command.second = nullptr;
+		}
+	}
+	m_KeyboardCommands.clear();
+
 	for (auto controller : m_Controllers)
 	{
+
+
 		delete controller;
 		controller = nullptr;
 	}

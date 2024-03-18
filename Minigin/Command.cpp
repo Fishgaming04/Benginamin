@@ -9,7 +9,7 @@ namespace dae {
 	}
 
 
-	MoveHorizontal::MoveHorizontal(GameObject* object, glm::vec3 direction, float speed)
+	MoveCommand::MoveCommand(GameObject* object, glm::vec3 direction, float speed)
 		:Command()
 		,m_Direction{direction}
 		,m_GameObjPtr{object}
@@ -19,11 +19,11 @@ namespace dae {
 	}
 
 
-	void dae::MoveHorizontal::Execute(float deltaTime){
+	void dae::MoveCommand::Execute(float deltaTime){
 		GetGameObject()->setLocalPosition(GetGameObject()->GetTransform()->getLocalposition() + m_Direction * m_Speed * deltaTime);
 	}
 
-	GameObject* MoveHorizontal::GetGameObject()
+	GameObject* MoveCommand::GetGameObject()
 	{
 		return m_GameObjPtr;
 	}

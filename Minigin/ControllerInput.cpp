@@ -1,11 +1,43 @@
 #include "ControllerInput.h"
-
+#include <Windows.h>
+#include <Xinput.h>
+#pragma comment(lib, "xinput.lib")
 namespace dae {
 
+	//ControllerInputImpl
+	class ControllerInputImpl
+	{
+	public:
+			ControllerInputImpl(unsigned int controllerIndex);
+
+			void update();
+
+			bool IsDownThisFrame(ControllerInput::controllerButtons button) const;
+			bool IsUpThisFrame(ControllerInput::controllerButtons button) const;
+			bool IsPressed(ControllerInput::controllerButtons button) const;
+
+			unsigned int GetControllerIndex() const { return m_ControllerIndex; }
+
+			~ControllerInputImpl() {};
+			ControllerInputImpl(const ControllerInputImpl& other) = delete;
+			ControllerInputImpl(ControllerInputImpl&& other) = delete;
+			ControllerInputImpl& operator=(const ControllerInputImpl& other) = delete;
+			ControllerInputImpl& operator=(ControllerInputImpl&& other) = delete;
 
 
 
-	ControllerInput::ControllerInput(unsigned int controllerIndex)
+		private:
+			const unsigned int m_ControllerIndex;
+			XINPUT_STATE previousState;
+			XINPUT_STATE currentState;
+			unsigned int buttonsPressedThisFrame;
+			unsigned int buttonsReleasedThisFrame;
+	};
+
+
+	//functions
+
+	ControllerInputImpl::ControllerInputImpl(unsigned int controllerIndex)
 		: previousState{}
 		, currentState{}
 		, buttonsPressedThisFrame{}
@@ -16,7 +48,7 @@ namespace dae {
 		ZeroMemory(&currentState, sizeof(XINPUT_STATE));
 	}
 
-	void ControllerInput::update()
+	void ControllerInputImpl::update()
 	{
 		CopyMemory(&previousState, &currentState, sizeof(XINPUT_STATE));
 		ZeroMemory(&currentState, sizeof(XINPUT_STATE));
@@ -27,23 +59,60 @@ namespace dae {
 
 	}
 
-	bool ControllerInput::IsDownThisFrame(controllerButtons button) const
+	bool ControllerInputImpl::IsDownThisFrame(ControllerInput::controllerButtons button) const
 	{
 		return buttonsPressedThisFrame & static_cast<unsigned int>(button);
 	}
 
-	bool ControllerInput::IsUpThisFrame(controllerButtons button) const
+	bool ControllerInputImpl::IsUpThisFrame(ControllerInput::controllerButtons button) const
 	{
 		return buttonsReleasedThisFrame & static_cast<unsigned int>(button);
 	}
 
-	bool ControllerInput::IsPressed(controllerButtons button) const
+	bool ControllerInputImpl::IsPressed(ControllerInput::controllerButtons button) const
 	{
 		return currentState.Gamepad.wButtons & static_cast<unsigned int>(button);
 	}
 
+
+
+
+	//ControllerInput
+
+	ControllerInput::ControllerInput(unsigned int controllerIndex)
+		: m_pImpl{ new ControllerInputImpl(controllerIndex) }
+	{
+	}
+
+	void ControllerInput::update()
+	{
+		m_pImpl->update();
+	}
+
+	bool ControllerInput::IsDownThisFrame(controllerButtons button) const
+	{
+		return m_pImpl->IsDownThisFrame(button);
+	}
+
+	bool ControllerInput::IsUpThisFrame(controllerButtons button) const
+	{
+		return m_pImpl->IsUpThisFrame(button);
+	}
+
+	bool ControllerInput::IsPressed(controllerButtons button) const
+	{
+		return m_pImpl->IsPressed(button);	
+	}
+
+	unsigned int ControllerInput::GetControllerIndex() const
+	{
+		return m_pImpl->GetControllerIndex();
+	}
+
 	ControllerInput::~ControllerInput()
 	{
+		delete m_pImpl;
+		m_pImpl = nullptr;
 	}
 
 }

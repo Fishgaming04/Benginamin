@@ -20,19 +20,19 @@ namespace dae {
 
 	};
 
-	class MoveHorizontal : public Command
+	class MoveCommand final : public Command
 	{
 	public:
 
-		MoveHorizontal(GameObject* object, glm::vec3 direction, float speed = 20.0f);
-		virtual ~MoveHorizontal() {};
+		MoveCommand(GameObject* object, glm::vec3 direction, float speed = 20.0f);
+		virtual ~MoveCommand() {};
 
 		virtual void Execute(float deltaTime);
 
-		MoveHorizontal(const MoveHorizontal& other) = delete;
-		MoveHorizontal(MoveHorizontal&& other) = delete;
-		MoveHorizontal& operator=(const MoveHorizontal& other) = delete;
-		MoveHorizontal& operator=(MoveHorizontal&& other) = delete;
+		MoveCommand(const MoveCommand& other) = delete;
+		MoveCommand(MoveCommand&& other) = delete;
+		MoveCommand& operator=(const MoveCommand& other) = delete;
+		MoveCommand& operator=(MoveCommand&& other) = delete;
 	protected:
 		GameObject* GetGameObject();
 

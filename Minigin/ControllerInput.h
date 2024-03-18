@@ -1,16 +1,13 @@
 #pragma once
-#include <Windows.h>
-#include <Xinput.h>
-#pragma comment(lib, "xinput.lib")
+
 namespace dae {
 
-
-
-	//TODO PIMPLE 
-
-
-	class ControllerInput
+	class ControllerInputImpl;
+	class ControllerInput final
 	{
+
+	private:
+		ControllerInputImpl* m_pImpl;
 	public:
 
 		enum class controllerButtons {
@@ -39,22 +36,13 @@ namespace dae {
 		bool IsUpThisFrame(controllerButtons button) const;
 		bool IsPressed(controllerButtons button) const;
 
-		unsigned int GetControllerIndex() const { return m_ControllerIndex; }
+		unsigned int GetControllerIndex() const;
 		
 		~ControllerInput();
 		ControllerInput(const ControllerInput& other) = delete;
 		ControllerInput(ControllerInput&& other) = delete;
 		ControllerInput& operator=(const ControllerInput& other) = delete;
 		ControllerInput& operator=(ControllerInput&& other) = delete;
-
-
-
-	private:
-		const unsigned int m_ControllerIndex;
-		XINPUT_STATE previousState;
-		XINPUT_STATE currentState;
-		unsigned int buttonsPressedThisFrame;
-		unsigned int buttonsReleasedThisFrame;
 	};
 }
 

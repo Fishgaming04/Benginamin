@@ -6,7 +6,9 @@
 #include "Command.h"
 #include <vector>
 #include "ControllerInput.h"
+#include "KeyboardInput.h"
 #pragma comment(lib, "xinput.lib")
+
 
 namespace dae
 {
@@ -24,7 +26,9 @@ namespace dae
 		bool ProcessInput(float deltaTime);
 
 		void AddCommand(const ControllerInput::controllerButtons button, const buttonState state, Command* command, const unsigned int controllerIndex);
+		void AddCommand(const SDL_Scancode key, const buttonState state, Command* command);
 		void RemoveCommand(const ControllerInput::controllerButtons button, const buttonState state, const unsigned int controllerIndex);
+		void RemoveCommand(const SDL_Scancode key, const buttonState state);
 
 		//Put in controller class
 		//bool IsDownThisFrame(unsigned int button) const;
@@ -41,20 +45,27 @@ namespace dae
 
 	private:
 
-		const unsigned int m_MaxControllers = 4;
-
-		//XINPUT_STATE previousState;
-		//XINPUT_STATE currentState;
-		//unsigned int* buttonsPressedThisFrame;
-		//unsigned int* buttonsReleasedThisFrame;
+		
+		//Controller
 		
 		using ControllerButton		= std::pair<unsigned int, ControllerInput::controllerButtons>;
 		using ControllerButtonState = std::pair<ControllerButton, buttonState>;
 		using ControllerCommands	= std::map<ControllerButtonState, Command*>;
 	
 		ControllerCommands m_ControllerCommands{};
-
 		std::vector<ControllerInput*> m_Controllers{};
+
+		const unsigned int m_MaxControllers = 4;
+
+		//Keyboard
+
+		using KeyboardKeyState		= std::pair<SDL_Keycode, buttonState>;
+		using KeyboardCommands		= std::map<KeyboardKeyState, Command*>;
+
+		KeyboardCommands m_KeyboardCommands{};
+
+		KeyboardInput* m_KeyboardPtr;
+	
 	};
 
 }

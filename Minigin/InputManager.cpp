@@ -3,9 +3,8 @@
 
 
 dae::InputManager::InputManager()
+	: m_KeyboardPtr{ new KeyboardInput() }
 {
-	//ZeroMemory(&currentState, sizeof(XINPUT_STATE));
-	//ZeroMemory(&previousState, sizeof(XINPUT_STATE));
 	for (unsigned int index{}; index < m_MaxControllers; ++index)
 	{
 		m_Controllers.push_back(new ControllerInput{ index });
@@ -21,11 +20,12 @@ bool dae::InputManager::ProcessInput(float deltaTime)
 		}
 	}
 
+	m_KeyboardPtr->update();
 
-	for (auto controller: m_Controllers)
+	for (auto& controller: m_Controllers)
 	{
 		controller->update();
-		for (auto command : m_ControllerCommands)
+		for (auto& command : m_ControllerCommands)
 		{
 			if (command.first.first.first == controller->GetControllerIndex()) {
 
@@ -54,15 +54,33 @@ bool dae::InputManager::ProcessInput(float deltaTime)
 		}
 	}
 
-	//int m_controllerIndex{};
-	//CopyMemory(&previousState, &currentState, sizeof(XINPUT_STATE));
-	//ZeroMemory(&currentState, sizeof(XINPUT_STATE));
-	//XInputGetState(m_controllerIndex, &currentState);
-	//auto buttonChanges = currentState.Gamepad.wButtons ^ previousState.Gamepad.wButtons;
-	//buttonsPressedThisFrame = buttonChanges & currentState.Gamepad.wButtons;
-	//buttonsReleasedThisFrame = buttonChanges & (~currentState.Gamepad.wButtons);
+	m_KeyboardPtr->update();
+	for (auto& command : m_KeyboardCommands)
+	{
+		if (command.first.second == buttonState::heldDown)
+		{
+			if (m_KeyboardPtr->IsPressed(static_cast<Uint8>(command.first.first)))
+			{
+				command.second->Execute(deltaTime);
+			}
+		}
+		else if (command.first.second == buttonState::up)
+		{
+			if (m_KeyboardPtr->IsUpThisFrame(static_cast<Uint8>(command.first.first)))
+			{
+				command.second->Execute(deltaTime);
+			}
+		}
+		else if (command.first.second == buttonState::down)
+		{
+			if (m_KeyboardPtr->IsDownThisFrame(static_cast<Uint8>(command.first.first)))
+			{
+				command.second->Execute(deltaTime);
+			}
+		}
+	}
 
-		
+
 	return true;
 }
 
@@ -73,6 +91,12 @@ void dae::InputManager::AddCommand(const ControllerInput::controllerButtons butt
 	m_ControllerCommands.insert(std::make_pair(cButtonState, command));
 }
 
+void dae::InputManager::AddCommand(const SDL_Scancode key, const buttonState state, Command* command)
+{
+	KeyboardKeyState keyState = std::make_pair(key, state);
+	m_KeyboardCommands.insert(std::make_pair(keyState, command));
+}
+
 void dae::InputManager::RemoveCommand(const ControllerInput::controllerButtons button, const buttonState state, const unsigned int controllerIndex)
 {
 	ControllerButton cButton = std::make_pair(controllerIndex, button);
@@ -80,8 +104,17 @@ void dae::InputManager::RemoveCommand(const ControllerInput::controllerButtons b
 	m_ControllerCommands.erase(cButtonState);
 }
 
+void dae::InputManager::RemoveCommand(const SDL_Scancode key, const buttonState state)
+{
+	KeyboardKeyState keyState = std::make_pair(key, state);
+	m_KeyboardCommands.erase(keyState);
+}
+
 dae::InputManager::~InputManager()
 {
+	delete m_KeyboardPtr;
+	m_KeyboardPtr = nullptr;
+
 	for (auto controller : m_Controllers)
 	{
 		delete controller;
@@ -91,22 +124,3 @@ dae::InputManager::~InputManager()
 }
 
 
-
-
-
-//
-//
-//bool dae::InputManager::IsDownThisFrame(unsigned int button) const
-//{
-//	return buttonsPressedThisFrame & button;
-//}
-//
-//bool dae::InputManager::IsUpThisFrame(unsigned int button) const
-//{
-//	return buttonsReleasedThisFrame & button;
-//}
-//
-//bool dae::InputManager::IsPressed(unsigned int button) const
-//{
-//	return currentState.Gamepad.wButtons & button;
-//}

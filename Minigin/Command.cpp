@@ -21,7 +21,6 @@ namespace dae {
 
 	void dae::MoveHorizontal::Execute(float deltaTime){
 		GetGameObject()->setLocalPosition(GetGameObject()->GetTransform()->getLocalposition() + m_Direction * m_Speed * deltaTime);
-		std::cout << "meow\n";
 	}
 
 	GameObject* MoveHorizontal::GetGameObject()

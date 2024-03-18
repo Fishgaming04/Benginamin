@@ -7,6 +7,7 @@
 #include <vector>
 #include "ControllerInput.h"
 #include "KeyboardInput.h"
+#include <memory>
 #pragma comment(lib, "xinput.lib")
 
 
@@ -22,25 +23,14 @@ namespace dae
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
-		InputManager();
 		bool ProcessInput(float deltaTime);
 
-		void AddCommand(const ControllerInput::controllerButtons button, const buttonState state, Command* command, const unsigned int controllerIndex);
-		void AddCommand(const SDL_Scancode key, const buttonState state, Command* command);
+		void AddCommand(const ControllerInput::controllerButtons button, const buttonState state, std::unique_ptr<Command>, const unsigned int controllerIndex);
+		void AddCommand(const SDL_Scancode key, const buttonState state, std::unique_ptr<Command> command);
 		void RemoveCommand(const ControllerInput::controllerButtons button, const buttonState state, const unsigned int controllerIndex);
 		void RemoveCommand(const SDL_Scancode key, const buttonState state);
 
-		//Put in controller class
-		//bool IsDownThisFrame(unsigned int button) const;
-		//bool IsUpThisFrame(unsigned int button) const;
-		//bool IsPressed(unsigned int button) const;
-
-
-		~InputManager();
-		InputManager(const InputManager& other) = delete;
-		InputManager(InputManager&& other) = delete;
-		InputManager& operator=(const InputManager& other) = delete;
-		InputManager& operator=(InputManager&& other) = delete;
+		unsigned int AddController();
 
 
 	private:
@@ -50,21 +40,22 @@ namespace dae
 		
 		using ControllerButton		= std::pair<unsigned int, ControllerInput::controllerButtons>;
 		using ControllerButtonState = std::pair<ControllerButton, buttonState>;
-		using ControllerCommands	= std::map<ControllerButtonState, Command*>;
+		using ControllerCommands	= std::map<ControllerButtonState, std::unique_ptr<Command>>;
 	
 		ControllerCommands m_ControllerCommands{};
-		std::vector<ControllerInput*> m_Controllers{};
+		std::vector<std::unique_ptr<ControllerInput>> m_Controllers{};
 
 		const unsigned int m_MaxControllers = 4;
 
 		//Keyboard
 
 		using KeyboardKeyState		= std::pair<SDL_Keycode, buttonState>;
-		using KeyboardCommands		= std::map<KeyboardKeyState, Command*>;
+		using KeyboardCommands		= std::map<KeyboardKeyState, std::unique_ptr<Command>>;
 
 		KeyboardCommands m_KeyboardCommands{};
 
-		KeyboardInput* m_KeyboardPtr;
+
+		KeyboardInput m_Keyboard{};
 	
 	};
 

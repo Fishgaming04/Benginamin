@@ -2,14 +2,7 @@
 #include "InputManager.h"
 
 
-dae::InputManager::InputManager()
-	: m_KeyboardPtr{ new KeyboardInput() }
-{
-	for (unsigned int index{}; index < m_MaxControllers; ++index)
-	{
-		m_Controllers.push_back(new ControllerInput{ index });
-	}
-}
+
 
 bool dae::InputManager::ProcessInput(float deltaTime)
 {
@@ -19,8 +12,6 @@ bool dae::InputManager::ProcessInput(float deltaTime)
 			return false;
 		}
 	}
-
-	m_KeyboardPtr->update();
 
 	for (auto& controller: m_Controllers)
 	{
@@ -54,26 +45,26 @@ bool dae::InputManager::ProcessInput(float deltaTime)
 		}
 	}
 
-	m_KeyboardPtr->update();
+	m_Keyboard.update();
 	for (auto& command : m_KeyboardCommands)
 	{
 		if (command.first.second == buttonState::heldDown)
 		{
-			if (m_KeyboardPtr->IsPressed(static_cast<Uint8>(command.first.first)))
+			if (m_Keyboard.IsPressed(static_cast<Uint8>(command.first.first)))
 			{
 				command.second->Execute(deltaTime);
 			}
 		}
 		else if (command.first.second == buttonState::up)
 		{
-			if (m_KeyboardPtr->IsUpThisFrame(static_cast<Uint8>(command.first.first)))
+			if (m_Keyboard.IsUpThisFrame(static_cast<Uint8>(command.first.first)))
 			{
 				command.second->Execute(deltaTime);
 			}
 		}
 		else if (command.first.second == buttonState::down)
 		{
-			if (m_KeyboardPtr->IsDownThisFrame(static_cast<Uint8>(command.first.first)))
+			if (m_Keyboard.IsDownThisFrame(static_cast<Uint8>(command.first.first)))
 			{
 				command.second->Execute(deltaTime);
 			}
@@ -84,21 +75,22 @@ bool dae::InputManager::ProcessInput(float deltaTime)
 	return true;
 }
 
-void dae::InputManager::AddCommand(const ControllerInput::controllerButtons button, const buttonState state, Command* command, const unsigned int controllerIndex)
+void dae::InputManager::AddCommand(const ControllerInput::controllerButtons button, const buttonState state, std::unique_ptr<Command> command, const unsigned int controllerIndex)
 {
 	ControllerButton cButton = std::make_pair(controllerIndex, button);
 	ControllerButtonState cButtonState = std::make_pair(cButton, state);
-	m_ControllerCommands.insert(std::make_pair(cButtonState, command));
+	m_ControllerCommands.insert(std::make_pair(cButtonState, std::move(command)));
 }
 
-void dae::InputManager::AddCommand(const SDL_Scancode key, const buttonState state, Command* command)
+void dae::InputManager::AddCommand(const SDL_Scancode key, const buttonState state, std::unique_ptr<Command> command)
 {
 	KeyboardKeyState keyState = std::make_pair(key, state);
-	m_KeyboardCommands.insert(std::make_pair(keyState, command));
+	m_KeyboardCommands.insert(std::make_pair(keyState, std::move(command)));
 }
 
 void dae::InputManager::RemoveCommand(const ControllerInput::controllerButtons button, const buttonState state, const unsigned int controllerIndex)
 {
+
 	ControllerButton cButton = std::make_pair(controllerIndex, button);
 	ControllerButtonState cButtonState = std::make_pair(cButton, state);
 	m_ControllerCommands.erase(cButtonState);
@@ -110,37 +102,15 @@ void dae::InputManager::RemoveCommand(const SDL_Scancode key, const buttonState 
 	m_KeyboardCommands.erase(keyState);
 }
 
-dae::InputManager::~InputManager()
+unsigned int dae::InputManager::AddController()
 {
-	delete m_KeyboardPtr;
-	m_KeyboardPtr = nullptr;
-
-	for (auto& command : m_ControllerCommands)
+	if (m_Controllers.size() >= m_MaxControllers)
 	{
-		if (command.second){
-			delete command.second;
-			command.second = nullptr;
-		}
+		m_Controllers.push_back(std::make_unique<ControllerInput>( static_cast<unsigned int>(m_Controllers.size()-1)));
+		return static_cast<unsigned int>(m_Controllers.size() - 2);
 	}
-	m_ControllerCommands.clear();
-
-	for (auto& command : m_KeyboardCommands)
-	{
-		if (command.second) {
-			delete command.second;
-			command.second = nullptr;
-		}
-	}
-	m_KeyboardCommands.clear();
-
-	for (auto controller : m_Controllers)
-	{
-
-
-		delete controller;
-		controller = nullptr;
-	}
-	m_Controllers.clear();
+	return 100;
 }
+
 
 

@@ -44,7 +44,7 @@ bool dae::InputManager::ProcessInput(float deltaTime)
 			}
 		}
 	}
-
+ 
 	m_Keyboard.update();
 	for (auto& command : m_KeyboardCommands)
 	{

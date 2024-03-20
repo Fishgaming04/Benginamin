@@ -2,11 +2,10 @@
 
 namespace dae {
 
-	class ControllerInputImpl;
 	class ControllerInput final
 	{
-
 	private:
+		class ControllerInputImpl;
 		ControllerInputImpl* m_pImpl;
 	public:
 

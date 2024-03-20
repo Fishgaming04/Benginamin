@@ -12,7 +12,6 @@ namespace dae
 {
 	class Texture2D;
 	class Transform;
-	// todo: this should become final.
 	class GameObject final
 	{
 	public:
@@ -67,8 +66,6 @@ namespace dae
 
 		std::vector<Component*> m_ComponentPtr;
 
-		// todo: mmm, every gameobject has a texture? Is that correct?
-		// std::shared_ptr<Texture2D> m_texture{};
 	};
 
 

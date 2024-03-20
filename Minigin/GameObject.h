@@ -5,8 +5,8 @@
 #include <unordered_map>
 #include "Transform.h"
 #include "Components.h"
+#include "Observers.h"
 #include <type_traits>
-
 
 namespace dae
 {
@@ -32,6 +32,9 @@ namespace dae
 
 
 
+		void AddObserver(Observer* observer);
+		void RemoveObserver(Observer* observer);
+
 		GameObject* GetParent() const;
 		void SetParent(GameObject* parent, bool keepLocationChilderen = false);
 		int GetChildCount();
@@ -48,7 +51,8 @@ namespace dae
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
-
+	protected:
+		void NotifyObservers(Event event);
 	private:
 		void UpdatePos();
 
@@ -66,6 +70,8 @@ namespace dae
 
 		std::vector<Component*> m_ComponentPtr;
 
+		//Observer
+		std::vector<Observer*> m_observers;
 	};
 
 

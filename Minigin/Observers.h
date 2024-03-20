@@ -1,5 +1,4 @@
 #pragma once
-#include "GameObject.h"
 
 namespace dae
 {
@@ -19,11 +18,11 @@ namespace dae
 		LevelReset,
 	};
 
-	class ObserverManager;
+	class GameObject;
 	class Observer 
 	{
 	public:
 		virtual ~Observer() = default;
-		virtual void Notify(Event event, ObserverManager* actor) = 0;
+		virtual void Notify(Event event, GameObject* actor) = 0;
 	};
 }

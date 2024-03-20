@@ -5,25 +5,36 @@ namespace dae
 {
 
 
-	HealthComponent::HealthComponent(GameObject* obj)
+	CounterComponent::CounterComponent(GameObject* obj)
 		:UpdatingComponent(obj)
-		,m_Health(100)
 	{
 	}
 
-	void HealthComponent::Update(double elapsedTime)
+
+	int CounterComponent::GetCounter(std::string health)
 	{
-		elapsedTime;
+		for (auto& counts : m_Counters)
+		{
+			if (counts.first == health)
+			{
+				return counts.second;
+			}
+		}
+		return 0;
 	}
 
-	int HealthComponent::GetHealth()
+	void CounterComponent::SetCounter(std::string health, int value)
 	{
-		return m_Health;
-	}
+		for (auto& counts: m_Counters)
+		{
+			if (counts.first == health)
+			{
+				counts.second = value;
+				return;
+			}
+		}
 
-	void HealthComponent::SetHealth(int health)
-	{
-		m_Health = health;
+		m_Counters.insert(std::make_pair(health, value));
 	}
 
 }

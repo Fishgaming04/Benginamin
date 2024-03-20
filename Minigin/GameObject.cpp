@@ -45,6 +45,12 @@ namespace dae {
 		SetDirty();
 	}
 
+	void GameObject::NotifyObservers(Event event)
+	{
+		for (auto observer : m_observers){
+			observer->Notify(event, this);
+		}
+	}
 
 	void GameObject::UpdatePos() {
 		if (m_isDirty) {
@@ -61,6 +67,16 @@ namespace dae {
 	Transform* GameObject::GetTransform() {
 		UpdatePos();
 		return m_PosPtr;
+	}
+
+	void GameObject::AddObserver(Observer* observer){
+		m_observers.push_back(observer);
+	}
+
+	void GameObject::RemoveObserver(Observer* observer){
+		if (observer) {
+			m_observers.erase(std::find(m_observers.begin(), m_observers.end(), observer));
+		}
 	}
 
 	GameObject* GameObject::GetParent() const {

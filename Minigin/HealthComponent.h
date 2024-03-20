@@ -1,31 +1,34 @@
 #pragma once
 #include "Components.h"
-
-
+#include <map>
+#include <string>
+#include <vector>
 namespace dae
 {
 
-    class HealthComponent final : public UpdatingComponent
+    class CounterComponent final : public UpdatingComponent
     {
     public:
 
-        HealthComponent(GameObject* obj);
-        virtual ~HealthComponent() {}
+        CounterComponent(GameObject* obj);
+        virtual ~CounterComponent() {}
 
-        virtual void Update(double elapsedTime) override;
+        virtual void Update(double) override {};
 
         virtual void Render() const override {};
-        int GetHealth();
-        void SetHealth(int health);
+        int GetCounter(std::string health);
+        void SetCounter(std::string health, int value);
 
 
-        HealthComponent(const HealthComponent& other) = delete;
-        HealthComponent(HealthComponent&& other) = delete;
-        HealthComponent& operator=(const HealthComponent& other) = delete;
-        HealthComponent& operator=(HealthComponent&& other) = delete;
+        CounterComponent(const CounterComponent& other) = delete;
+        CounterComponent(CounterComponent&& other) = delete;
+        CounterComponent& operator=(const CounterComponent& other) = delete;
+        CounterComponent& operator=(CounterComponent&& other) = delete;
 
     private:
-        int m_Health;
+        using Counters = std::map<std::string, int>;
+
+        Counters m_Counters;
     };
 
 }

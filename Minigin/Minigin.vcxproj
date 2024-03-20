@@ -183,7 +183,6 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="Minigin.h" />
-    <ClInclude Include="ObserverManager.h" />
     <ClInclude Include="Observers.h" />
     <ClInclude Include="OrbitParentComponent.h" />
     <ClInclude Include="Renderer.h" />
@@ -208,7 +207,6 @@
     <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Minigin.cpp" />
-    <ClCompile Include="ObserverManager.cpp" />
     <ClCompile Include="Observers.cpp" />
     <ClCompile Include="OrbitParentComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />

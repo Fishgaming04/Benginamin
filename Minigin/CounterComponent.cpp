@@ -31,11 +31,12 @@ namespace dae
 			if (counts.first == name)
 			{
 				counts.second = value;
+				GetGameObject()->NotifyObservers(Event::CounterUpdate);
 				return;
 			}
 		}
-		GetGameObject()->NotifyObservers(Event::CounterUpdate);
 		m_Counters.insert(std::make_pair(name, value));
+		GetGameObject()->NotifyObservers(Event::CounterUpdate);
 
 	}
 }

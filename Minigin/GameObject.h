@@ -4,12 +4,12 @@
 #include <string>
 #include <unordered_map>
 #include "Transform.h"
-#include "Components.h"
 #include "Observers.h"
 #include <type_traits>
 
 namespace dae
 {
+	class Component;
 	class Texture2D;
 	class Transform;
 	class GameObject final

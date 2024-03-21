@@ -3,6 +3,7 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 #include <iostream>
+#include "Components.h" 
 namespace dae {
 
 

@@ -176,10 +176,11 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="ControllerInput.h" />
+    <ClInclude Include="CounterComponentObserver.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="CounterComponent.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="Minigin.h" />
@@ -199,10 +200,11 @@
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Components.cpp" />
     <ClCompile Include="ControllerInput.cpp" />
+    <ClCompile Include="CounterComponentObserver.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="CounterComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="Main.cpp" />

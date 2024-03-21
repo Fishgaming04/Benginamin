@@ -3,8 +3,8 @@
 #include <algorithm>
 
 KeyboardInput::KeyboardInput()
-	:m_PreviousKeyboardInput{}
-	,m_CurrentKeyboardInput{}
+	:m_PreviousKeyboardInput(SDL_NUM_SCANCODES)
+	,m_CurrentKeyboardInput(SDL_NUM_SCANCODES)
 {
 }
 
@@ -14,8 +14,8 @@ void KeyboardInput::update()
 	int size{};
 	auto CurrentKeyboardState = SDL_GetKeyboardState(&size);
 
+	m_PreviousKeyboardInput = m_CurrentKeyboardInput;
 	m_CurrentKeyboardInput.assign(CurrentKeyboardState, CurrentKeyboardState + size);
-	m_PreviousKeyboardInput = m_PreviousKeyboardInput;
 
 }
 

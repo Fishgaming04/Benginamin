@@ -19,6 +19,18 @@
     <Filter Include="Header Files\Components">
       <UniqueIdentifier>{4c74ea30-ed8e-4c72-8752-f32a27c699d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Observes">
+      <UniqueIdentifier>{f9b30191-a4eb-41ba-b194-6d707a6bdc7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Commands">
+      <UniqueIdentifier>{a6787921-a0c0-4417-a132-5e8e41c294a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Observers">
+      <UniqueIdentifier>{70a8a6cf-3f24-47fc-90e4-30a6a4e680e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Commands">
+      <UniqueIdentifier>{bde350af-3233-438e-b4fe-86b501c5488c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -66,22 +78,25 @@
     <ClInclude Include="OrbitParentComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ControllerInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Observers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthComponent.h">
+    <ClInclude Include="CounterComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Observers.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CounterComponentObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -134,20 +149,23 @@
     <ClCompile Include="OrbitParentComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ControllerInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="KeyboardInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Observers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthComponent.cpp">
+    <ClCompile Include="CounterComponent.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Observers.cpp">
+      <Filter>Source Files\Observes</Filter>
+    </ClCompile>
+    <ClCompile Include="CounterComponentObserver.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

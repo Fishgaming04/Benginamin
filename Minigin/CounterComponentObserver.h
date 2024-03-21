@@ -19,7 +19,7 @@ namespace dae {
 		CounterComponentObserver& operator=(CounterComponentObserver&& other) = delete;
 	private:
 		GameObject* m_GameObject;
-		std::string m_TextBofreCount;
+		std::string m_Prefix;
 		std::string m_Counter;
 	};
 

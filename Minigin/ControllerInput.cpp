@@ -74,9 +74,6 @@ namespace dae {
 		return currentState.Gamepad.wButtons & static_cast<unsigned int>(button);
 	}
 
-
-
-
 	//ControllerInput
 
 	ControllerInput::ControllerInput(unsigned int controllerIndex)
@@ -114,5 +111,4 @@ namespace dae {
 		delete m_pImpl;
 		m_pImpl = nullptr;
 	}
-
 }

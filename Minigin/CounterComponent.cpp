@@ -1,4 +1,4 @@
-#include "HealthComponent.h"
+#include "CounterComponent.h"
 
 
 namespace dae
@@ -34,7 +34,7 @@ namespace dae
 			}
 		}
 
+
 		m_Counters.insert(std::make_pair(health, value));
 	}
-
 }

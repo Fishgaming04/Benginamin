@@ -9,14 +9,16 @@ namespace dae {
 
         virtual void Update(double elapsedTime) = 0;
         virtual void Render()const = 0;
+        GameObject* GetGameObject() const { return m_ObjectPtr; }
+
 
         Component(const Component& other) = delete;
         Component(Component&& other) = delete;
         Component& operator=(const Component& other) = delete;
         Component& operator=(Component&& other) = delete;
-
     protected:
         Component(GameObject* obj);
+    private:
         GameObject* m_ObjectPtr;
 
     };

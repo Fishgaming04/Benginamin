@@ -22,7 +22,7 @@ namespace dae {
 		
 		float x{ float(cos(m_CurrentAngle) * m_DistanceFromPivot) };
 		float y{ float(sin(m_CurrentAngle) * m_DistanceFromPivot) };
-		m_ObjectPtr->setLocalPosition(x, y);
+		GetGameObject()->setLocalPosition(x, y);
 	}
 
 	void OrbitParentComponent::SetRotationSpeed(int speed) {

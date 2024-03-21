@@ -16,6 +16,7 @@ namespace dae
 		LevelStart,
 		LevelEnd,
 		LevelReset,
+		CounterUpdate,
 	};
 
 	class GameObject;
@@ -23,6 +24,6 @@ namespace dae
 	{
 	public:
 		virtual ~Observer() = default;
-		virtual void Notify(Event event, GameObject* actor) = 0;
+		virtual void OnNotify(Event event, GameObject* actor) = 0;
 	};
 }

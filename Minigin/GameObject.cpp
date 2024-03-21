@@ -48,7 +48,7 @@ namespace dae {
 	void GameObject::NotifyObservers(Event event)
 	{
 		for (auto observer : m_observers){
-			observer->Notify(event, this);
+			observer->OnNotify(event, this);
 		}
 	}
 

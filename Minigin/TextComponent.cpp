@@ -15,10 +15,10 @@ dae::TextComponent::TextComponent(GameObject* obj)
 	, m_Color(SDL_Color(255, 255, 255, 255))
 	, m_TextureComponentPtr()
 { 
-	if (!m_ObjectPtr->HasComponent<TextureComponent>()) {
-		m_ObjectPtr->AddComponent<TextureComponent>();
+	if (!GetGameObject()->HasComponent<TextureComponent>()) {
+		GetGameObject()->AddComponent<TextureComponent>();
 	}
-	m_TextureComponentPtr = m_ObjectPtr->GetComponent<TextureComponent>();
+	m_TextureComponentPtr = GetGameObject()->GetComponent<TextureComponent>();
 }
 
 void dae::TextComponent::Update(double)

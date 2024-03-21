@@ -14,7 +14,7 @@ namespace dae {
 
 	void TextureComponent::Render() const {
 		if (m_TexturePtr != nullptr) {
-			const auto& pos = m_ObjectPtr->GetTransform()->getWorldposition();
+			const auto& pos = GetGameObject()->GetTransform()->getWorldposition();
 			Renderer::GetInstance().RenderTexture(*m_TexturePtr, pos.x, pos.y);
 		}
 		

@@ -15,6 +15,8 @@ namespace dae
 	class GameObject final
 	{
 	public:
+		GameObject();
+
 		virtual void Update(double elapsedTime);
 		virtual void Render() const;
 
@@ -45,14 +47,14 @@ namespace dae
 		Transform* GetTransform();
 		void SetDirty();
 
-		GameObject();
+		void NotifyObservers(Event event);
+		
+
 		virtual ~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
-	protected:
-		void NotifyObservers(Event event);
 	private:
 		void UpdatePos();
 

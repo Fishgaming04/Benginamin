@@ -3,6 +3,8 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "Observers.h"
+#include "GameObject.h"
 namespace dae
 {
 
@@ -11,13 +13,13 @@ namespace dae
     public:
 
         CounterComponent(GameObject* obj);
-        virtual ~CounterComponent() {}
+        virtual ~CounterComponent() {};
 
         virtual void Update(double) override {};
 
         virtual void Render() const override {};
         int GetCounter(std::string health);
-        void SetCounter(std::string health, int value);
+        void SetCounter(std::string name, int value);
 
 
         CounterComponent(const CounterComponent& other) = delete;

@@ -97,7 +97,7 @@
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="CounterComponentObserver.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Observers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +165,7 @@
       <Filter>Source Files\Observes</Filter>
     </ClCompile>
     <ClCompile Include="CounterComponentObserver.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Observes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

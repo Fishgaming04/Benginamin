@@ -2,14 +2,19 @@
 #include "Observers.h"
 #include "GameObject.h"
 #include "CounterComponent.h"
+#include "Components.h"
 #include <string>
 
 namespace dae {
 
-	class CounterComponentObserver : public Observer
+	class CounterComponentObserver : public ObserverComponent
 	{
 	public:
-		CounterComponentObserver(GameObject* GameObject, std::string Counter, std::string TextBeforeCounter = "");
+		CounterComponentObserver(GameObject* GameObject);
+		void SetPrefix(std::string prefix) { m_Prefix = prefix; }
+		void SetCounter(std::string counter) { m_Counter = counter; }
+
+
 
 		void OnNotify(Event event, GameObject* actor)override;
 		virtual ~CounterComponentObserver() {};
@@ -18,7 +23,6 @@ namespace dae {
 		CounterComponentObserver& operator=(const CounterComponentObserver& other) = delete;
 		CounterComponentObserver& operator=(CounterComponentObserver&& other) = delete;
 	private:
-		GameObject* m_GameObject;
 		std::string m_Prefix;
 		std::string m_Counter;
 	};

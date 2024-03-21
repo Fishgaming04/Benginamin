@@ -1,5 +1,5 @@
 #include "Components.h"
-
+#include "GameObject.h"
 namespace dae {
 
 	Component::Component(GameObject* obj)
@@ -17,4 +17,23 @@ namespace dae {
 	{
 	}
 
+	ObserverComponent::ObserverComponent(GameObject* obj)
+		:Component(obj)
+		,m_IsWatching{nullptr}
+	{
+	}
+	ObserverComponent::~ObserverComponent()
+	{
+	}
+
+	void ObserverComponent::SetIsWatching(GameObject* object)
+	{
+		if (m_IsWatching) {
+			m_IsWatching->RemoveObserver(this);
+		}
+		m_IsWatching = object; 
+		if (m_IsWatching) {
+			m_IsWatching->AddObserver(this); 
+		}
+	}
 }

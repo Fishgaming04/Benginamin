@@ -99,6 +99,9 @@
     <ClInclude Include="CounterComponentObserver.h">
       <Filter>Header Files\Observers</Filter>
     </ClInclude>
+    <ClInclude Include="Achievements.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -166,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="CounterComponentObserver.cpp">
       <Filter>Source Files\Observes</Filter>
+    </ClCompile>
+    <ClCompile Include="Achievements.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

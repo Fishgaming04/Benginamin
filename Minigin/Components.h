@@ -72,16 +72,17 @@ namespace dae {
         virtual void Update(double) {};
         virtual void Render() const override {};
         virtual void OnNotify(Event event, GameObject* actor) = 0;
+        virtual void removeWatched(GameObject* actor);
+        std::vector<GameObject*> GetIsWatching() const { return m_TheWatched; }
+        void AddIsWatching(GameObject* object);
 
         ObserverComponent(const ObserverComponent& other) = delete;
         ObserverComponent(ObserverComponent&& other) = delete;
         ObserverComponent& operator=(const ObserverComponent& other) = delete;
         ObserverComponent& operator=(ObserverComponent&& other) = delete;
 
-        GameObject* GetIsWatching() const { return m_IsWatching; }
-        void SetIsWatching(GameObject* object);
     private:
-        GameObject* m_IsWatching;
+        std::vector <GameObject*> m_TheWatched;
     };
 }
 

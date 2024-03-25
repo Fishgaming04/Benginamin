@@ -42,6 +42,7 @@ namespace dae {
 			return SteamUserStats()->StoreStats();
 		}
 		// If not then we can't set achievements yet
+		std::cout << ("Steam not initialized\n");
 		return false;
 	}
 

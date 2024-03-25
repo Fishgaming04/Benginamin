@@ -102,6 +102,12 @@
     <ClInclude Include="Achievements.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AchievementObserver.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="CounterTriggerAchievementObserver.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -171,6 +177,12 @@
       <Filter>Source Files\Observes</Filter>
     </ClCompile>
     <ClCompile Include="Achievements.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AchievementObserver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CounterTriggerAchievementObserver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

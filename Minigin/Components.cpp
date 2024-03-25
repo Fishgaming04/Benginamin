@@ -19,21 +19,34 @@ namespace dae {
 
 	ObserverComponent::ObserverComponent(GameObject* obj)
 		:Component(obj)
-		,m_IsWatching{nullptr}
-	{
-	}
-	ObserverComponent::~ObserverComponent()
+		,m_TheWatched{}
 	{
 	}
 
-	void ObserverComponent::SetIsWatching(GameObject* object)
+	ObserverComponent::~ObserverComponent()
 	{
-		if (m_IsWatching) {
-			m_IsWatching->RemoveObserver(this);
+		for (auto obj : m_TheWatched)
+		{
+			obj->RemoveObserver(this);
 		}
-		m_IsWatching = object; 
-		if (m_IsWatching) {
-			m_IsWatching->AddObserver(this); 
+	}
+
+	void ObserverComponent::removeWatched(GameObject* actor)
+	{
+		if (actor) {
+			auto it = std::find(m_TheWatched.begin(), m_TheWatched.end(), actor);
+			if (it != m_TheWatched.end())
+			{
+				m_TheWatched.erase(it);
+			}
+		}
+	}
+
+	void ObserverComponent::AddIsWatching(GameObject* object)
+	{
+		if (object) {
+			m_TheWatched.push_back(object);
+			object->AddObserver(this);
 		}
 	}
 }

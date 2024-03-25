@@ -10,6 +10,7 @@
 namespace dae
 {
 	class Component;
+	class ObserverComponent;
 	class Texture2D;
 	class Transform;
 	class GameObject final
@@ -34,8 +35,8 @@ namespace dae
 
 
 
-		void AddObserver(Observer* observer);
-		void RemoveObserver(Observer* observer);
+		void AddObserver(ObserverComponent* observer);
+		void RemoveObserver(ObserverComponent* observer);
 
 		GameObject* GetParent() const;
 		void SetParent(GameObject* parent, bool keepLocationChilderen = false);
@@ -73,7 +74,7 @@ namespace dae
 		std::vector<Component*> m_ComponentPtr;
 
 		//Observer
-		std::vector<Observer*> m_observers;
+		std::vector<ObserverComponent*> m_observers;
 	};
 
 

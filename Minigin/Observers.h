@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+
 
 namespace dae
 {
@@ -17,6 +19,10 @@ namespace dae
 		LevelEnd,
 		LevelReset,
 		CounterUpdate,
+		Win,
+		Win100,
+		TravelFarAccum,
+		TravelFarSingle
 	};
 
 	class GameObject;

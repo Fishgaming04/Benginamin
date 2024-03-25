@@ -114,7 +114,8 @@
       <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
 xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
-xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\*.dll" "$(OutputPath)" /Y</Command>
+xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\*.dll" "$(OutputPath)" /Y
+xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\steam_appid.txt" "$(OutputPath)" /Y </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -136,8 +137,11 @@ xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\*.dll" "$(OutputPath)" /
     </Link>
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll" "$(OutputPath)" /Y
-
+      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll" "$(OutputPath)" /Y
+xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\win64\steam_appid.txt" "$(OutputPath)" /Y
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -167,7 +171,8 @@ xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\*.dll" "$(OutputPath)" /
       <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
 xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
-xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\*.dll" "$(OutputPath)" /Y</Command>
+xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\*.dll" "$(OutputPath)" /Y
+xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\steam_appid.txt" "$(OutputPath)" /Y </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -193,17 +198,22 @@ xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\*.dll" "$(OutputPath)" /
     </Link>
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll" "$(OutputPath)" /Y
-
+      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll" "$(OutputPath)" /Y
+xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\win64\steam_appid.txt" "$(OutputPath)" /Y
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AchievementObserver.h" />
     <ClInclude Include="Achievements.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="ControllerInput.h" />
     <ClInclude Include="CounterComponentObserver.h" />
+    <ClInclude Include="CounterTriggerAchievementObserver.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="GameObject.h" />
@@ -224,11 +234,13 @@ xcopy "$(SolutionDir)3rdParty\steam\redistributable_bin\*.dll" "$(OutputPath)" /
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AchievementObserver.cpp" />
     <ClCompile Include="Achievements.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Components.cpp" />
     <ClCompile Include="ControllerInput.cpp" />
     <ClCompile Include="CounterComponentObserver.cpp" />
+    <ClCompile Include="CounterTriggerAchievementObserver.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />

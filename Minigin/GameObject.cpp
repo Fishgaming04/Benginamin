@@ -17,10 +17,18 @@ namespace dae {
 	GameObject::~GameObject() {
 		delete m_PosPtr;
 		m_PosPtr = nullptr;
+
+		for (auto compnentes : m_observers) {
+			compnentes->removeWatched(this);
+			compnentes = nullptr;
+		}
+		m_observers.clear();
+
 		for (Component* Comp : m_ComponentPtr) {
 			delete Comp;
 			Comp = nullptr;
 		}
+
 	};
 
 	void GameObject::Update(double elapsedTime) {
@@ -70,11 +78,11 @@ namespace dae {
 		return m_PosPtr;
 	}
 
-	void GameObject::AddObserver(Observer* observer){
+	void GameObject::AddObserver(ObserverComponent* observer){
 		m_observers.push_back(observer);
 	}
 
-	void GameObject::RemoveObserver(Observer* observer){
+	void GameObject::RemoveObserver(ObserverComponent* observer){
 		if (observer) {
 			m_observers.erase(std::find(m_observers.begin(), m_observers.end(), observer));
 		}

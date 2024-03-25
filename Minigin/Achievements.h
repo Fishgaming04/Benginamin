@@ -3,7 +3,7 @@
 #define _ACH_ID( id, name ) { id, #id, name, "", 0, 0 }
 
 namespace dae {
-
+	// Achievement array which will hold data about the achievements and their state
 	struct Achievement_t
 	{
 		int m_eAchievementID;
@@ -13,8 +13,6 @@ namespace dae {
 		bool m_bAchieved;
 		int m_iIconImage;
 	};
-
-
 
 
 	class CSteamAchievements
@@ -41,8 +39,5 @@ namespace dae {
 			UserAchievementStored_t, m_CallbackAchievementStored);
 	};
 
-	class Achievements
-	{
-	};
 
 }

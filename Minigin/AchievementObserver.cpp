@@ -44,4 +44,11 @@ void dae::AchievementObserver::OnNotify(Event event, GameObject*)
 		if (m_AchievementsPtr)
 			m_AchievementsPtr->SetAchievement("ACH_TRAVEL_FAR_SINGLE");
 	}
+	else if (event == Event::SecretAchievement)
+	{
+		if (m_AchievementsPtr)
+		{
+			m_AchievementsPtr->SetAchievement("NEW_ACHIEVEMENT_0_4");
+		}
+	}
 }

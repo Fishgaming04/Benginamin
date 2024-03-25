@@ -104,7 +104,7 @@ void dae::InputManager::RemoveCommand(const SDL_Scancode key, const buttonState 
 
 unsigned int dae::InputManager::AddController()
 {
-	if (m_Controllers.size() >= m_MaxControllers)
+	if (m_Controllers.size() <= m_MaxControllers)
 	{
 		m_Controllers.push_back(std::make_unique<ControllerInput>( static_cast<unsigned int>(m_Controllers.size()-1)));
 		return static_cast<unsigned int>(m_Controllers.size() - 2);

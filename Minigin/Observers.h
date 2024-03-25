@@ -22,7 +22,8 @@ namespace dae
 		Win,
 		Win100,
 		TravelFarAccum,
-		TravelFarSingle
+		TravelFarSingle,
+		SecretAchievement
 	};
 
 	class GameObject;

@@ -26,6 +26,42 @@ namespace dae {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		private:
 			const unsigned int m_ControllerIndex;
 			XINPUT_STATE previousState;

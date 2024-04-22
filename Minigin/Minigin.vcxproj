@@ -219,7 +219,7 @@
     <ClCompile Include="CounterComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Minigin.cpp" />
     <ClCompile Include="Observers.cpp" />
     <ClCompile Include="OrbitParentComponent.cpp" />

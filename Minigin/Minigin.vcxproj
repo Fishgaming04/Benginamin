@@ -212,17 +212,14 @@
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Components.cpp" />
     <ClCompile Include="ControllerInput.cpp" />
-    <ClCompile Include="CounterComponentObserver.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="CounterComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Minigin.cpp" />
     <ClCompile Include="Observers.cpp" />
-    <ClCompile Include="OrbitParentComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />

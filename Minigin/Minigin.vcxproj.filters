@@ -143,25 +143,16 @@
     <ClCompile Include="FPSComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="OrbitParentComponent.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="ControllerInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="KeyboardInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CounterComponent.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Command.cpp">
       <Filter>Source Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="Observers.cpp">
-      <Filter>Source Files\Observes</Filter>
-    </ClCompile>
-    <ClCompile Include="CounterComponentObserver.cpp">
       <Filter>Source Files\Observes</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">

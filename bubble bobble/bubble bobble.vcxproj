@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Minigin\CounterComponent.cpp" />
+    <ClCompile Include="..\Minigin\CounterComponentObserver.cpp" />
+    <ClCompile Include="..\Minigin\OrbitParentComponent.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

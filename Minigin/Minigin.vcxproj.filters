@@ -31,6 +31,12 @@
     <Filter Include="Header Files\Commands">
       <UniqueIdentifier>{bde350af-3233-438e-b4fe-86b501c5488c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Singletons">
+      <UniqueIdentifier>{1c4f94df-d2c0-4108-9280-c67b809d56bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Singletons">
+      <UniqueIdentifier>{c95927b4-13ab-4f27-b612-f636f4b82206}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -99,6 +105,9 @@
     <ClInclude Include="CounterComponentObserver.h">
       <Filter>Header Files\Observers</Filter>
     </ClInclude>
+    <ClInclude Include="SoundSignleton.h">
+      <Filter>Header Files\Singletons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -157,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundSignleton.cpp">
+      <Filter>Source Files\Singletons</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

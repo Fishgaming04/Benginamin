@@ -8,20 +8,28 @@ namespace dae {
     {
     public:
         static void initialize() {
-            nullService_ = NullAudio{};
             service_ = &nullService_; }
+
+        ~SoundSingleton() {
+			delete service_; 
+        }
+
+        //rule of 5
+        SoundSingleton(const SoundSingleton& other) = delete;
+        SoundSingleton(SoundSingleton&& other) = delete;
+        SoundSingleton& operator=(const SoundSingleton& other) = delete;
+        SoundSingleton& operator=(SoundSingleton&& other) = delete;        
+
 
         static Sound& getAudio() { return *service_; }
 
         static void provide(Sound* service)
         {
-            if (service == nullptr)
-            {
+            if (service == nullptr) {
                 // Revert to null service.
                 service_ = &nullService_;
             }
-            else
-            {
+            else {
                 service_ = service;
             }
         }

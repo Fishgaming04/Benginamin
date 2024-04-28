@@ -1,12 +1,44 @@
 #include "Sound.h"
+#include "Sound.h"
 #include <iostream>
 #include <SDL.h>
 
 namespace dae {
-	void ConsoleAudio::PlaySound(const int soundID)
+
+	ConsoleAudio::ConsoleAudio()
+	{
+		if (SDL_Init(SDL_INIT_AUDIO) == -1) {
+			std::cout << "SDL_Init: " << SDL_GetError() << "\n";
+			exit(1);
+		}
+
+		if (Mix_Init(MIX_INIT_MP3) != MIX_INIT_MP3) {
+			std::cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << "\n";
+		}
+
+		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+			std::cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << "\n";
+		}
+
+	}
+
+	ConsoleAudio::~ConsoleAudio(){
+
+		for (auto& pSound : m_pSound)
+		{
+			Mix_FreeChunk(pSound);
+			delete pSound;
+			pSound = nullptr;
+		}
+		Mix_Quit();
+		SDL_Quit();
+	}
+
+	void ConsoleAudio::PlaySoundEffect(const int soundID)
 	{
 		if (soundID < m_pSound.size())
 		{
+			Mix_Volume(-1, 128); 
 			if (!Mix_PlayChannel(-1, m_pSound[soundID], 0))
 			{
 				std::cout << "SoundID: " << soundID << " failed to play\n";
@@ -25,8 +57,8 @@ namespace dae {
 
 	void ConsoleAudio::StopAllSounds()
 	{
-
 	}
+
 
 	int ConsoleAudio::LoadSound(const char* path)
 	{
@@ -42,19 +74,24 @@ namespace dae {
 		}
 	}
 
-	Sound::Sound()
+	void ConsoleAudio::PlayMusic(const char* path, const int loops)
 	{
-		if (SDL_Init(SDL_INIT_AUDIO) == -1) {
-			std::cout << "SDL_Init: " << SDL_GetError() << "\n";
-			exit(1);
+		if (path == nullptr)
+		{
+			std::cout << "Path is null\n";
 		}
-
-		if (Mix_Init(MIX_INIT_MP3) != MIX_INIT_MP3) {
-			std::cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << "\n";
-		}
-
-		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-			std::cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << "\n";
+		else
+		{
+			Mix_Music* music = Mix_LoadMUS(path);
+			if (music == nullptr)
+			{
+				std::cout << "Failed to load music: " << path << " SDL_mixer Error: " << Mix_GetError() << "\n";
+			}
+			else
+			{
+				Mix_PlayMusic(music, loops);
+			}
 		}
 	}
+
 }

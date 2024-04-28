@@ -40,6 +40,9 @@
     <Filter Include="Source Files\Logger">
       <UniqueIdentifier>{d0efd838-df75-479e-9ea2-957f06f0628e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Logger">
+      <UniqueIdentifier>{807a3946-08e1-4a08-87c4-c68ae4e0ba4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -115,7 +118,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SoundLogger.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Logger</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -183,7 +186,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SoundLogger.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Logger</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

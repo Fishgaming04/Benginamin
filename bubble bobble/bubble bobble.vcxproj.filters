@@ -45,5 +45,13 @@
     <ClCompile Include="..\Minigin\CounterComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="TriggerSoundCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TriggerSoundCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,10 +8,10 @@ namespace dae {
             : wrapped_(wrapped)
         {}
 
-        virtual void PlaySound(const int soundID)
+        virtual void PlaySoundEffect(const int soundID)
         {
             log("play sound");
-            wrapped_.PlaySound(soundID);
+            wrapped_.PlaySoundEffect(soundID);
         }
 
         virtual void StopSound(const int soundID)
@@ -30,6 +30,10 @@ namespace dae {
             log("load sound");
             wrapped_.LoadSound(path);
             return 0;
+        }
+        virtual void PlayMusic(const char* path, const int loops = -1) {
+            log("play music");
+            wrapped_.PlayMusic(path, loops);
         }
 
     private:

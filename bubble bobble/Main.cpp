@@ -31,8 +31,8 @@
 #include "Command.h"
 #include "CounterComponent.h"
 #include "CounterComponentObserver.h"
-#include "Sound.h"
 #include "SoundSignleton.h"
+#include "TriggerSoundCommand.h"
 
 using namespace dae;
 
@@ -41,6 +41,7 @@ void load()
 {
 
 	ConsoleAudio* soundsystem{ new ConsoleAudio{} };
+	soundsystem;
 	SoundSingleton::provide(soundsystem);
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 	auto& recourceManager = dae::ResourceManager::GetInstance();
@@ -49,9 +50,9 @@ void load()
 
 	auto gameObj = std::make_shared<dae::GameObject>();
 
-
 	
-	auto sound = soundManager.LoadSound("Music/01_MainTheme.mp3");
+	int sound = soundManager.LoadSound("../Data/Music/06_SuperDrunk.mp3");
+	int sound2 = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
 
 	auto Rotating1 = std::make_shared<dae::GameObject>();
 	Rotating1 = std::make_shared<dae::GameObject>();
@@ -77,6 +78,7 @@ void load()
 	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<MoveCommand>(Rotating2.get(), glm::vec3(1, 0, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_X, buttonState::up, std::make_unique<IncreaseCounter>(Rotating2.get(), "Health", -10));
 	input.AddCommand(SDL_SCANCODE_C, buttonState::up, std::make_unique<IncreaseCounter>(Rotating2.get(), "Exp", 1));
+	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound2));
 	scene.Add(Rotating2);
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
@@ -120,14 +122,12 @@ void load()
 	gameObj->setLocalPosition(20, 140, 0);
 	scene.Add(gameObj);
 
-
-	soundManager.PlaySound(sound);
+	
+	soundManager.PlaySoundEffect(sound);
 }
 
 
 
-#include "Minigin.h"
-#include "../Minigin/Main.cpp"
 int main(int, char* []) {
 	dae::Minigin engine("../Data/");
 	engine.Run(load);

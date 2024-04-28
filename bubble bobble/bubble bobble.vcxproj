@@ -23,6 +23,10 @@
     <ClCompile Include="..\Minigin\CounterComponentObserver.cpp" />
     <ClCompile Include="..\Minigin\OrbitParentComponent.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="TriggerSoundCommand.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TriggerSoundCommand.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

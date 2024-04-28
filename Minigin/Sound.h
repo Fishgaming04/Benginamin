@@ -1,39 +1,41 @@
 #pragma once
-class Sound
-
-{
-public:
-	virtual ~Sound() {}
-	virtual void playSound(int soundID) = 0;
-	virtual void stopSound(int soundID) = 0;
-	virtual void stopAllSounds() = 0;
-};
-
-class NullAudio : public Sound
-{
-public:
-	virtual void playSound(int soundID) {}
-	virtual void stopSound(int soundID) {}
-	virtual void stopAllSounds()		{}
-};
+#include <SDL_mixer.h>
+#include <vector>
 
 
+namespace dae{
+	class Sound
 
-class ConsoleAudio : public Sound
-{
-public:
-	virtual void playSound(int soundID)
 	{
-		// Play sound using console audio api...
-	}
+	public:
+		Sound();
+		virtual ~Sound() {}
+		virtual void PlaySound(const int soundID) = 0;
+		virtual void StopSound(const int soundID) = 0;
+		virtual void StopAllSounds() = 0;
+		virtual int LoadSound(const char* path) = 0;
+	};
 
-	virtual void stopSound(int soundID)
+	class NullAudio : public Sound
 	{
-		// Stop sound using console audio api...
-	}
+	public:
+		virtual void PlaySound(const int) {}
+		virtual void StopSound(const int) {}
+		virtual void StopAllSounds(){}
+		virtual int LoadSound(const char*) { return 0; };
+	};
 
-	virtual void stopAllSounds()
+
+
+	class ConsoleAudio : public Sound
 	{
-		// Stop all sounds using console audio api...
-	}
-};
+	public:
+		virtual void PlaySound(const int soundID) override;
+		virtual void StopSound(const int soundID) override;
+		virtual void StopAllSounds() override;
+		virtual int LoadSound(const char* path) override;
+	private:
+		std::vector<Mix_Music*> m_pMusic;
+		std::vector<Mix_Chunk*> m_pSound;
+	};
+}

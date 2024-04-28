@@ -2,39 +2,43 @@
 #include "Sound.h"
 #include "SoundLogger.h"
 
+namespace dae {
 
-class Locator
-{
-public:
-    static void initialize() { service_ = &nullService_; }
-
-    static Sound& getAudio() { return *service_; }
-
-    static void provide(Sound* service)
+    class SoundSingleton
     {
-        if (service == nullptr)
+    public:
+        static void initialize() {
+            nullService_ = NullAudio{};
+            service_ = &nullService_; }
+
+        static Sound& getAudio() { return *service_; }
+
+        static void provide(Sound* service)
         {
-            // Revert to null service.
-            service_ = &nullService_;
+            if (service == nullptr)
+            {
+                // Revert to null service.
+                service_ = &nullService_;
+            }
+            else
+            {
+                service_ = service;
+            }
         }
-        else
+
+        void enableAudioLogging()
         {
-            service_ = service;
+            // Decorate the existing service.
+            Sound* service = new LoggedAudio(SoundSingleton::getAudio());
+
+            // Swap it in.
+            SoundSingleton::provide(service);
         }
-    }
 
-    void enableAudioLogging()
-    {
-        // Decorate the existing service.
-        Sound* service_ = new LoggedAudio(Locator::getAudio());
-
-        // Swap it in.
-        Locator::provide(service_);
-    }
-
-private:
-    static Sound* service_;
-    static NullAudio nullService_;
-};
+    private:
+        static Sound* service_;
+        static NullAudio nullService_;
+    };
+}
 
 

@@ -31,6 +31,8 @@
 #include "Command.h"
 #include "CounterComponent.h"
 #include "CounterComponentObserver.h"
+#include "Sound.h"
+#include "SoundSignleton.h"
 
 using namespace dae;
 
@@ -38,13 +40,18 @@ using namespace dae;
 void load()
 {
 
+	ConsoleAudio* soundsystem{ new ConsoleAudio{} };
+	SoundSingleton::provide(soundsystem);
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 	auto& recourceManager = dae::ResourceManager::GetInstance();
+	auto& soundManager = dae::SoundSingleton::getAudio();
 	auto& input = InputManager::GetInstance();
 
 	auto gameObj = std::make_shared<dae::GameObject>();
 
 
+	
+	auto sound = soundManager.LoadSound("Music/01_MainTheme.mp3");
 
 	auto Rotating1 = std::make_shared<dae::GameObject>();
 	Rotating1 = std::make_shared<dae::GameObject>();
@@ -113,6 +120,8 @@ void load()
 	gameObj->setLocalPosition(20, 140, 0);
 	scene.Add(gameObj);
 
+
+	soundManager.PlaySound(sound);
 }
 
 

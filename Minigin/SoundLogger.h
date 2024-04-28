@@ -1,36 +1,43 @@
 #pragma once
 #include "Sound.h"
-
-class LoggedAudio : public Sound
-{
-public:
-    LoggedAudio(Sound& wrapped)
-        : wrapped_(wrapped)
-    {}
-
-    virtual void playSound(int soundID)
+namespace dae {
+    class LoggedAudio : public Sound
     {
-        log("play sound");
-        wrapped_.playSound(soundID);
-    }
+    public:
+        LoggedAudio(Sound& wrapped)
+            : wrapped_(wrapped)
+        {}
 
-    virtual void stopSound(int soundID)
-    {
-        log("stop sound");
-        wrapped_.stopSound(soundID);
-    }
+        virtual void PlaySound(const int soundID)
+        {
+            log("play sound");
+            wrapped_.PlaySound(soundID);
+        }
 
-    virtual void stopAllSounds()
-    {
-        log("stop all sounds");
-        wrapped_.stopAllSounds();
-    }
+        virtual void StopSound(const int soundID)
+        {
+            log("stop sound");
+            wrapped_.StopSound(soundID);
+        }
 
-private:
-    void log(const char* message)
-    {
-        // Code to log message...
-    }
+        virtual void StopAllSounds()
+        {
+            log("stop all sounds");
+            wrapped_.StopAllSounds();
+        }
 
-    Sound& wrapped_;
-};
+        virtual int LoadSound(const char* path) {
+            log("load sound");
+            wrapped_.LoadSound(path);
+            return 0;
+        }
+
+    private:
+        void log(const char* message)
+        {
+            message;
+        }
+
+        Sound& wrapped_;
+    };
+}

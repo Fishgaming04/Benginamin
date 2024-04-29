@@ -140,17 +140,17 @@ namespace dae {
 
 	void SoundSystem::PlaySoundEffect(const int soundID)
 	{
-		m_pImpl->PlaySoundEffect(soundID);
+		m_thread = std::jthread{ &SoundSystemImpl::PlaySoundEffect , m_pImpl, soundID };
 	}
 
 	void SoundSystem::StopSound(const int soundID)
 	{
-		m_pImpl->StopSound(soundID);
+		m_thread = std::jthread{ &SoundSystemImpl::StopSound , m_pImpl, soundID };
 	}
 
 	void SoundSystem::StopAllSounds()
 	{
-		m_pImpl->StopAllSounds();
+		m_thread = std::jthread{ &SoundSystemImpl::StopAllSounds , m_pImpl };
 	}
 
 	int SoundSystem::LoadSound(const char* path)
@@ -167,37 +167,38 @@ namespace dae {
 
 	void SoundSystem::SetVolume(int volume)
 	{
-		m_pImpl->SetVolume(volume);
+		m_thread = std::jthread{ &SoundSystemImpl::SetVolume, m_pImpl, volume };
 	}
 
 	void SoundSystem::SetMusicVolume(int volume)
 	{
-		m_pImpl->SetMusicVolume(volume);
+		m_thread = std::jthread{ &SoundSystemImpl::SetMusicVolume, m_pImpl, volume };
 	}
 
 	void SoundSystem::StopMusic()
 	{
-		m_pImpl->StopMusic();
+		m_thread = std::jthread{ &SoundSystemImpl::StopMusic, m_pImpl };
 	}
 
 	void SoundSystem::PauseMusic()
 	{
-		m_pImpl->PauseMusic();
+		m_thread = std::jthread{ &SoundSystemImpl::PauseMusic, m_pImpl };
 	}
 
 	void SoundSystem::ResumeMusic()
 	{
-		m_pImpl->ResumeMusic();
+	
+		m_thread = std::jthread{ &SoundSystemImpl::ResumeMusic , m_pImpl };
 	}
 
 	void SoundSystem::PauseSound(int channel)
 	{
-		m_pImpl->PauseSound(channel);
+		m_thread = std::jthread{ &SoundSystemImpl::PauseSound , m_pImpl , channel};
 	}
 	
 	void SoundSystem::ResumeSound(int channel)
 	{
-		m_pImpl->ResumeSound(channel);
+		m_thread = std::jthread{ &SoundSystemImpl::ResumeSound , m_pImpl , channel};
 	}
 
 }

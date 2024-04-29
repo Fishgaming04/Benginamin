@@ -1,7 +1,7 @@
 #pragma once
 #include "Sound.h"
 #include "SoundLogger.h"
-
+#include <memory>
 namespace dae {
 
     class SoundSingleton
@@ -11,7 +11,6 @@ namespace dae {
             }
 
         ~SoundSingleton() {
-			delete service_; 
         }
 
         //rule of 5
@@ -21,36 +20,14 @@ namespace dae {
         SoundSingleton& operator=(SoundSingleton&& other) = delete;        
 
 
-        static Sound& getAudio() { return *service_; }
+        static Sound& getAudio();
 
-        static void provide(Sound* service)
-        {
-            if (service == nullptr) {
-                // Revert to null service.
-                delete service_;
-                service_ = new NullAudio{};
-            }
-            else if (static_cast<LoggedAudio*>(service) != nullptr) {
-				// Already decorated.
-                service_ = service;
-			}
-            else {
-                delete service_;
-                service_ = service;
-            }
-        }
+        static void provide(std::unique_ptr<Sound>&& service);
 
-        static void enableAudioLogging()
-        {
-            // Decorate the existing service.
-            Sound* service = new LoggedAudio(service_);
-
-            // Swap it in.
-            SoundSingleton::provide(service);
-        }
+        static void enableAudioLogging();
 
     private:
-        static Sound* service_;
+        static std::unique_ptr<Sound> service_;
     };
 }
 

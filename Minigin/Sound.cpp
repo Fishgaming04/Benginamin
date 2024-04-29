@@ -47,12 +47,13 @@ namespace dae {
 
 	SoundSystem::SoundSystemImpl::~SoundSystemImpl(){
 
-		for (auto& pSound : m_pSound)
+		for (auto pSound : m_pSound)
 		{
 			Mix_FreeChunk(pSound);
 			delete pSound;
 			pSound = nullptr;
 		}
+		m_pSound.clear();
 		Mix_Quit();
 		SDL_Quit();
 	}

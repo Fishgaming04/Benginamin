@@ -5,15 +5,10 @@ namespace dae {
     class LoggedAudio : public Sound
     {
     public:
-        LoggedAudio(Sound* wrapped)
-            : wrapped_(wrapped)
+        LoggedAudio(std::unique_ptr<Sound> wrapped)
+            : wrapped_(std::move(wrapped))
         {}
 
-        ~LoggedAudio()
-        {
-			delete wrapped_;
-            wrapped_ = nullptr;
-		}
 
         virtual void PlaySoundEffect(const int soundID)
         {
@@ -76,6 +71,6 @@ namespace dae {
             std::cout << "LoggedAudio: " << message << "\n";
         }
 
-        Sound* wrapped_;
+        std::unique_ptr<Sound> wrapped_;
     };
 }

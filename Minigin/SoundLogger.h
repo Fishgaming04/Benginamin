@@ -7,10 +7,20 @@ namespace dae {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         LoggedAudio(std::unique_ptr<Sound> wrapped)
             : wrapped_(std::move(wrapped))
+=======
+        LoggedAudio(Sound* wrapped)
+            : wrapped_(wrapped)
+>>>>>>> parent of 2c02a82 (testing smartpointers)
         {}
 
+        ~LoggedAudio()
+        {
+			delete wrapped_;
+            wrapped_ = nullptr;
+		}
 
 =======
 =======
@@ -65,6 +75,7 @@ namespace dae {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         std::unique_ptr<Sound> wrapped_;
 =======
         Sound& wrapped_;
@@ -75,5 +86,8 @@ namespace dae {
 =======
         Sound& wrapped_;
 >>>>>>> parent of 03d3b21 (memory leaks but works)
+=======
+        Sound* wrapped_;
+>>>>>>> parent of 2c02a82 (testing smartpointers)
     };
 }

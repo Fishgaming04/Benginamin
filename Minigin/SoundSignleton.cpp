@@ -3,6 +3,7 @@
 namespace dae {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	std::unique_ptr<Sound> SoundSingleton::service_ = nullptr;
 
     Sound& SoundSingleton::getAudio()
@@ -47,3 +48,7 @@ namespace dae {
 	NullAudio SoundSingleton::nullService_{  };
 }
 >>>>>>> parent of 03d3b21 (memory leaks but works)
+=======
+	Sound* SoundSingleton::service_{ new NullAudio };
+}
+>>>>>>> parent of 2c02a82 (testing smartpointers)

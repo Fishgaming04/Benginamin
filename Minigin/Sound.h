@@ -8,7 +8,7 @@ namespace dae{
 
 	{
 	public:
-		virtual ~Sound() = default;
+		virtual ~Sound() {}
 
 		virtual void PlaySoundEffect(const int soundID) = 0;
 		virtual void StopSound(const int soundID) = 0;
@@ -20,9 +20,9 @@ namespace dae{
 	class NullAudio : public Sound
 	{
 	public:
-		virtual void PlaySoundEffect(const int) {};
-		virtual void StopSound(const int) {};
-		virtual void StopAllSounds() {};
+		virtual void PlaySoundEffect(const int) {}
+		virtual void StopSound(const int) {}
+		virtual void StopAllSounds(){}
 		virtual int LoadSound(const char*) { return 0; };
 		virtual void PlayMusic(const char*, const int) {};
 	};

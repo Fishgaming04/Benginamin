@@ -54,12 +54,11 @@ namespace dae {
 			pSound = nullptr;
 		}
 		Mix_Quit();
-		SDL_Quit();
 	}
 
 	void SoundSystem::SoundSystemImpl::PlaySoundEffect(const int soundID)
 	{
-		if (soundID < m_pSound.size())
+		if (soundID < static_cast<int>(m_pSound.size()))
 		{
 			Mix_Volume(-1, 128);
 			if (Mix_PlayChannel(-1, m_pSound[soundID], 0) == -1)

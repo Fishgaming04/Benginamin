@@ -2,6 +2,7 @@
 
 namespace dae {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	std::unique_ptr<Sound> SoundSingleton::service_ = nullptr;
 
     Sound& SoundSingleton::getAudio()
@@ -33,6 +34,10 @@ namespace dae {
         // Swap it in.
         SoundSingleton::provide(std::move(service));
     }
+=======
+	Sound* SoundSingleton::service_{ new NullAudio };
+	NullAudio SoundSingleton::nullService_{  };
+>>>>>>> parent of 03d3b21 (memory leaks but works)
 }
 =======
 	Sound* SoundSingleton::service_{ new NullAudio };

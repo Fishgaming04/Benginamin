@@ -53,6 +53,9 @@ namespace dae {
     private:
         static Sound* service_;
         static NullAudio nullService_;
+<<<<<<< HEAD
+>>>>>>> parent of 03d3b21 (memory leaks but works)
+=======
 >>>>>>> parent of 03d3b21 (memory leaks but works)
     };
 }

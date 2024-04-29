@@ -5,16 +5,22 @@ namespace dae {
     {
     public:
 <<<<<<< HEAD
+<<<<<<< HEAD
         LoggedAudio(std::unique_ptr<Sound> wrapped)
             : wrapped_(std::move(wrapped))
         {}
 
 
 =======
+=======
+>>>>>>> parent of 03d3b21 (memory leaks but works)
         LoggedAudio(Sound& wrapped)
             : wrapped_(wrapped)
         {}
 
+<<<<<<< HEAD
+>>>>>>> parent of 03d3b21 (memory leaks but works)
+=======
 >>>>>>> parent of 03d3b21 (memory leaks but works)
         virtual void PlaySoundEffect(const int soundID)
         {
@@ -51,7 +57,11 @@ namespace dae {
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         std::unique_ptr<Sound> wrapped_;
+=======
+        Sound& wrapped_;
+>>>>>>> parent of 03d3b21 (memory leaks but works)
 =======
         Sound& wrapped_;
 >>>>>>> parent of 03d3b21 (memory leaks but works)

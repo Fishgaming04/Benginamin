@@ -41,9 +41,15 @@ void load()
 {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	auto soundsystem = std::make_unique<SoundSystem>();
 	SoundSingleton::provide(std::move(soundsystem));
 	SoundSingleton::enableAudioLogging();
+=======
+	ConsoleAudio* soundsystem{ new ConsoleAudio{} };
+	soundsystem;
+	SoundSingleton::provide(soundsystem);
+>>>>>>> parent of 03d3b21 (memory leaks but works)
 =======
 	ConsoleAudio* soundsystem{ new ConsoleAudio{} };
 	soundsystem;
@@ -58,8 +64,13 @@ void load()
 
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//soundManager.PlayMusic("../Data/Music/06_SuperDrunk.mp3", -1);
 	//int sound = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
+=======
+	int sound = soundManager.LoadSound("../Data/Music/06_SuperDrunk.mp3");
+	int sound2 = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
+>>>>>>> parent of 03d3b21 (memory leaks but works)
 =======
 	int sound = soundManager.LoadSound("../Data/Music/06_SuperDrunk.mp3");
 	int sound2 = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
@@ -90,7 +101,11 @@ void load()
 	input.AddCommand(SDL_SCANCODE_X, buttonState::up, std::make_unique<IncreaseCounter>(Rotating2.get(), "Health", -10));
 	input.AddCommand(SDL_SCANCODE_C, buttonState::up, std::make_unique<IncreaseCounter>(Rotating2.get(), "Exp", 1));
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound));
+=======
+	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound2));
+>>>>>>> parent of 03d3b21 (memory leaks but works)
 =======
 	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound2));
 >>>>>>> parent of 03d3b21 (memory leaks but works)

@@ -40,32 +40,10 @@ using namespace dae;
 void load()
 {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	auto soundsystem = std::make_unique<SoundSystem>();
 	SoundSingleton::provide(std::move(soundsystem));
-=======
-	SoundSystem* soundsystem{ new SoundSystem{} };
-	SoundSingleton::provide(soundsystem);
->>>>>>> parent of 2c02a82 (testing smartpointers)
 	SoundSingleton::enableAudioLogging();
-=======
-	ConsoleAudio* soundsystem{ new ConsoleAudio{} };
-	soundsystem;
-	SoundSingleton::provide(soundsystem);
->>>>>>> parent of 03d3b21 (memory leaks but works)
-=======
-	ConsoleAudio* soundsystem{ new ConsoleAudio{} };
-	soundsystem;
-	SoundSingleton::provide(soundsystem);
->>>>>>> parent of 03d3b21 (memory leaks but works)
-=======
-	ConsoleAudio* soundsystem{ new ConsoleAudio{} };
-	soundsystem;
-	SoundSingleton::provide(soundsystem);
->>>>>>> parent of 03d3b21 (memory leaks but works)
+
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 	auto& recourceManager = dae::ResourceManager::GetInstance();
 	auto& soundManager = dae::SoundSingleton::getAudio();
@@ -73,29 +51,9 @@ void load()
 
 	auto gameObj = std::make_shared<dae::GameObject>();
 
-	
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	//soundManager.PlayMusic("../Data/Music/06_SuperDrunk.mp3", -1);
-	//int sound = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
-=======
-	int sound = soundManager.LoadSound("../Data/Music/06_SuperDrunk.mp3");
-	int sound2 = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
->>>>>>> parent of 03d3b21 (memory leaks but works)
-=======
-	int sound = soundManager.LoadSound("../Data/Music/06_SuperDrunk.mp3");
-	int sound2 = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
->>>>>>> parent of 03d3b21 (memory leaks but works)
-=======
-	int sound = soundManager.LoadSound("../Data/Music/06_SuperDrunk.mp3");
-	int sound2 = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
->>>>>>> parent of 03d3b21 (memory leaks but works)
-=======
 	soundManager.PlayMusic("../Data/Music/06_SuperDrunk.mp3", -1);
 	int sound = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
->>>>>>> parent of 2c02a82 (testing smartpointers)
+
 
 	auto Rotating1 = std::make_shared<dae::GameObject>();
 	Rotating1 = std::make_shared<dae::GameObject>();
@@ -121,24 +79,8 @@ void load()
 	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<MoveCommand>(Rotating2.get(), glm::vec3(1, 0, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_X, buttonState::up, std::make_unique<IncreaseCounter>(Rotating2.get(), "Health", -10));
 	input.AddCommand(SDL_SCANCODE_C, buttonState::up, std::make_unique<IncreaseCounter>(Rotating2.get(), "Exp", 1));
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	//input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound));
-=======
-	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound2));
->>>>>>> parent of 03d3b21 (memory leaks but works)
-=======
-	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound2));
->>>>>>> parent of 03d3b21 (memory leaks but works)
-=======
-	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound2));
->>>>>>> parent of 03d3b21 (memory leaks but works)
-=======
 	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound));
->>>>>>> parent of 2c02a82 (testing smartpointers)
-	scene.Add(Rotating2);
+
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	gameObj = std::make_shared<dae::GameObject>();
@@ -181,8 +123,6 @@ void load()
 	gameObj->setLocalPosition(20, 140, 0);
 	scene.Add(gameObj);
 
-	
-	soundManager.PlaySoundEffect(sound);
 }
 
 

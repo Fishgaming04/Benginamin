@@ -8,9 +8,9 @@ namespace dae {
         if (service_ == nullptr)
         {
             service_ = std::make_unique<NullAudio>();
-            return *service_;
+            return *service_.get();
         }
-        return *service_;
+        return *service_.get();
     }
 
     void SoundSingleton::provide(std::unique_ptr<Sound> service)
@@ -28,7 +28,7 @@ namespace dae {
     void SoundSingleton::enableAudioLogging()
     {
         // Create a new LoggedAudio object that wraps the existing service_.
-        std::unique_ptr<Sound> service = std::make_unique<LoggedAudio>(*service_);
+        std::unique_ptr<Sound> service = std::make_unique<LoggedAudio>(std::move(service_));
         // Swap it in.
         SoundSingleton::provide(std::move(service));
     }

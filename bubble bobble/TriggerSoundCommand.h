@@ -23,5 +23,4 @@ namespace dae {
 		int m_SoundID;
 		Sound& m_pSoundService;
 	};
-
 }

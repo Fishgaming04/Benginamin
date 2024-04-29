@@ -26,48 +26,12 @@ namespace dae {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		private:
-			const unsigned int m_ControllerIndex;
-			XINPUT_STATE previousState;
-			XINPUT_STATE currentState;
-			unsigned int buttonsPressedThisFrame;
-			unsigned int buttonsReleasedThisFrame;
+	private:
+		const unsigned int m_ControllerIndex;
+		XINPUT_STATE previousState;
+		XINPUT_STATE currentState;
+		unsigned int buttonsPressedThisFrame;
+		unsigned int buttonsReleasedThisFrame;
 	};
 
 

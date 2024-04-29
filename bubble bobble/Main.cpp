@@ -1,10 +1,3 @@
-#if _DEBUG
-#if __has_include(<vld.h>)
-#include <vld.h>
-#endif
-#endif
-
-
 #include <SDL.h>
 
 #if _DEBUG
@@ -40,9 +33,9 @@ using namespace dae;
 void load()
 {
 
-	ConsoleAudio* soundsystem{ new ConsoleAudio{} };
-	soundsystem;
+	SoundSystem* soundsystem{ new SoundSystem{} };
 	SoundSingleton::provide(soundsystem);
+	SoundSingleton::enableAudioLogging();
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 	auto& recourceManager = dae::ResourceManager::GetInstance();
 	auto& soundManager = dae::SoundSingleton::getAudio();
@@ -51,8 +44,8 @@ void load()
 	auto gameObj = std::make_shared<dae::GameObject>();
 
 	
-	int sound = soundManager.LoadSound("../Data/Music/06_SuperDrunk.mp3");
-	int sound2 = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
+	soundManager.PlayMusic("../Data/Music/06_SuperDrunk.mp3", -1);
+	int sound = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
 
 	auto Rotating1 = std::make_shared<dae::GameObject>();
 	Rotating1 = std::make_shared<dae::GameObject>();
@@ -78,7 +71,7 @@ void load()
 	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<MoveCommand>(Rotating2.get(), glm::vec3(1, 0, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_X, buttonState::up, std::make_unique<IncreaseCounter>(Rotating2.get(), "Health", -10));
 	input.AddCommand(SDL_SCANCODE_C, buttonState::up, std::make_unique<IncreaseCounter>(Rotating2.get(), "Exp", 1));
-	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound2));
+	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound));
 	scene.Add(Rotating2);
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
@@ -122,8 +115,6 @@ void load()
 	gameObj->setLocalPosition(20, 140, 0);
 	scene.Add(gameObj);
 
-	
-	soundManager.PlaySoundEffect(sound);
 }
 
 

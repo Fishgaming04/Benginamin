@@ -8,7 +8,7 @@ namespace dae {
     {
     public:
         static void initialize() {
-            service_ = &nullService_; }
+            }
 
         ~SoundSingleton() {
 			delete service_; 
@@ -27,17 +27,23 @@ namespace dae {
         {
             if (service == nullptr) {
                 // Revert to null service.
-                service_ = &nullService_;
+                delete service_;
+                service_ = new NullAudio{};
             }
+            else if (static_cast<LoggedAudio*>(service) != nullptr) {
+				// Already decorated.
+                service_ = service;
+			}
             else {
+                delete service_;
                 service_ = service;
             }
         }
 
-        void enableAudioLogging()
+        static void enableAudioLogging()
         {
             // Decorate the existing service.
-            Sound* service = new LoggedAudio(SoundSingleton::getAudio());
+            Sound* service = new LoggedAudio(service_);
 
             // Swap it in.
             SoundSingleton::provide(service);
@@ -45,7 +51,6 @@ namespace dae {
 
     private:
         static Sound* service_;
-        static NullAudio nullService_;
     };
 }
 

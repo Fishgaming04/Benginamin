@@ -1,22 +1,19 @@
 #include "SoundSignleton.h"
 
 namespace dae {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	std::unique_ptr<Sound> SoundSingleton::service_ = nullptr;
+        std::unique_ptr<Sound> SoundSingleton::service_ = nullptr;
 
     Sound& SoundSingleton::getAudio()
     {
-		if (service_ == nullptr)
+        if (service_ == nullptr)
         {
-			service_ = std::make_unique<NullAudio>();
-			return *service_;
-		}
-		return *service_;
+            service_ = std::make_unique<NullAudio>();
+            return *service_;
+        }
+        return *service_;
     }
 
-    void SoundSingleton::provide(std::unique_ptr<Sound>&& service)
+    void SoundSingleton::provide(std::unique_ptr<Sound> service)
     {
         if (service_ == nullptr) {
             // Revert to null service.
@@ -24,7 +21,7 @@ namespace dae {
         }
         else {
             // Create a new LoggedAudio object that wraps the existing service_.
-            service_ = std::make_unique<LoggedAudio>(std::move(service_));
+            service_ = std::move(service_);
         }
     }
 
@@ -35,20 +32,4 @@ namespace dae {
         // Swap it in.
         SoundSingleton::provide(std::move(service));
     }
-=======
-	Sound* SoundSingleton::service_{ new NullAudio };
-	NullAudio SoundSingleton::nullService_{  };
-<<<<<<< HEAD
->>>>>>> parent of 03d3b21 (memory leaks but works)
-=======
->>>>>>> parent of 03d3b21 (memory leaks but works)
 }
-=======
-	Sound* SoundSingleton::service_{ new NullAudio };
-	NullAudio SoundSingleton::nullService_{  };
-}
->>>>>>> parent of 03d3b21 (memory leaks but works)
-=======
-	Sound* SoundSingleton::service_{ new NullAudio };
-}
->>>>>>> parent of 2c02a82 (testing smartpointers)

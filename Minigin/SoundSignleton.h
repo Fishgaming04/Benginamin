@@ -8,7 +8,7 @@ namespace dae {
     {
     public:
         static void initialize() {
-            }
+            service_ = &nullService_; }
 
         ~SoundSingleton() {
         }
@@ -20,14 +20,40 @@ namespace dae {
         SoundSingleton& operator=(SoundSingleton&& other) = delete;        
 
 
-        static Sound& getAudio();
+        static Sound& getAudio() { return *service_; }
 
-        static void provide(std::unique_ptr<Sound>&& service);
+<<<<<<< HEAD
+        static void provide(std::unique_ptr<Sound> service);
 
         static void enableAudioLogging();
 
     private:
         static std::unique_ptr<Sound> service_;
+=======
+        static void provide(Sound* service)
+        {
+            if (service == nullptr) {
+                // Revert to null service.
+                service_ = &nullService_;
+            }
+            else {
+                service_ = service;
+            }
+        }
+
+        void enableAudioLogging()
+        {
+            // Decorate the existing service.
+            Sound* service = new LoggedAudio(SoundSingleton::getAudio());
+
+            // Swap it in.
+            SoundSingleton::provide(service);
+        }
+
+    private:
+        static Sound* service_;
+        static NullAudio nullService_;
+>>>>>>> parent of 03d3b21 (memory leaks but works)
     };
 }
 

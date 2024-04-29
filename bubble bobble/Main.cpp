@@ -1,3 +1,10 @@
+#if _DEBUG
+#if __has_include(<vld.h>)
+#include <vld.h>
+#endif
+#endif
+
+
 #include <SDL.h>
 
 #if _DEBUG
@@ -33,9 +40,15 @@ using namespace dae;
 void load()
 {
 
-	auto soundsystem = std::make_unique<SoundSystem>(SoundSystem{});
+<<<<<<< HEAD
+	auto soundsystem = std::make_unique<SoundSystem>();
 	SoundSingleton::provide(std::move(soundsystem));
 	SoundSingleton::enableAudioLogging();
+=======
+	ConsoleAudio* soundsystem{ new ConsoleAudio{} };
+	soundsystem;
+	SoundSingleton::provide(soundsystem);
+>>>>>>> parent of 03d3b21 (memory leaks but works)
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 	auto& recourceManager = dae::ResourceManager::GetInstance();
 	//auto& soundManager = dae::SoundSingleton::getAudio();
@@ -44,8 +57,13 @@ void load()
 	auto gameObj = std::make_shared<dae::GameObject>();
 
 	
+<<<<<<< HEAD
 	//soundManager.PlayMusic("../Data/Music/06_SuperDrunk.mp3", -1);
 	//int sound = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
+=======
+	int sound = soundManager.LoadSound("../Data/Music/06_SuperDrunk.mp3");
+	int sound2 = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
+>>>>>>> parent of 03d3b21 (memory leaks but works)
 
 	auto Rotating1 = std::make_shared<dae::GameObject>();
 	Rotating1 = std::make_shared<dae::GameObject>();
@@ -71,7 +89,11 @@ void load()
 	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<MoveCommand>(Rotating2.get(), glm::vec3(1, 0, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_X, buttonState::up, std::make_unique<IncreaseCounter>(Rotating2.get(), "Health", -10));
 	input.AddCommand(SDL_SCANCODE_C, buttonState::up, std::make_unique<IncreaseCounter>(Rotating2.get(), "Exp", 1));
+<<<<<<< HEAD
 	//input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound));
+=======
+	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound2));
+>>>>>>> parent of 03d3b21 (memory leaks but works)
 	scene.Add(Rotating2);
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
@@ -115,6 +137,8 @@ void load()
 	gameObj->setLocalPosition(20, 140, 0);
 	scene.Add(gameObj);
 
+	
+	soundManager.PlaySoundEffect(sound);
 }
 
 

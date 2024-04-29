@@ -1,34 +1,11 @@
 #include "Sound.h"
+#include "Sound.h"
 #include <iostream>
 #include <SDL.h>
 
 namespace dae {
 
-	class SoundSystem::SoundSystemImpl
-	{
-	public:
-		SoundSystemImpl();
-		~SoundSystemImpl();
-
-		virtual void PlaySoundEffect(const int soundID) ;
-		virtual void StopSound(const int soundID) ;
-		virtual void StopAllSounds() ;
-		virtual void LoadSound(const char* path, int& soundID) ;
-		virtual void PlayMusic(const char* path, const int loops = -1) ;
-		virtual void SetVolume(int volume)  { Mix_Volume(-1, volume); }
-		virtual void SetMusicVolume(int volume)  { Mix_VolumeMusic(volume); }
-		virtual void StopMusic()  { Mix_HaltMusic(); }
-		virtual void PauseMusic()  { Mix_PauseMusic(); }
-		virtual void ResumeMusic()  { Mix_ResumeMusic(); }
-		virtual void PauseSound(int channel)  { Mix_Pause(channel); }
-		virtual void ResumeSound(int channel)  { Mix_Resume(channel); }
-
-	private:
-		std::vector<Mix_Chunk*> m_pSound;
-	};
-
-
-	SoundSystem::SoundSystemImpl::SoundSystemImpl()
+	ConsoleAudio::ConsoleAudio()
 	{
 		if (SDL_Init(SDL_INIT_AUDIO) == -1) {
 			std::cout << "SDL_Init: " << SDL_GetError() << "\n";
@@ -45,7 +22,7 @@ namespace dae {
 
 	}
 
-	SoundSystem::SoundSystemImpl::~SoundSystemImpl(){
+	ConsoleAudio::~ConsoleAudio(){
 
 		for (auto pSound : m_pSound)
 		{
@@ -58,12 +35,12 @@ namespace dae {
 		SDL_Quit();
 	}
 
-	void SoundSystem::SoundSystemImpl::PlaySoundEffect(const int soundID)
+	void ConsoleAudio::PlaySoundEffect(const int soundID)
 	{
 		if (soundID < m_pSound.size())
 		{
 			Mix_Volume(-1, 128); 
-			if (Mix_PlayChannel(-1, m_pSound[soundID], 0) == -1)
+			if (!Mix_PlayChannel(-1, m_pSound[soundID], 0))
 			{
 				std::cout << "SoundID: " << soundID << " failed to play\n";
 			}
@@ -74,37 +51,31 @@ namespace dae {
 		}
 	}
 
-	void SoundSystem::SoundSystemImpl::StopSound(const int soundID)
+	void ConsoleAudio::StopSound(const int soundID)
 	{
-		Mix_HaltChannel(soundID);
+		soundID;
 	}
 
-	void SoundSystem::SoundSystemImpl::StopAllSounds()
+	void ConsoleAudio::StopAllSounds()
 	{
-		StopSound(-1);
 	}
 
 
-	void SoundSystem::SoundSystemImpl::LoadSound(const char* path, int& soundID)
+	int ConsoleAudio::LoadSound(const char* path)
 	{
 		if (path == nullptr)
 		{
 			std::cout << "Path is null\n";
-			return;
+			return 0;
 		}
 		else
 		{
 			m_pSound.push_back(Mix_LoadWAV(path));
-			soundID = static_cast<int>(m_pSound.size() - 1);
-			if (m_pSound.back() == nullptr)
-			{
-				std::cout << "Failed to load sound: " << path << " SDL_mixer Error: " << Mix_GetError() << "\n";
-			}
-			return;
+			return static_cast<int>(m_pSound.size() - 1);
 		}
 	}
 
-	void SoundSystem::SoundSystemImpl::PlayMusic(const char* path, const int loops)
+	void ConsoleAudio::PlayMusic(const char* path, const int loops)
 	{
 		if (path == nullptr)
 		{
@@ -122,83 +93,6 @@ namespace dae {
 				Mix_PlayMusic(music, loops);
 			}
 		}
-	}
-	
-
-
-
-
-	SoundSystem::SoundSystem()
-		: m_pImpl{ new SoundSystemImpl() }
-	{
-	}
-
-	SoundSystem::~SoundSystem()
-	{
-		delete m_pImpl;
-		m_pImpl = nullptr;
-	}
-
-	void SoundSystem::PlaySoundEffect(const int soundID)
-	{
-		m_pImpl->PlaySoundEffect(soundID);
-	}
-
-	void SoundSystem::StopSound(const int soundID)
-	{
-		m_pImpl->StopSound(soundID);
-	}
-
-	void SoundSystem::StopAllSounds()
-	{
-		m_pImpl->StopAllSounds();
-	}
-
-	int SoundSystem::LoadSound(const char* path)
-	{
-		int soundID;
-		m_thread = std::jthread{ &SoundSystemImpl::LoadSound, m_pImpl , path, std::ref(soundID)};
-		return soundID;
-	}
-
-	void SoundSystem::PlayMusic(const char* path, const int loops)
-	{
-		m_thread = std::jthread{ &SoundSystemImpl::PlayMusic, m_pImpl, path, loops };
-	}
-
-	void SoundSystem::SetVolume(int volume)
-	{
-		m_pImpl->SetVolume(volume);
-	}
-
-	void SoundSystem::SetMusicVolume(int volume)
-	{
-		m_pImpl->SetMusicVolume(volume);
-	}
-
-	void SoundSystem::StopMusic()
-	{
-		m_pImpl->StopMusic();
-	}
-
-	void SoundSystem::PauseMusic()
-	{
-		m_pImpl->PauseMusic();
-	}
-
-	void SoundSystem::ResumeMusic()
-	{
-		m_pImpl->ResumeMusic();
-	}
-
-	void SoundSystem::PauseSound(int channel)
-	{
-		m_pImpl->PauseSound(channel);
-	}
-	
-	void SoundSystem::ResumeSound(int channel)
-	{
-		m_pImpl->ResumeSound(channel);
 	}
 
 }

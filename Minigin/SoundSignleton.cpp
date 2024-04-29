@@ -37,6 +37,9 @@ namespace dae {
 =======
 	Sound* SoundSingleton::service_{ new NullAudio };
 	NullAudio SoundSingleton::nullService_{  };
+<<<<<<< HEAD
+>>>>>>> parent of 03d3b21 (memory leaks but works)
+=======
 >>>>>>> parent of 03d3b21 (memory leaks but works)
 }
 =======

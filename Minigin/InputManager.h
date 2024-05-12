@@ -8,6 +8,7 @@
 #include "ControllerInput.h"
 #include "KeyboardInput.h"
 #include <memory>
+#include "StateMachine.h"
 #pragma comment(lib, "xinput.lib")
 
 
@@ -27,8 +28,10 @@ namespace dae
 
 		void AddCommand(const ControllerInput::controllerButtons button, const buttonState state, std::unique_ptr<Command>, const unsigned int controllerIndex);
 		void AddCommand(const SDL_Scancode key, const buttonState state, std::unique_ptr<Command> command);
+		//void AddStateMachine(std::unique_ptr<StateMachine> stateMachine);
 		void RemoveCommand(const ControllerInput::controllerButtons button, const buttonState state, const unsigned int controllerIndex);
 		void RemoveCommand(const SDL_Scancode key, const buttonState state);
+		//void RemoveStateMachine(StateMachine* stateMachine);
 
 		unsigned int AddController();
 
@@ -52,8 +55,9 @@ namespace dae
 		using KeyboardKeyState		= std::pair<SDL_Keycode, buttonState>;
 		using KeyboardCommands		= std::map<KeyboardKeyState, std::unique_ptr<Command>>;
 
-		KeyboardCommands m_KeyboardCommands{};
+		//std::vector<std::unique_ptr<StateMachine>> m_StateMachines{};
 
+		KeyboardCommands m_KeyboardCommands{};
 
 		KeyboardInput m_Keyboard{};
 	

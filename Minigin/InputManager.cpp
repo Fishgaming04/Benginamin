@@ -88,6 +88,14 @@ void dae::InputManager::AddCommand(const SDL_Scancode key, const buttonState sta
 	m_KeyboardCommands.insert(std::make_pair(keyState, std::move(command)));
 }
 
+//void dae::InputManager::AddStateMachine(std::unique_ptr<StateMachine> stateMachine)
+//{
+//	if (stateMachine)
+//	{
+//		m_StateMachines.push_back(std::move(stateMachine));
+//	}
+//}
+
 void dae::InputManager::RemoveCommand(const ControllerInput::controllerButtons button, const buttonState state, const unsigned int controllerIndex)
 {
 
@@ -101,6 +109,14 @@ void dae::InputManager::RemoveCommand(const SDL_Scancode key, const buttonState 
 	KeyboardKeyState keyState = std::make_pair(key, state);
 	m_KeyboardCommands.erase(keyState);
 }
+
+//void dae::InputManager::RemoveStateMachine(StateMachine* stateMachine)
+//{
+//	if (!stateMachine)
+//	{
+//		m_StateMachines.erase(std::find_if(m_StateMachines.begin(), m_StateMachines.end(), [stateMachine](std::unique_ptr<StateMachine>& state) {return state.get() == stateMachine; }));
+//	}
+//}
 
 unsigned int dae::InputManager::AddController()
 {

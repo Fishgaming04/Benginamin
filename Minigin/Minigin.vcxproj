@@ -206,6 +206,7 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundLogger.h" />
     <ClInclude Include="SoundSignleton.h" />
+    <ClInclude Include="StateMachine.h" />
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TextureComponent.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundLogger.cpp" />
     <ClCompile Include="SoundSignleton.cpp" />
+    <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TextureComponent.cpp" />

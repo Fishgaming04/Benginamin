@@ -28,14 +28,11 @@ namespace dae {
 		virtual void Execute(float) override = 0;
 		virtual void SetState(State* state);
 		virtual void setStateMachine(StateMachine* stateMachine);
-		void setGameObject(GameObject* gameObject);
 		State* GetState();
 		StateMachine* GetStateMachine();
-		GameObject* GetGameObject();
 	private:
 		State* m_StatePtr;
 		StateMachine* m_StateMachinePtr;
-		GameObject* m_GameObjPtr;
 	};
 
 	class MoveCommand final : public Command

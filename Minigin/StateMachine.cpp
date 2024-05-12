@@ -13,30 +13,30 @@
 //    }
 //}
 
-void dae::StateMachine::update(GameObject& gameObject)
+void dae::StateMachine::update()
 {
-    State* state = m_State->update(gameObject);
+    State* state = m_State->update(*GetGameObject());
     if (state != NULL)
     {
-		m_State->exit(gameObject);
+		m_State->exit(*GetGameObject());
         delete m_State;
         m_State = state;
 
         // Call the enter action on the new state.
-        m_State->enter(gameObject);
+        m_State->enter(*GetGameObject());
     }
 }
 
-void dae::StateMachine::SetState(State* state, GameObject& gameObject)
+void dae::StateMachine::SetState(State* state)
 {
 	if (m_State){
-		m_State->exit(gameObject);
+		m_State->exit(*GetGameObject());
 	}
 
 	m_State = state;
     
     if (m_State) {
-	    m_State->enter(gameObject);
+	    m_State->enter(*GetGameObject());
     }
 }
 

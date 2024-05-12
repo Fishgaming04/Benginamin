@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Components.h"
 namespace dae {
 
 	class State
@@ -12,12 +13,14 @@ namespace dae {
 		virtual void exit(GameObject& ) {}
 	};
 
-	class StateMachine
+
+
+	class StateMachine : public UpdatingComponent
 	{
 	public:
 		//virtual void handleInput(GameObject& gameObject);
-		virtual void update(GameObject& gameObject);
-		void SetState(State* state, GameObject& gameObject);
+		virtual void update();
+		void SetState(State* state);
 		State* GetState();
 		~StateMachine();
 	private:

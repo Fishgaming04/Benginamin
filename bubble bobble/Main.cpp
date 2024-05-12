@@ -32,6 +32,8 @@
 #include "CounterComponentObserver.h"
 #include "SoundSignleton.h"
 #include "TriggerSoundCommand.h"
+#include "BubStates.h"
+#include "StateMachine.h"
 
 using namespace dae;
 
@@ -54,30 +56,31 @@ void load()
 	int sound = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
 
 
-	auto Rotating1 = std::make_shared<dae::GameObject>();
-	Rotating1 = std::make_shared<dae::GameObject>();
-	Rotating1->AddComponent<dae::TextureComponent>();
-	Rotating1->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character1.png"));
+	auto Bub = std::make_shared<dae::GameObject>();
+	Bub = std::make_shared<dae::GameObject>();
+	Bub->AddComponent<dae::TextureComponent>();
+	Bub->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character2.png"));
 	unsigned int controllerIndex = input.AddController();
-	input.AddCommand(ControllerInput::controllerButtons::DPAD_DOWN, buttonState::heldDown, std::make_unique<MoveCommand>(Rotating1.get(), glm::vec3(0, 1, 0), 200.0f), controllerIndex);
-	input.AddCommand(ControllerInput::controllerButtons::DPAD_UP, buttonState::heldDown, std::make_unique<MoveCommand>(Rotating1.get(), glm::vec3(0, -1, 0), 200.0f), controllerIndex);
-	input.AddCommand(ControllerInput::controllerButtons::DPAD_LEFT, buttonState::heldDown, std::make_unique<MoveCommand>(Rotating1.get(), glm::vec3(-1, 0, 0), 200.0f), controllerIndex);
-	input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT, buttonState::heldDown, std::make_unique<MoveCommand>(Rotating1.get(), glm::vec3(1, 0, 0), 200.0f), controllerIndex);
-	scene.Add(Rotating1);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_DOWN, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(0, 1, 0), 200.0f), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_UP, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(0, -1, 0), 200.0f), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_LEFT, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(-1, 0, 0), 200.0f), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(1, 0, 0), 200.0f), controllerIndex);
+	scene.Add(Bub);
 
-	auto Rotating2 = std::make_shared<dae::GameObject>();
-	Rotating2 = std::make_shared<dae::GameObject>();
-	Rotating2->AddComponent<dae::TextureComponent>();
-	Rotating2->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character2.png"));
-	Rotating2->AddComponent<dae::CounterComponent>();
-	Rotating2->GetComponent<dae::CounterComponent>()->SetCounter("Health", 100);
-	Rotating2->GetComponent<dae::CounterComponent>()->SetCounter("Exp", 0);
-	input.AddCommand(SDL_SCANCODE_S, buttonState::heldDown, std::make_unique<MoveCommand>(Rotating2.get(), glm::vec3(0, 1, 0), 100.0f));
-	input.AddCommand(SDL_SCANCODE_W, buttonState::heldDown, std::make_unique<MoveCommand>(Rotating2.get(), glm::vec3(0, -1, 0), 100.0f));
-	input.AddCommand(SDL_SCANCODE_A, buttonState::heldDown, std::make_unique<MoveCommand>(Rotating2.get(), glm::vec3(-1, 0, 0), 100.0f));
-	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<MoveCommand>(Rotating2.get(), glm::vec3(1, 0, 0), 100.0f));
-	input.AddCommand(SDL_SCANCODE_X, buttonState::up, std::make_unique<IncreaseCounter>(Rotating2.get(), "Health", -10));
-	input.AddCommand(SDL_SCANCODE_C, buttonState::up, std::make_unique<IncreaseCounter>(Rotating2.get(), "Exp", 1));
+	auto bob = std::make_shared<dae::GameObject>();
+	bob = std::make_shared<dae::GameObject>();
+	bob->AddComponent<dae::TextureComponent>();
+	bob->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character1.png"));
+	bob->AddComponent<dae::CounterComponent>();
+	bob->GetComponent<dae::CounterComponent>()->SetCounter("Health", 100);
+	bob->GetComponent<dae::CounterComponent>()->SetCounter("Exp", 0);
+	input.AddCommand(SDL_SCANCODE_S, buttonState::heldDown, std::make_unique<MoveCommand>(bob.get(), glm::vec3(0, 1, 0), 100.0f));
+	input.AddCommand(SDL_SCANCODE_W, buttonState::heldDown, std::make_unique<MoveCommand>(bob.get(), glm::vec3(0, -1, 0), 100.0f));
+	input.AddCommand(SDL_SCANCODE_A, buttonState::heldDown, std::make_unique<MoveCommand>(bob.get(), glm::vec3(-1, 0, 0), 100.0f));
+	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<MoveCommand>(bob.get(), glm::vec3(1, 0, 0), 100.0f));
+
+	input.AddCommand(SDL_SCANCODE_X, buttonState::up, std::make_unique<IncreaseCounter>(bob.get(), "Health", -10));
+	input.AddCommand(SDL_SCANCODE_C, buttonState::up, std::make_unique<IncreaseCounter>(bob.get(), "Exp", 1));
 	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound));
 
 
@@ -98,12 +101,12 @@ void load()
 	gameObj->AddComponent<dae::TextComponent>();
 	gameObj->GetComponent<dae::TextComponent>()->SetFont(font);
 	std::string prefix = "Health: ";
-	gameObj->GetComponent<dae::TextComponent>()->SetText(prefix + std::to_string(Rotating2->GetComponent<dae::CounterComponent>()->GetCounter("Health")));
+	gameObj->GetComponent<dae::TextComponent>()->SetText(prefix + std::to_string(bob->GetComponent<dae::CounterComponent>()->GetCounter("Health")));
 	gameObj->GetComponent<dae::TextComponent>()->SetColor(SDL_Color{ 0, 255, 0, 255 });
 	gameObj->AddComponent<dae::CounterComponentObserver>();
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetCounter("Health");
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetPrefix(prefix);
-	gameObj->GetComponent<dae::CounterComponentObserver>()->SetIsWatching(Rotating2.get());
+	gameObj->GetComponent<dae::CounterComponentObserver>()->SetIsWatching(bob.get());
 	gameObj->setLocalPosition(20, 100, 0);
 	scene.Add(gameObj);
 
@@ -113,12 +116,12 @@ void load()
 	gameObj->AddComponent<dae::TextComponent>();
 	gameObj->GetComponent<dae::TextComponent>()->SetFont(font);
 	std::string prefixExp = "Exp: ";
-	gameObj->GetComponent<dae::TextComponent>()->SetText(prefixExp + std::to_string(Rotating2->GetComponent<dae::CounterComponent>()->GetCounter("Exp")));
+	gameObj->GetComponent<dae::TextComponent>()->SetText(prefixExp + std::to_string(bob->GetComponent<dae::CounterComponent>()->GetCounter("Exp")));
 	gameObj->GetComponent<dae::TextComponent>()->SetColor(SDL_Color{ 0, 255, 0, 255 });
 	gameObj->AddComponent<dae::CounterComponentObserver>();
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetCounter("Exp");
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetPrefix(prefixExp);
-	gameObj->GetComponent<dae::CounterComponentObserver>()->SetIsWatching(Rotating2.get());
+	gameObj->GetComponent<dae::CounterComponentObserver>()->SetIsWatching(bob.get());
 	gameObj->setLocalPosition(20, 140, 0);
 	scene.Add(gameObj);
 

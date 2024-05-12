@@ -75,10 +75,6 @@ namespace dae {
 		m_StateMachinePtr = stateMachine;
 	}
 
-	void StateCommand::setGameObject(GameObject* gameObject)
-	{
-		m_GameObjPtr = gameObject;
-	}
 	
 	State* StateCommand::GetState()
 	{
@@ -90,8 +86,5 @@ namespace dae {
 		return m_StateMachinePtr;
 	}
 
-	GameObject* StateCommand::GetGameObject()
-	{
-		return m_GameObjPtr;
-	}
+
 }

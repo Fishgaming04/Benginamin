@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 #include <string>
+#include "StateMachine.h"
+
 namespace dae {
 	
 	class Command
@@ -16,6 +18,21 @@ namespace dae {
 		Command& operator=(const Command& other) = delete;
 		Command& operator=(Command&& other) = delete;
 
+
+	};
+
+	class StateCommand : public Command
+	{
+	public:
+		virtual ~StateCommand() override;
+		virtual void Execute(float) override = 0;
+		virtual void SetState(State* state);
+		virtual void setStateMachine(StateMachine* stateMachine);
+		State* GetState();
+		StateMachine* GetStateMachine();
+	private:
+		State* m_StatePtr;
+		StateMachine* m_StateMachinePtr;
 
 	};
 

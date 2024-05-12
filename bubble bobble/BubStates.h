@@ -6,7 +6,7 @@ namespace dae {
 	{
 	public:
 		virtual ~BubState() override;
-		virtual State* handleInput(GameObject& gameObject) override ;
+		//virtual State* handleInput(GameObject& gameObject) override ;
 		virtual State* update(GameObject& gameObject) override;
 		virtual void enter(GameObject& gameObject) override;
 	private:

@@ -22,11 +22,13 @@
     <ClCompile Include="..\Minigin\CounterComponent.cpp" />
     <ClCompile Include="..\Minigin\CounterComponentObserver.cpp" />
     <ClCompile Include="..\Minigin\OrbitParentComponent.cpp" />
+    <ClCompile Include="BubCommands.cpp" />
     <ClCompile Include="BubStates.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TriggerSoundCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BubCommands.h" />
     <ClInclude Include="BubStates.h" />
     <ClInclude Include="TriggerSoundCommand.h" />
   </ItemGroup>

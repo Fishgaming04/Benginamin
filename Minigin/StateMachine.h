@@ -6,15 +6,16 @@ namespace dae {
 	{
 	public:
 		virtual ~State() {}
-		virtual State* handleInput(GameObject& gameObject) {};
-		virtual State* update(GameObject& gameObject) {};
-		virtual void enter(GameObject& gameObject) {};
+		//virtual State* handleInput(GameObject& gameObject) {};
+		virtual State* update(GameObject& ) {};
+		virtual void enter(GameObject& ) {};
+		virtual void exit(GameObject& ) {}
 	};
 
 	class StateMachine
 	{
 	public:
-		virtual void handleInput(GameObject& gameObject);
+		//virtual void handleInput(GameObject& gameObject);
 		virtual void update(GameObject& gameObject);
 		void SetState(State* state, GameObject& gameObject);
 		State* GetState();

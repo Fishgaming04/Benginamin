@@ -44,8 +44,44 @@ namespace dae {
 		int count = GetGameObject()->GetComponent<CounterComponent>()->GetCounter(m_Counter);
 		GetGameObject()->GetComponent<CounterComponent>()->SetCounter(m_Counter, count + m_CounterIncreaseStep);
 	}
+
 	GameObject* IncreaseCounter::GetGameObject()
 	{
 		return m_GameObjPtr;
+	}
+
+	StateCommand::~StateCommand()
+	{
+		if (m_StatePtr)
+		{
+			delete m_StatePtr;
+			m_StatePtr = nullptr;
+		}
+		m_StateMachinePtr = nullptr;
+	}
+
+	void StateCommand::SetState(State* state)
+	{
+		if (m_StatePtr)
+		{
+			delete m_StatePtr;
+		}
+		m_StatePtr = state;
+
+	}
+	
+	void StateCommand::setStateMachine(StateMachine* stateMachine)
+	{
+		m_StateMachinePtr = stateMachine;
+	}
+	
+	State* StateCommand::GetState()
+	{
+		return m_StatePtr;
+	}
+
+	StateMachine* StateCommand::GetStateMachine()
+	{
+		return m_StateMachinePtr;
 	}
 }

@@ -19,7 +19,6 @@
 #include "sceneManager.h"
 #include "Minigin.h"
 #include "SceneManager.h"
-#include "ResourceManager.h"
 #include "TextComponent.h"
 #include "TextureComponent.h"
 #include "Scene.h"

@@ -48,10 +48,16 @@
     <ClCompile Include="TriggerSoundCommand.cpp">
       <Filter>Source Files\Commands</Filter>
     </ClCompile>
+    <ClCompile Include="BubStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TriggerSoundCommand.h">
       <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BubStates.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

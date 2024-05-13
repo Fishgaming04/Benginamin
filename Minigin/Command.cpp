@@ -50,40 +50,22 @@ namespace dae {
 		return m_GameObjPtr;
 	}
 
+	StateCommand::StateCommand(GameObject* object)
+		:Command()
+		, m_GameObjPtr{ object }
+	{
+
+	}
+
 	StateCommand::~StateCommand()
 	{
-		if (m_StatePtr)
-		{
-			delete m_StatePtr;
-			m_StatePtr = nullptr;
-		}
-		m_StateMachinePtr = nullptr;
+		m_GameObjPtr = nullptr;
 	}
 
-	void StateCommand::SetState(State* state)
-	{
-		if (m_StatePtr)
-		{
-			delete m_StatePtr;
-		}
-		m_StatePtr = state;
 
-	}
-	
-	void StateCommand::setStateMachine(StateMachine* stateMachine)
+	GameObject* StateCommand::GetGameObject()
 	{
-		m_StateMachinePtr = stateMachine;
-	}
-
-	
-	State* StateCommand::GetState()
-	{
-		return m_StatePtr;
-	}
-
-	StateMachine* StateCommand::GetStateMachine()
-	{
-		return m_StateMachinePtr;
+		return m_GameObjPtr;
 	}
 
 

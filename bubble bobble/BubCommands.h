@@ -10,6 +10,7 @@ namespace dae {
 	class BubWalkCommand : public StateCommand
 	{
 	public:
+		BubWalkCommand(GameObject* object);
 		virtual ~BubWalkCommand() override;
 		virtual void Execute(float) override;
 
@@ -18,6 +19,7 @@ namespace dae {
 	class BubJumpCommand : public StateCommand
 	{
 	public:
+		BubJumpCommand(GameObject* object);
 		virtual ~BubJumpCommand() override;
 		virtual void Execute(float) override;
 
@@ -26,6 +28,7 @@ namespace dae {
 	class BubShootCommand : public StateCommand
 	{
 	public:
+		BubShootCommand(GameObject* object);
 		virtual ~BubShootCommand() override;
 		virtual void Execute(float) override;
 
@@ -34,6 +37,7 @@ namespace dae {
 	class BubIdleCommand : public StateCommand
 	{
 	public:
+		BubIdleCommand(GameObject* object);
 		virtual ~BubIdleCommand() override;
 		virtual void Execute(float) override;
 
@@ -42,6 +46,7 @@ namespace dae {
 	class BubHitCommand : public StateCommand
 	{
 	public:
+		BubHitCommand(GameObject* object);
 		virtual ~BubHitCommand() override;
 		virtual void Execute(float) override;
 

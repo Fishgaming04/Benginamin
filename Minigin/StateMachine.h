@@ -6,11 +6,11 @@ namespace dae {
 	class State
 	{
 	public:
-		virtual ~State() {}
+		virtual ~State() = default;
 		//virtual State* handleInput(GameObject& gameObject) {};
-		virtual State* update(GameObject& ) {};
-		virtual void enter(GameObject& ) {};
-		virtual void exit(GameObject& ) {}
+		virtual State* update(GameObject& ) = 0;
+		virtual void enter(GameObject& ) = 0;
+		virtual void exit(GameObject&) = 0;
 	};
 
 
@@ -19,7 +19,8 @@ namespace dae {
 	{
 	public:
 		//virtual void handleInput(GameObject& gameObject);
-		virtual void update();
+		StateMachine(GameObject* GameObj);
+		virtual void Update(double) override;
 		void SetState(State* state);
 		State* GetState();
 		~StateMachine();

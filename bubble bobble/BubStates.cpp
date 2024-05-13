@@ -1,7 +1,7 @@
 #include "BubStates.h"
 namespace dae{
 
-	State* BubWalkingingState::update(GameObject& )
+	State* BubWalkingState::update(GameObject& )
 	{
 		//check velocity
 		//velocity is not 0, return new BubbleJumpState
@@ -10,13 +10,13 @@ namespace dae{
 		return nullptr;
 	}
 
-	void BubWalkingingState::enter(GameObject& gameObject)
+	void BubWalkingState::enter(GameObject& gameObject)
 	{
 		auto& recourceManager = dae::ResourceManager::GetInstance();
 		gameObject.GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character1.png"));
 	}
 
-	void BubWalkingingState::exit(GameObject& )
+	void BubWalkingState::exit(GameObject& )
 	{
 	}
 

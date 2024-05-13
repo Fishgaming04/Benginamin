@@ -13,10 +13,15 @@
 //    }
 //}
 
-void dae::StateMachine::update()
+dae::StateMachine::StateMachine(GameObject* GameObj)
+	: UpdatingComponent(GameObj)
+{
+}
+
+void dae::StateMachine::Update(double)
 {
     State* state = m_State->update(*GetGameObject());
-    if (state != NULL)
+    if (state)
     {
 		m_State->exit(*GetGameObject());
         delete m_State;
@@ -31,6 +36,7 @@ void dae::StateMachine::SetState(State* state)
 {
 	if (m_State){
 		m_State->exit(*GetGameObject());
+        delete m_State;
 	}
 
 	m_State = state;
@@ -47,5 +53,9 @@ dae::State* dae::StateMachine::GetState()
 
 dae::StateMachine::~StateMachine()
 {
-
+	if (m_State)
+	{
+		m_State->exit(*GetGameObject());
+		delete m_State;
+	}
 }

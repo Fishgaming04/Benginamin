@@ -24,15 +24,13 @@ namespace dae {
 	class StateCommand : public Command
 	{
 	public:
+		StateCommand(GameObject* object);
 		virtual ~StateCommand() override;
 		virtual void Execute(float) override = 0;
-		virtual void SetState(State* state);
-		virtual void setStateMachine(StateMachine* stateMachine);
-		State* GetState();
-		StateMachine* GetStateMachine();
+	protected:
+		GameObject* GetGameObject();
 	private:
-		State* m_StatePtr;
-		StateMachine* m_StateMachinePtr;
+		GameObject* m_GameObjPtr;
 	};
 
 	class MoveCommand final : public Command

@@ -67,6 +67,7 @@ namespace dae
 		std::vector<GameObject*> m_Childeren;
 		
 		Transform* m_PosPtr;
+
 		
 		bool m_isDirty;
 

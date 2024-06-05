@@ -19,3 +19,5 @@ void dae::CounterComponentObserver::OnNotify(Event event, GameObject* actor)
 		}
 	}
 }
+
+

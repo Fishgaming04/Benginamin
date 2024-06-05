@@ -24,12 +24,17 @@
     <ClCompile Include="..\Minigin\OrbitParentComponent.cpp" />
     <ClCompile Include="BubCommands.cpp" />
     <ClCompile Include="BubStates.cpp" />
+    <ClCompile Include="CollisionPlayerComponent.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="GravityComponent.cpp" />
     <ClCompile Include="TriggerSoundCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Minigin\CounterComponent.h" />
     <ClInclude Include="BubCommands.h" />
     <ClInclude Include="BubStates.h" />
+    <ClInclude Include="CollisionPlayerComponent.h" />
+    <ClInclude Include="GravityComponent.h" />
     <ClInclude Include="TriggerSoundCommand.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

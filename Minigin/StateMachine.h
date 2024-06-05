@@ -14,7 +14,6 @@ namespace dae {
 	};
 
 
-
 	class StateMachine : public UpdatingComponent
 	{
 	public:

@@ -1,5 +1,6 @@
 #pragma once
-
+#include <vector>
+#include <any>
 namespace dae
 {
 
@@ -17,13 +18,27 @@ namespace dae
 		LevelEnd,
 		LevelReset,
 		CounterUpdate,
+		collision
 	};
-
+	class Subject;
 	class GameObject;
 	class Observer 
 	{
 	public:
 		virtual ~Observer() = default;
-		virtual void OnNotify(Event event, GameObject* actor) = 0;
+		virtual void OnNotify(Event event, Subject* subject, const std::any& args) = 0;
+	};
+
+
+	class Subject
+	{
+	public:
+		Subject() = default;
+			
+		void AddObserver(Observer* observer);
+		void RemoveObserver(Observer* observer);
+		void Notify(Event event, Subject* subjec,const std::any& args);
+	private:
+		std::vector<Observer*> m_Observers;
 	};
 }

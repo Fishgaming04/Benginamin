@@ -13,4 +13,8 @@ void dae::Transform::SetLocalPosition(glm::vec3 Localposition) {
 }
 void dae::Transform::SetWorldPosition(glm::vec3 Worldposition) {
 	m_Worldposition = Worldposition;
-} 
+}
+void dae::Transform::SetSize(float width, float height)
+{
+	m_Size = glm::vec2(width, height);
+}

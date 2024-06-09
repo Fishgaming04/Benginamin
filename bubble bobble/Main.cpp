@@ -35,7 +35,13 @@
 #include "BubStates.h"
 #include "StateMachine.h"
 #include "BubCommands.h"
-
+#include "CollisionPlayerComponent.h"
+#include "CollisionSubject.h"
+#include "GravityComponent.h"
+#include "LevelCreater.h"
+#include "JsonReader.h"
+#include "JumpCommand.h"
+#include "BubbleManager.h"
 using namespace dae;
 
 
@@ -46,10 +52,12 @@ void load()
 	SoundSingleton::provide(std::move(soundsystem));
 	SoundSingleton::enableAudioLogging();
 
+
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 	auto& recourceManager = dae::ResourceManager::GetInstance();
 	auto& soundManager = dae::SoundSingleton::getAudio();
 	auto& input = InputManager::GetInstance();
+	auto& CollsionSubject = dae::CollisionSubject().GetInstance();
 
 	auto gameObj = std::make_shared<dae::GameObject>();
 
@@ -57,10 +65,19 @@ void load()
 	int sound = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
 
 
+	JsonReader jsonReader;
+	jsonReader.setLevelBlockTexture("LvlTile1.png");
+	jsonReader.readLevelJson("../Data/Level.json", scene);
+
+
 	auto Bob = std::make_shared<dae::GameObject>();
 	Bob = std::make_shared<dae::GameObject>();
 	Bob->AddComponent<dae::TextureComponent>();
-	Bob->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character2.png"));
+	Bob->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character1.png"));
+	Bob->setTag("Envirement");
+	Bob->GetTransform()->SetSize(56, 56);
+	Bob->GetTransform()->SetWorldPosition(0, 200, 0);
+	CollsionSubject.addStaticGameObject(Bob.get());
 	unsigned int controllerIndex = input.AddController();
 	input.AddCommand(ControllerInput::controllerButtons::DPAD_DOWN, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(0, 1, 0), 200.0f), controllerIndex);
 	input.AddCommand(ControllerInput::controllerButtons::DPAD_UP, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(0, -1, 0), 200.0f), controllerIndex);
@@ -71,21 +88,35 @@ void load()
 	auto Bub = std::make_shared<dae::GameObject>();
 	Bub = std::make_shared<dae::GameObject>();
 	Bub->AddComponent<dae::TextureComponent>();
-	Bub->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character1.png"));
+	Bub->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character2.png"));
 	Bub->AddComponent<dae::CounterComponent>();
 	Bub->AddComponent<dae::StateMachine>();
+	Bub->AddComponent<dae::CollisionPlayerComponent>();
+	Bub->AddComponent<dae::BubbleManager>();
+	Bub->GetComponent<dae::BubbleManager>()->SetScene(&scene);
+	Bub->GetComponent<dae::BubbleManager>()->SetBubbleSpeed(200);
+	Bub->GetComponent<dae::BubbleManager>()->SetBubbleTimer(5.0f);
+	Bub->GetComponent<dae::BubbleManager>()->SetBubbleShootingDistance(100);
+	Bub->GetComponent<dae::BubbleManager>()->SetTexture(recourceManager.LoadTexture("Bubble.png"));
+	Bub->GetTransform()->SetSize(16, 16);
+	Bub->setLocalPosition(48,432,0);
+	Bub->AddComponent<dae::GravityComponent>();
+	Bub->GetComponent<dae::GravityComponent>()->SetMaxMomentum(9.81);
+	Bub->GetComponent<dae::GravityComponent>()->SetMomentumScaler(0.4);
+	Bub->setTag("Player");
+	CollsionSubject.addMovingGameObject(Bub.get());
+	CollsionSubject.AddObserver(Bub->GetComponent<dae::CollisionPlayerComponent>());
 	Bub->GetComponent<dae::StateMachine>()->SetState(new BubIdleState{});
 	Bub->GetComponent<dae::CounterComponent>()->SetCounter("Health", 100);
 	Bub->GetComponent<dae::CounterComponent>()->SetCounter("Exp", 0);
-	input.AddCommand(SDL_SCANCODE_S, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(0, 1, 0), 100.0f));
-	input.AddCommand(SDL_SCANCODE_W, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(0, -1, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_A, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(-1, 0, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(1, 0, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_A, buttonState::down, std::make_unique<BubWalkCommand>( Bub.get()));
 	input.AddCommand(SDL_SCANCODE_D, buttonState::down, std::make_unique<BubWalkCommand>( Bub.get()));
+	input.AddCommand(SDL_SCANCODE_SPACE, buttonState::down, std::make_unique<JumpCommand>( Bub.get(), 2.5f));
+	input.AddCommand(SDL_SCANCODE_SPACE, buttonState::up  , std::make_unique<BubJumpCommand>(Bub.get()));
 	input.AddCommand(SDL_SCANCODE_D, buttonState::up,		std::make_unique<BubIdleCommand>( Bub.get()));
 	input.AddCommand(SDL_SCANCODE_A, buttonState::up,		std::make_unique<BubIdleCommand>( Bub.get()));
-	input.AddCommand(SDL_SCANCODE_SPACE, buttonState::down, std::make_unique<BubJumpCommand>( Bub.get()));
 	input.AddCommand(SDL_SCANCODE_LSHIFT, buttonState::down,std::make_unique<BubShootCommand>(Bub.get()));
 	input.AddCommand(SDL_SCANCODE_X, buttonState::up,		std::make_unique<IncreaseCounter>(Bub.get(), "Health", -10));
 	input.AddCommand(SDL_SCANCODE_X, buttonState::up,		std::make_unique<BubHitCommand>( Bub.get()));
@@ -136,7 +167,6 @@ void load()
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetIsWatching(Bub.get());
 	gameObj->setLocalPosition(20, 140, 0);
 	scene.Add(gameObj);
-
 }
 
 

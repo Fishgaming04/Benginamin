@@ -16,7 +16,7 @@ namespace dae {
 
 
 
-		void OnNotify(Event event, GameObject* actor)override;
+		void OnNotify(Event event, Subject*, const std::any& args);
 		virtual ~CounterComponentObserver() {};
 		CounterComponentObserver(const CounterComponentObserver& other) = delete;
 		CounterComponentObserver(CounterComponentObserver&& other) = delete;

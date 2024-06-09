@@ -46,15 +46,33 @@ namespace dae {
 		SetDirty();
 	}
 
+	void GameObject::setTag(std::string tag)
+	{
+		m_Tag = tag;
+	}
+
+	bool GameObject::getIsLookingLeft()
+	{
+		return m_IslookingLeft;
+	}
+
+	std::string GameObject::getTag()
+	{
+		return m_Tag;
+	}
+
 	void GameObject::NotifyObservers(Event event)
 	{
 		for (auto observer : m_observers){
-			observer->OnNotify(event, this);
+			event;
+			observer;
+			//observer->OnNotify(event, this);
 		}
 	}
 
 	void GameObject::UpdatePos() {
 		if (m_isDirty) {
+			float perviousposition = m_PosPtr->getWorldposition().x;
 			if (m_Parent) {
 				m_PosPtr->SetWorldPosition( m_Parent->GetTransform()->getWorldposition() + m_PosPtr->getLocalposition());
 			}
@@ -62,6 +80,14 @@ namespace dae {
 				m_PosPtr->SetWorldPosition(m_PosPtr->getLocalposition());
 			}
 			m_isDirty = false;
+			if (m_PosPtr->getWorldposition().x - perviousposition > 0)
+			{
+				m_IslookingLeft = false;
+			}
+			else if (m_PosPtr->getWorldposition().x - perviousposition < 0)
+			{
+				m_IslookingLeft = true;
+			}
 		}
 	}
 

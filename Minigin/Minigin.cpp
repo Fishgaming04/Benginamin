@@ -7,6 +7,7 @@
 #include "Minigin.h"
 #include "InputManager.h"
 #include "SceneManager.h"
+#include "CollisionSubject.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include <chrono>
@@ -57,7 +58,7 @@ dae::Minigin::Minigin(const std::string &dataPath)
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		640,
+		480,
 		480,
 		SDL_WINDOW_OPENGL
 	);
@@ -85,6 +86,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
+	auto& collisionHandler = CollisionSubject::GetInstance();
 	auto& input = InputManager::GetInstance();
 
 
@@ -105,6 +107,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		//	sceneManager.Update();
 		//	m_Lag -= m_MsPerUpdate;
 		//}
+		collisionHandler.update(deltaTime);
 		sceneManager.Update(deltaTime);
 		renderer.Render();
 

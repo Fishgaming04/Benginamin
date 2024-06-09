@@ -71,7 +71,7 @@ namespace dae {
 
         virtual void Update(double) {};
         virtual void Render() const override {};
-        virtual void OnNotify(Event event, GameObject* actor) = 0;
+        virtual void OnNotify(Event event, Subject* subject, const std::any& args) = 0;
 
         ObserverComponent(const ObserverComponent& other) = delete;
         ObserverComponent(ObserverComponent&& other) = delete;

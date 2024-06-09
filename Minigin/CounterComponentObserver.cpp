@@ -9,15 +9,17 @@ dae::CounterComponentObserver::CounterComponentObserver(GameObject* GameObject)
 {
 }
 
-void dae::CounterComponentObserver::OnNotify(Event event, GameObject* actor)
+void dae::CounterComponentObserver::OnNotify(Event event, Subject*, const std::any& args)
 {
-	if(event == Event::CounterUpdate && actor->GetComponent<CounterComponent>())
-	{
-		if(GetGameObject()->GetComponent<TextComponent>())
-		{
-			GetGameObject()->GetComponent<TextComponent>()->SetText(m_Prefix + std::to_string(actor->GetComponent<CounterComponent>()->GetCounter(m_Counter)));
-		}
-	}
+	args;
+	event;
+	//if(event == Event::CounterUpdate && actor->GetComponent<CounterComponent>())
+	//{
+	//	if(GetGameObject()->GetComponent<TextComponent>())
+	//	{
+	//		GetGameObject()->GetComponent<TextComponent>()->SetText(m_Prefix + std::to_string(actor->GetComponent<CounterComponent>()->GetCounter(m_Counter)));
+	//	}
+	//}
 }
 
 

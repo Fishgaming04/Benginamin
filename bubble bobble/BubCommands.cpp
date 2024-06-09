@@ -1,5 +1,5 @@
 #include "BubCommands.h"
-
+#include "BubbleManager.h"
 dae::BubWalkCommand::BubWalkCommand(GameObject* object)
 	: StateCommand(object)
 {}
@@ -12,7 +12,7 @@ dae::BubWalkCommand::~BubWalkCommand()
 void dae::BubWalkCommand::Execute(float)
 {
 	auto stateMachine{ GetGameObject()->GetComponent<StateMachine>() };
-	if (!dynamic_cast<BubBubbleState*>(stateMachine->GetState()) || !dynamic_cast<BubDeadState*>(stateMachine->GetState()) || !dynamic_cast<BubWalkingState*>(stateMachine->GetState()))  {
+	if (!dynamic_cast<BubBubbleState*>(stateMachine->GetState()) && !dynamic_cast<BubDeadState*>(stateMachine->GetState()) && !dynamic_cast<BubWalkingState*>(stateMachine->GetState()) && !dynamic_cast<BubJumpingState*>(stateMachine->GetState()))  {
 		stateMachine->SetState(new BubWalkingState{});
 		
 	}
@@ -30,8 +30,9 @@ dae::BubJumpCommand::~BubJumpCommand()
 void dae::BubJumpCommand::Execute(float)
 {
 	auto stateMachine{ GetGameObject()->GetComponent<StateMachine>() };
-	if (!dynamic_cast<BubBubbleState*>(stateMachine->GetState()) || !dynamic_cast<BubDeadState*>(stateMachine->GetState()) || !dynamic_cast<BubJumpingState*>(stateMachine->GetState())) {
+	if (!dynamic_cast<BubBubbleState*>(stateMachine->GetState()) && !dynamic_cast<BubDeadState*>(stateMachine->GetState()) && !dynamic_cast<BubJumpingState*>(stateMachine->GetState())) {
 		stateMachine->SetState(new BubJumpingState{});
+
 	}
 }
 
@@ -46,8 +47,9 @@ dae::BubShootCommand::~BubShootCommand()
 void dae::BubShootCommand::Execute(float)
 {
 	auto stateMachine{ GetGameObject()->GetComponent<StateMachine>() };
-	if (!dynamic_cast<BubBubbleState*>(stateMachine->GetState()) || !dynamic_cast<BubDeadState*>(stateMachine->GetState()) || !dynamic_cast<BubShootingState*>(stateMachine->GetState())) {
+	if (!dynamic_cast<BubBubbleState*>(stateMachine->GetState()) && !dynamic_cast<BubDeadState*>(stateMachine->GetState())) {
 		stateMachine->SetState(new BubShootingState{});
+		GetGameObject()->GetComponent<BubbleManager>()->Shoot();
 	}
 }
 
@@ -62,7 +64,7 @@ dae::BubIdleCommand::~BubIdleCommand()
 void dae::BubIdleCommand::Execute(float)
 {
 	auto stateMachine{ GetGameObject()->GetComponent<StateMachine>() };
-	if (!dynamic_cast<BubBubbleState*>(stateMachine->GetState()) || !dynamic_cast<BubDeadState*>(stateMachine->GetState()) || !dynamic_cast<BubIdleState*>(stateMachine->GetState())) {
+	if (!dynamic_cast<BubBubbleState*>(stateMachine->GetState()) && !dynamic_cast<BubDeadState*>(stateMachine->GetState()) && !dynamic_cast<BubIdleState*>(stateMachine->GetState()) && !dynamic_cast<BubJumpingState*>(stateMachine->GetState())) {
 		//check Velocity if 0
 		stateMachine->SetState(new BubIdleState{});
 	}
@@ -79,7 +81,7 @@ dae::BubHitCommand::~BubHitCommand()
 void dae::BubHitCommand::Execute(float)
 {
 	auto stateMachine{ GetGameObject()->GetComponent<StateMachine>() };
-	if (!dynamic_cast<BubBubbleState*>(stateMachine->GetState()) || !dynamic_cast<BubDeadState*>(stateMachine->GetState())) {
+	if (!dynamic_cast<BubBubbleState*>(stateMachine->GetState()) && !dynamic_cast<BubDeadState*>(stateMachine->GetState())) {
 		stateMachine->SetState(new BubDeadState{});
 	}
 }

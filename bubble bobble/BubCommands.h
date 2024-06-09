@@ -31,6 +31,7 @@ namespace dae {
 		BubShootCommand(GameObject* object);
 		virtual ~BubShootCommand() override;
 		virtual void Execute(float) override;
+	 
 
 	};
 

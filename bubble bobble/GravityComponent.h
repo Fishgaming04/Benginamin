@@ -4,22 +4,23 @@
 namespace dae
 {
 
-	class MomentumComponent : public UpdatingComponent
+	class GravityComponent : public UpdatingComponent
 	{
 	public:
-		MomentumComponent(GameObject* obj);
-		virtual ~MomentumComponent() {};
+		GravityComponent(GameObject* obj);
+		virtual ~GravityComponent() {};
 
-		virtual void Update(double);
+		virtual void Update(double elapsed);
 		double GetMomentum();
 		void addMomentum(double momentum);
+		void SetMomentum(double scaler);
 		void SetMomentumScaler(double scaler) { m_MomentumScaler = scaler; }
 		void SetMaxMomentum(double maxMomentum) { m_MaxMomentum = maxMomentum; }
 
-		MomentumComponent(const MomentumComponent& other) = delete;
-		MomentumComponent(MomentumComponent&& other) = delete;
-		MomentumComponent& operator=(const MomentumComponent& other) = delete;
-		MomentumComponent& operator=(MomentumComponent&& other) = delete;
+		GravityComponent(const GravityComponent& other) = delete;
+		GravityComponent(GravityComponent&& other) = delete;
+		GravityComponent& operator=(const GravityComponent& other) = delete;
+		GravityComponent& operator=(GravityComponent&& other) = delete;
 	private:
 		double m_Momentum;
 		double m_MaxMomentum;

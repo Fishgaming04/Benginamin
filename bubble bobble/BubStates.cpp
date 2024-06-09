@@ -82,6 +82,7 @@ namespace dae{
 	{
 		auto& recourceManager = dae::ResourceManager::GetInstance();
 		gameObject.GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("BubShooting.png"));
+
 	}
 
 	void BubShootingState::exit(GameObject& )

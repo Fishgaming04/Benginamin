@@ -43,6 +43,10 @@ namespace dae
 		GameObject* GetChildAtIndex(int index) const ;
 		void setLocalPosition(float x, float y, float z = 0.0f);
 		void setLocalPosition(glm::vec3 Pos);
+		void setTag(std::string tag);
+		bool getIsLookingLeft();
+		std::string getTag();
+
 
 		Transform* GetTransform();
 		void SetDirty();
@@ -67,8 +71,8 @@ namespace dae
 		std::vector<GameObject*> m_Childeren;
 		
 		Transform* m_PosPtr;
-
-		
+		std::string m_Tag;
+		bool m_IslookingLeft;
 		bool m_isDirty;
 
 		std::vector<Component*> m_ComponentPtr;

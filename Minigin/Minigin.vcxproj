@@ -191,13 +191,11 @@
     <ClInclude Include="ControllerInput.h" />
     <ClInclude Include="CounterComponentObserver.h" />
     <ClInclude Include="Font.h" />
-    <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="Minigin.h" />
     <ClInclude Include="Observers.h" />
-    <ClInclude Include="OrbitParentComponent.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
@@ -218,7 +216,6 @@
     <ClCompile Include="Components.cpp" />
     <ClCompile Include="ControllerInput.cpp" />
     <ClCompile Include="Font.cpp" />
-    <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />

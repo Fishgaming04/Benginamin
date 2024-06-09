@@ -21,7 +21,6 @@ namespace dae
 		else {
 			m_Momentum += 9.81 * m_MomentumScaler * elapsed;
 		}
-		std::cout << m_Momentum << "\n";
 		float x = GetGameObject()->GetTransform()->getWorldposition().x;
 		float y = GetGameObject()->GetTransform()->getWorldposition().y + static_cast<float>(m_Momentum);
 		float z = GetGameObject()->GetTransform()->getWorldposition().z;

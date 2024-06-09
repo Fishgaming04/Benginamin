@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "Scene.h"
 namespace dae {
-	class BubbleManager : public dae::UpdatingComponent
+	class BubbleManager final: public dae::UpdatingComponent
 	{
 	public:
 		BubbleManager(GameObject* obj);

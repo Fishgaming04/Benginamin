@@ -4,7 +4,7 @@
 namespace dae {
 
 
-	class BubbleCompenent : public UpdatingComponent
+	class BubbleCompenent final : public UpdatingComponent
 	{
 	public:
 		BubbleCompenent(GameObject* obj);

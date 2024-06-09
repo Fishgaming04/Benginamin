@@ -42,12 +42,13 @@
 #include "JsonReader.h"
 #include "JumpCommand.h"
 #include "BubbleManager.h"
+
 using namespace dae;
 
 
 void load()
 {
-
+	//sadly did not have the time to improve code;
 	auto soundsystem = std::make_unique<SoundSystem>();
 	SoundSingleton::provide(std::move(soundsystem));
 	SoundSingleton::enableAudioLogging();
@@ -65,25 +66,23 @@ void load()
 	int sound = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
 
 
-	JsonReader jsonReader;
-	jsonReader.setLevelBlockTexture("LvlTile1.png");
-	jsonReader.readLevelJson("../Data/Level.json", scene);
+
+	//auto Bob = std::make_shared<dae::GameObject>();
+	//Bob = std::make_shared<dae::GameObject>();
+	//Bob->AddComponent<dae::TextureComponent>();
+	//Bob->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character1.png"));
+	//Bob->setTag("Envirement");
+	//Bob->GetTransform()->SetSize(56, 56);
+	//Bob->GetTransform()->SetWorldPosition(0, 200, 0);
+	//CollsionSubject.addStaticGameObject(Bob.get());
+	//unsigned int controllerIndex = input.AddController();
+	//input.AddCommand(ControllerInput::controllerButtons::DPAD_DOWN, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(0, 1, 0), 200.0f), controllerIndex);
+	//input.AddCommand(ControllerInput::controllerButtons::DPAD_UP, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(0, -1, 0), 200.0f), controllerIndex);
+	//input.AddCommand(ControllerInput::controllerButtons::DPAD_LEFT, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(-1, 0, 0), 200.0f), controllerIndex);
+	//input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(1, 0, 0), 200.0f), controllerIndex);
+	//scene.Add(Bob);
 
 
-	auto Bob = std::make_shared<dae::GameObject>();
-	Bob = std::make_shared<dae::GameObject>();
-	Bob->AddComponent<dae::TextureComponent>();
-	Bob->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character1.png"));
-	Bob->setTag("Envirement");
-	Bob->GetTransform()->SetSize(56, 56);
-	Bob->GetTransform()->SetWorldPosition(0, 200, 0);
-	CollsionSubject.addStaticGameObject(Bob.get());
-	unsigned int controllerIndex = input.AddController();
-	input.AddCommand(ControllerInput::controllerButtons::DPAD_DOWN, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(0, 1, 0), 200.0f), controllerIndex);
-	input.AddCommand(ControllerInput::controllerButtons::DPAD_UP, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(0, -1, 0), 200.0f), controllerIndex);
-	input.AddCommand(ControllerInput::controllerButtons::DPAD_LEFT, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(-1, 0, 0), 200.0f), controllerIndex);
-	input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(1, 0, 0), 200.0f), controllerIndex);
-	scene.Add(Bob);
 
 	auto Bub = std::make_shared<dae::GameObject>();
 	Bub = std::make_shared<dae::GameObject>();
@@ -107,8 +106,8 @@ void load()
 	CollsionSubject.addMovingGameObject(Bub.get());
 	CollsionSubject.AddObserver(Bub->GetComponent<dae::CollisionPlayerComponent>());
 	Bub->GetComponent<dae::StateMachine>()->SetState(new BubIdleState{});
-	Bub->GetComponent<dae::CounterComponent>()->SetCounter("Health", 100);
-	Bub->GetComponent<dae::CounterComponent>()->SetCounter("Exp", 0);
+	Bub->GetComponent<dae::CounterComponent>()->SetCounter("Lives", 3);
+	Bub->GetComponent<dae::CounterComponent>()->SetCounter("Points", 0);
 	input.AddCommand(SDL_SCANCODE_A, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(-1, 0, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(1, 0, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_A, buttonState::down, std::make_unique<BubWalkCommand>( Bub.get()));
@@ -118,12 +117,13 @@ void load()
 	input.AddCommand(SDL_SCANCODE_D, buttonState::up,		std::make_unique<BubIdleCommand>( Bub.get()));
 	input.AddCommand(SDL_SCANCODE_A, buttonState::up,		std::make_unique<BubIdleCommand>( Bub.get()));
 	input.AddCommand(SDL_SCANCODE_LSHIFT, buttonState::down,std::make_unique<BubShootCommand>(Bub.get()));
-	input.AddCommand(SDL_SCANCODE_X, buttonState::up,		std::make_unique<IncreaseCounter>(Bub.get(), "Health", -10));
+	input.AddCommand(SDL_SCANCODE_X, buttonState::up,		std::make_unique<IncreaseCounter>(Bub.get(), "Lives", -1));
 	input.AddCommand(SDL_SCANCODE_X, buttonState::up,		std::make_unique<BubHitCommand>( Bub.get()));
-	input.AddCommand(SDL_SCANCODE_C, buttonState::up,		std::make_unique<IncreaseCounter>(Bub.get(), "Exp", 1));
+	input.AddCommand(SDL_SCANCODE_C, buttonState::up,		std::make_unique<IncreaseCounter>(Bub.get(), "Points", 100));
 	input.AddCommand(SDL_SCANCODE_F, buttonState::up,		std::make_unique<TriggerSound>(sound));	
 	
 	scene.Add(Bub);
+	
 	
 
 
@@ -143,11 +143,11 @@ void load()
 	gameObj->AddComponent<dae::TextureComponent>();
 	gameObj->AddComponent<dae::TextComponent>();
 	gameObj->GetComponent<dae::TextComponent>()->SetFont(font);
-	std::string prefix = "Health: ";
-	gameObj->GetComponent<dae::TextComponent>()->SetText(prefix + std::to_string(Bub->GetComponent<dae::CounterComponent>()->GetCounter("Health")));
+	std::string prefix = "Lives: ";
+	gameObj->GetComponent<dae::TextComponent>()->SetText(prefix + std::to_string(Bub->GetComponent<dae::CounterComponent>()->GetCounter("Lives")));
 	gameObj->GetComponent<dae::TextComponent>()->SetColor(SDL_Color{ 0, 255, 0, 255 });
 	gameObj->AddComponent<dae::CounterComponentObserver>();
-	gameObj->GetComponent<dae::CounterComponentObserver>()->SetCounter("Health");
+	gameObj->GetComponent<dae::CounterComponentObserver>()->SetCounter("Lives");
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetPrefix(prefix);
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetIsWatching(Bub.get());
 	gameObj->setLocalPosition(20, 100, 0);
@@ -158,15 +158,23 @@ void load()
 	gameObj->AddComponent<dae::TextureComponent>();
 	gameObj->AddComponent<dae::TextComponent>();
 	gameObj->GetComponent<dae::TextComponent>()->SetFont(font);
-	std::string prefixExp = "Exp: ";
-	gameObj->GetComponent<dae::TextComponent>()->SetText(prefixExp + std::to_string(Bub->GetComponent<dae::CounterComponent>()->GetCounter("Exp")));
+	std::string prefixExp = "Points: ";
+	gameObj->GetComponent<dae::TextComponent>()->SetText(prefixExp + std::to_string(Bub->GetComponent<dae::CounterComponent>()->GetCounter("Points")));
 	gameObj->GetComponent<dae::TextComponent>()->SetColor(SDL_Color{ 0, 255, 0, 255 });
 	gameObj->AddComponent<dae::CounterComponentObserver>();
-	gameObj->GetComponent<dae::CounterComponentObserver>()->SetCounter("Exp");
+	gameObj->GetComponent<dae::CounterComponentObserver>()->SetCounter("Points");
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetPrefix(prefixExp);
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetIsWatching(Bub.get());
 	gameObj->setLocalPosition(20, 140, 0);
 	scene.Add(gameObj);
+
+	JsonReader jsonReader;
+	jsonReader.setLevelBlockTexture("LvlTile1.png");
+	jsonReader.setLevelEnemyTexture("ZenChan.png");
+	jsonReader.AddPlayer(Bub.get());
+	//jsonReader.AddPlayer(Bob.get());
+	jsonReader.readLevelJson("../Data/Level.json", scene);
+
 }
 
 

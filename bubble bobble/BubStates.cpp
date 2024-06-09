@@ -1,4 +1,10 @@
 #include "BubStates.h"
+#include "GameObject.h"
+#include "TextureComponent.h"
+#include "ResourceManager.h"
+#include "CounterComponent.h"
+#include "StateMachine.h"
+#include "GravityComponent.h"
 namespace dae{
 
 	State* BubWalkingState::update(GameObject& )
@@ -89,9 +95,18 @@ namespace dae{
 	{
 	}
 
-	State* BubDeadState::update(GameObject& )
+	State* BubDeadState::update(GameObject& gameObject)
 	{
 
+		int count = gameObject.GetComponent<CounterComponent>()->GetCounter("Lives");
+		if (count >= 0) {
+			gameObject.GetComponent<StateMachine>()->SetState(new BubIdleState());
+		}
+		else
+		{
+			gameObject.setLocalPosition(224, 224, 0);
+			gameObject.GetComponent<GravityComponent>()->SetMomentum(0);
+		}
 		//check amount of lives
 		//if lives > 0, return new BubbleIdleState
 
@@ -102,6 +117,15 @@ namespace dae{
 	{
 		auto& recourceManager = dae::ResourceManager::GetInstance();
 		gameObject.GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("BubHit.png"));
+		int count = gameObject.GetComponent<CounterComponent>()->GetCounter("Lives");
+		if (count > 0){
+		gameObject.GetComponent<CounterComponent>()->SetCounter("Lives", count - 1);
+		gameObject.setLocalPosition(48, 432, 0);
+		}
+		else
+		{
+			gameObject.setLocalPosition(224, 224, 0);
+		}
 	}
 
 	void BubDeadState::exit(GameObject& )

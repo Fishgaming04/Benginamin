@@ -66,20 +66,29 @@
     <ClCompile Include="JsonReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JumpCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BubbleCompenent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BubbleManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionBubbleComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyCreater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionBubbleComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyCollisionObserver.cpp">
+      <Filter>Source Files\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\FPSComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BubbleCompenent.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,9 +104,6 @@
     <ClInclude Include="CollisionPlayerComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="GravityComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Minigin\CounterComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -107,20 +113,35 @@
     <ClInclude Include="JsonReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JumpCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BubbleCompenent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="BubbleManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionBubbleComponent.h">
+    <ClInclude Include="EnemyCreater.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Minigin\OrbitParentComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\FPSComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpCommand.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyCollisionObserver.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionBubbleComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

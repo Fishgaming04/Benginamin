@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\Minigin\CounterComponent.cpp" />
     <ClCompile Include="..\Minigin\CounterComponentObserver.cpp" />
+    <ClCompile Include="..\Minigin\FPSComponent.cpp" />
     <ClCompile Include="..\Minigin\OrbitParentComponent.cpp" />
     <ClCompile Include="BubbleCompenent.cpp" />
     <ClCompile Include="BubbleManager.cpp" />
@@ -29,6 +30,8 @@
     <ClCompile Include="CollisionBubbleComponent.cpp" />
     <ClCompile Include="CollisionPlayerComponent.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyCollisionObserver.cpp" />
+    <ClCompile Include="EnemyCreater.cpp" />
     <ClCompile Include="JsonReader.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="LevelCreater.cpp" />
@@ -38,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\CounterComponent.h" />
+    <ClInclude Include="..\Minigin\FPSComponent.h" />
+    <ClInclude Include="..\Minigin\OrbitParentComponent.h" />
     <ClInclude Include="BubbleCompenent.h" />
     <ClInclude Include="BubbleManager.h" />
     <ClInclude Include="BubCommands.h" />
@@ -45,6 +50,8 @@
     <ClInclude Include="CollisionBubbleComponent.h" />
     <ClInclude Include="CollisionPlayerComponent.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyCollisionObserver.h" />
+    <ClInclude Include="EnemyCreater.h" />
     <ClInclude Include="GravityComponent.h" />
     <ClInclude Include="JsonReader.h" />
     <ClInclude Include="JumpCommand.h" />

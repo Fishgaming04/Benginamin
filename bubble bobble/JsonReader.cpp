@@ -4,7 +4,7 @@
 #include <json.hpp>
 #include <vector>
 #include "LevelCreater.h"
-
+#include "EnemyCreater.h"
 
 dae::JsonReader::JsonReader()
 	:m_BlockTexturePath{}
@@ -29,12 +29,21 @@ bool dae::JsonReader::readLevelJson(const std::string& filePath, Scene& scene)
 		for (const auto& obj : doc) {
 			// Extract the "type" and "loc" values
 			std::vector<std::vector<int>> levelData = obj["Blocks"].get<std::vector<std::vector<int>>>();
-			//std::vector<std::vector<int>> EnemyData = obj["Enemies"].get<std::vector<std::vector<int>>>();
+			EnemiesSpawning EnemyData;
+			EnemyData.name = obj["EnemyType"];
+			EnemyData.amount = obj["Amount"];
 
 			LevelCreater levelCreater;
 			levelCreater.SetLevelTexture(m_BlockTexturePath);
 			levelCreater.GenerateLevel(scene, levelData);
-		
+			EnemyCreater enemyCreater;
+			enemyCreater.SetScene(&scene);
+			if (m_Players.size() > 0) {
+				for (auto player : m_Players) {
+					enemyCreater.addPlayer(player);
+				}	
+			}
+			enemyCreater.CreateEnemy(EnemyData);
 		}
 		return true;
 }

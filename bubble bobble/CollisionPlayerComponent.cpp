@@ -46,7 +46,7 @@ namespace dae
 					}
 
 					//sadly did not get this to work I tried many different things and combinations but was not able to make it work sadly
-					//So there are no side of block collisions in the game
+					//So there are no side of block collisions 
 					//if (info.CollisionDirection.y == 0 && GetGameObject()->GetComponent<GravityComponent>()->GetMomentum() == 0)
 					//{
 					//	bool isleft = GetGameObject()->getIsLookingLeft();

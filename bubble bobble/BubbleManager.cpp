@@ -43,6 +43,7 @@ namespace dae {
 		Bubble->GetComponent<BubbleCompenent>()->setShootingDistance(m_BubbleShootingDistance, m_BubbleSpeed);
 		Bubble->AddComponent<TextureComponent>();
 		Bubble->AddComponent<CollisioBubbleComponent>();
+		Bubble->GetTransform()->SetSize(16, 16);
 		Bubble->GetComponent<TextureComponent>()->SetTexture(m_Texture);
 		CollsionSubject.addMovingGameObject(Bubble.get());
 		CollsionSubject.AddObserver(Bubble->GetComponent<dae::CollisioBubbleComponent>());

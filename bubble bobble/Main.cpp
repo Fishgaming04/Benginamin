@@ -75,7 +75,6 @@ void load()
 	//Bob->GetTransform()->SetSize(56, 56);
 	//Bob->GetTransform()->SetWorldPosition(0, 200, 0);
 	//CollsionSubject.addStaticGameObject(Bob.get());
-	//unsigned int controllerIndex = input.AddController();
 	//input.AddCommand(ControllerInput::controllerButtons::DPAD_DOWN, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(0, 1, 0), 200.0f), controllerIndex);
 	//input.AddCommand(ControllerInput::controllerButtons::DPAD_UP, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(0, -1, 0), 200.0f), controllerIndex);
 	//input.AddCommand(ControllerInput::controllerButtons::DPAD_LEFT, buttonState::heldDown, std::make_unique<MoveCommand>(Bob.get(), glm::vec3(-1, 0, 0), 200.0f), controllerIndex);
@@ -84,6 +83,7 @@ void load()
 
 
 
+	unsigned int controllerIndex = input.AddController();
 	auto Bub = std::make_shared<dae::GameObject>();
 	Bub = std::make_shared<dae::GameObject>();
 	Bub->AddComponent<dae::TextureComponent>();
@@ -121,6 +121,9 @@ void load()
 	input.AddCommand(SDL_SCANCODE_X, buttonState::up,		std::make_unique<BubHitCommand>( Bub.get()));
 	input.AddCommand(SDL_SCANCODE_C, buttonState::up,		std::make_unique<IncreaseCounter>(Bub.get(), "Points", 100));
 	input.AddCommand(SDL_SCANCODE_F, buttonState::up,		std::make_unique<TriggerSound>(sound));	
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_LEFT, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(-1, 0, 0), 200.0f), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(1, 0, 0), 200.0f), controllerIndex);
+
 	
 	scene.Add(Bub);
 	

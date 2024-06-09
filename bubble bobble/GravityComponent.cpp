@@ -40,7 +40,7 @@ namespace dae
 	void GravityComponent::SetMomentum(double scaler)
 	{
 		m_Momentum = scaler;
-		std::cout << m_Momentum << "\n";
+		//std::cout << m_Momentum << "\n";
 	}
 
 }

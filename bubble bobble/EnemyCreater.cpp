@@ -17,7 +17,7 @@ namespace dae {
 		if (Spawning.name == "Zen-Chan") {
 			for (int i = 0; i < Spawning.amount; i++)
 			{
-				auto enemy = std::make_shared<GameObject>();
+				auto enemy = std::make_unique<GameObject>();
 				enemy->AddComponent<Enemy>();
 				enemy->AddComponent<TextureComponent>();
 				enemy->GetComponent<TextureComponent>()->SetTexture(recourceManager.LoadTexture("Zen-Chan.png"));
@@ -34,11 +34,12 @@ namespace dae {
 				enemy->setLocalPosition(xPos, -15);
 				xPos += 16;
 				enemy->GetTransform()->SetSize(16, 16);
-				m_Scene->Add(enemy);
 
 				CollsionSubject.addMovingGameObject(enemy.get());
 				CollsionSubject.AddObserver(enemy->GetComponent<dae::CollisionPlayerComponent>());
 				CollsionSubject.AddObserver(enemy->GetComponent<EnemyCollisionObserver>());
+
+				m_Scene->Add(std::move(enemy));
 			}
 		}
 	}

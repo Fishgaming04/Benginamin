@@ -45,6 +45,8 @@ namespace dae
 		void setLocalPosition(glm::vec3 Pos);
 		void setTag(std::string tag);
 		bool getIsLookingLeft();
+		void setForRemoval();
+		bool getRemove() const { return m_SetForRemoval; }
 		std::string getTag();
 
 
@@ -69,6 +71,8 @@ namespace dae
 
 		GameObject* m_Parent;
 		std::vector<GameObject*> m_Childeren;
+
+		bool m_SetForRemoval;
 		
 		Transform* m_PosPtr;
 		std::string m_Tag;

@@ -11,6 +11,8 @@ namespace dae {
 		:m_PosPtr{new Transform()}
 		,m_Parent{nullptr}
 		,m_isDirty{false}
+		,m_IslookingLeft{false}
+		, m_SetForRemoval{ false }
 	{
 	}
 
@@ -20,6 +22,13 @@ namespace dae {
 		for (Component* Comp : m_ComponentPtr) {
 			delete Comp;
 			Comp = nullptr;
+		}
+		for (GameObject* child : m_Childeren) {
+			child->SetParent(nullptr, true);
+		}
+		if (m_Parent)
+		{
+			m_Parent->removeChild(this, true);
 		}
 	};
 
@@ -54,6 +63,11 @@ namespace dae {
 	bool GameObject::getIsLookingLeft()
 	{
 		return m_IslookingLeft;
+	}
+
+	void GameObject::setForRemoval()
+	{
+		m_SetForRemoval = true;
 	}
 
 	std::string GameObject::getTag()

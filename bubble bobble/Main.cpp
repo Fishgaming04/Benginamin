@@ -60,15 +60,15 @@ void load()
 	auto& input = InputManager::GetInstance();
 	auto& CollsionSubject = dae::CollisionSubject().GetInstance();
 
-	auto gameObj = std::make_shared<dae::GameObject>();
+	auto gameObj = std::make_unique<dae::GameObject>();
 
 	soundManager.PlayMusic("../Data/Music/06_SuperDrunk.mp3", -1);
 	int sound = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
 
 
 
-	//auto Bob = std::make_shared<dae::GameObject>();
-	//Bob = std::make_shared<dae::GameObject>();
+	//auto Bob = std::make_unique<dae::GameObject>();
+	//Bob = std::make_unique<dae::GameObject>();
 	//Bob->AddComponent<dae::TextureComponent>();
 	//Bob->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character1.png"));
 	//Bob->setTag("Envirement");
@@ -82,10 +82,9 @@ void load()
 	//scene.Add(Bob);
 
 
-
 	unsigned int controllerIndex = input.AddController();
-	auto Bub = std::make_shared<dae::GameObject>();
-	Bub = std::make_shared<dae::GameObject>();
+	auto Bub = std::make_unique<dae::GameObject>();
+	Bub = std::make_unique<dae::GameObject>();
 	Bub->AddComponent<dae::TextureComponent>();
 	Bub->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character2.png"));
 	Bub->AddComponent<dae::CounterComponent>();
@@ -125,13 +124,12 @@ void load()
 	input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(1, 0, 0), 200.0f), controllerIndex);
 
 	
-	scene.Add(Bub);
 	
 	
 
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	gameObj = std::make_shared<dae::GameObject>();
+	gameObj = std::make_unique<GameObject>();
 	gameObj->AddComponent<dae::TextureComponent>();
 	gameObj->AddComponent<dae::TextComponent>();
 	gameObj->GetComponent<dae::TextComponent>()->SetFont(font);
@@ -139,10 +137,10 @@ void load()
 	gameObj->GetComponent<dae::TextComponent>()->SetText(std::to_string(gameObj->GetComponent<dae::FPSComponent>()->GetFps()));
 	gameObj->GetComponent<dae::TextComponent>()->SetColor(SDL_Color{ 255, 0, 0, 255 });
 	gameObj->setLocalPosition(20, 20, 0);
-	scene.Add(gameObj);
+	scene.Add(std::move(gameObj));
 
 
-	gameObj = std::make_shared<dae::GameObject>();
+	gameObj = std::make_unique<dae::GameObject>();
 	gameObj->AddComponent<dae::TextureComponent>();
 	gameObj->AddComponent<dae::TextComponent>();
 	gameObj->GetComponent<dae::TextComponent>()->SetFont(font);
@@ -154,10 +152,10 @@ void load()
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetPrefix(prefix);
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetIsWatching(Bub.get());
 	gameObj->setLocalPosition(20, 100, 0);
-	scene.Add(gameObj);
+	scene.Add(std::move(gameObj));
 
 
-	gameObj = std::make_shared<dae::GameObject>();
+	gameObj = std::make_unique<dae::GameObject>();
 	gameObj->AddComponent<dae::TextureComponent>();
 	gameObj->AddComponent<dae::TextComponent>();
 	gameObj->GetComponent<dae::TextComponent>()->SetFont(font);
@@ -169,7 +167,7 @@ void load()
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetPrefix(prefixExp);
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetIsWatching(Bub.get());
 	gameObj->setLocalPosition(20, 140, 0);
-	scene.Add(gameObj);
+	scene.Add(std::move(gameObj));
 
 	JsonReader jsonReader;
 	jsonReader.setLevelBlockTexture("LvlTile1.png");
@@ -178,6 +176,7 @@ void load()
 	//jsonReader.AddPlayer(Bob.get());
 	jsonReader.readLevelJson("../Data/Level.json", scene);
 
+	scene.Add(std::move(Bub));
 }
 
 

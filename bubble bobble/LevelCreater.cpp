@@ -20,14 +20,14 @@ namespace dae {
 		auto& CollsionSubject = dae::CollisionSubject::GetInstance();
 		for (std::vector<int> pos : lvl)
 		{
-			auto gameobject = std::make_shared<GameObject>();
+			auto gameobject = std::make_unique<GameObject>();
 			gameobject->AddComponent<TextureComponent>();
 			gameobject->GetComponent<TextureComponent>()->SetTexture(recourceManager.LoadTexture(m_TexturePath));
 			gameobject->GetTransform()->SetSize(16, 16);
 			gameobject->setTag("Envirement");
 			gameobject->setLocalPosition(static_cast<float>(pos[0]), static_cast<float>(pos[1]), static_cast<float>(pos[2]));
 			CollsionSubject.addStaticGameObject(gameobject.get());
-			scene.Add(gameobject);
+			scene.Add(std::move(gameobject));
 		}
 	}
 

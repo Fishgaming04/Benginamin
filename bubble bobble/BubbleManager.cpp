@@ -37,7 +37,7 @@ namespace dae {
 	void BubbleManager::CreateBubble()
 	{
 		auto& CollsionSubject = dae::CollisionSubject().GetInstance();
-		auto Bubble = std::make_shared<dae::GameObject>();
+		auto Bubble = std::make_unique<dae::GameObject>();
 		Bubble->AddComponent<BubbleCompenent>();
 		Bubble->GetComponent<BubbleCompenent>()->setMaxTimer(m_BubbleTimer);
 		Bubble->GetComponent<BubbleCompenent>()->setShootingDistance(m_BubbleShootingDistance, m_BubbleSpeed);
@@ -50,6 +50,6 @@ namespace dae {
 
 
 		m_Bubbles.push_back(Bubble.get());
-		m_Scene->Add(Bubble);
+		m_Scene->Add(std::move(Bubble));
 	}
 }

@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include "Singleton.h"
+#include "GameObject.h"
 
 namespace dae
 {
@@ -14,6 +15,7 @@ namespace dae
 
 		void Update(double elapsedTime);
 		void Render();
+		void Romoval();
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;

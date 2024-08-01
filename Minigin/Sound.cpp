@@ -158,7 +158,7 @@ namespace dae {
 		m_thread = std::jthread{ &SoundSystemImpl::LoadSound, m_pImpl , path, std::ref(soundID) };
 		return soundID;
 	}
-
+	
 	void SoundSystem::PlayMusic(const char* path, const int loops)
 	{
 		m_thread = std::jthread{ &SoundSystemImpl::PlayMusic, m_pImpl, path, loops };

@@ -11,6 +11,7 @@ namespace dae {
 
 	void dae::TriggerSound::Execute(float)
 	{
+		m_pSoundService = SoundSingleton::getAudio();
 		m_pSoundService.PlaySoundEffect(m_SoundID);
 	}
 }

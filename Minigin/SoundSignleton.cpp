@@ -8,14 +8,13 @@ namespace dae {
         if (service_ == nullptr)
         {
             service_ = std::make_unique<NullAudio>();
-            return *service_.get();
         }
         return *service_.get();
     }
 
     void SoundSingleton::provide(std::unique_ptr<Sound> service)
     {
-        if (service_ == nullptr) {
+        if (service == nullptr) {
             // Revert to null service.
             service_ = std::make_unique<NullAudio>();
         }

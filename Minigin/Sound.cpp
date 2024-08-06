@@ -50,7 +50,6 @@ namespace dae {
 		for (auto& pSound : m_pSound)
 		{
 			Mix_FreeChunk(pSound);
-			delete pSound;
 			pSound = nullptr;
 		}
 		Mix_Quit();

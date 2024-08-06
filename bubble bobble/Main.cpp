@@ -64,7 +64,7 @@ void load()
 
 	soundManager.PlayMusic("../Data/Music/06_SuperDrunk.mp3", -1);
 	int sound = soundManager.LoadSound("../Data/SoundEffects/Bubble_Bobble_SFX2.wav");
-	soundManager.SetVolume(50);	
+	soundManager.SetVolume(0);	
 
 
 	//auto Bob = std::make_unique<dae::GameObject>();

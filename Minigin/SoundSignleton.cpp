@@ -1,7 +1,7 @@
 #include "SoundSignleton.h"
 
 namespace dae {
-        std::unique_ptr<Sound> SoundSingleton::service_ = nullptr;
+    std::unique_ptr<Sound> SoundSingleton::service_ = nullptr;
 
     Sound& SoundSingleton::getAudio()
     {
@@ -12,7 +12,7 @@ namespace dae {
         return *service_.get();
     }
 
-    void SoundSingleton::provide(std::unique_ptr<Sound> service)
+    void SoundSingleton::provide(std::unique_ptr<Sound>&& service)
     {
         if (service == nullptr) {
             // Revert to null service.
@@ -20,7 +20,7 @@ namespace dae {
         }
         else {
             // Create a new LoggedAudio object that wraps the existing service_.
-            service_ = std::move(service_);
+            service_ = std::move(service);
         }
     }
 

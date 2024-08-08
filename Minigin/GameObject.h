@@ -73,6 +73,7 @@ namespace dae
 		std::vector<GameObject*> m_Childeren;
 
 		bool m_SetForRemoval;
+
 		
 		Transform* m_PosPtr;
 		std::string m_Tag;

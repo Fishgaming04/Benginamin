@@ -90,6 +90,9 @@
     <ClCompile Include="BubbleCompenent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="IncreaseCounterCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TriggerSoundCommand.h">
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="CollisionBubbleComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="IncreaseCounterCommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

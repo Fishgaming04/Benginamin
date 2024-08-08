@@ -20,16 +20,19 @@ dae::StateMachine::StateMachine(GameObject* GameObj)
 
 void dae::StateMachine::Update(double)
 {
-    State* state = m_State->update(*GetGameObject());
-    if (state)
-    {
-		m_State->exit(*GetGameObject());
-        delete m_State;
-        m_State = state;
+	if (m_State)
+	{
+		State* state = m_State->update(*GetGameObject());
+		if (state)
+		{
+			m_State->exit(*GetGameObject());
+			delete m_State;
+			m_State = state;
 
-        // Call the enter action on the new state.
-        m_State->enter(*GetGameObject());
-    }
+			// Call the enter action on the new state.
+			m_State->enter(*GetGameObject());
+		}
+	}
 }
 
 void dae::StateMachine::SetState(State* state)

@@ -32,6 +32,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyCollisionObserver.cpp" />
     <ClCompile Include="EnemyCreater.cpp" />
+    <ClCompile Include="IncreaseCounterCommand.cpp" />
     <ClCompile Include="JsonReader.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="LevelCreater.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="EnemyCollisionObserver.h" />
     <ClInclude Include="EnemyCreater.h" />
     <ClInclude Include="GravityComponent.h" />
+    <ClInclude Include="IncreaseCounterCommand.h" />
     <ClInclude Include="JsonReader.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="LevelCreater.h" />

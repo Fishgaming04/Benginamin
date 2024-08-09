@@ -6,22 +6,24 @@
 namespace dae
 {
 
-	class LevelCreater final
+	class LevelBuilder final
 	{
 	public:
-		LevelCreater();
+		LevelBuilder();
 
-		void GenerateLevel(Scene& scene, std::vector<std::vector<int>>lvl);
-		void SetLevelTexture(const std::string& texturePath);
+		void GenerateLevel(Scene& scene, std::vector<std::vector<int>>lvl, std::string Tag, bool isStatic = true);
+		void SetLevelTexture(const std::shared_ptr<Texture2D> texture);
+		void SetSize(int width, int height);
 
 		//rule of 5
-		~LevelCreater() = default;
-		LevelCreater(const LevelCreater& other) = delete;
-		LevelCreater(LevelCreater&& other) = delete;
-		LevelCreater& operator=(const LevelCreater& other) = delete;
-		LevelCreater& operator=(LevelCreater&& other) = delete;
+		~LevelBuilder() = default;
+		LevelBuilder(const LevelBuilder& other) = delete;
+		LevelBuilder(LevelBuilder&& other) = delete;
+		LevelBuilder& operator=(const LevelBuilder& other) = delete;
+		LevelBuilder& operator=(LevelBuilder&& other) = delete;
 	private:
-		std::string m_TexturePath;
+		std::shared_ptr<Texture2D> m_Texture;
+		int m_Width;
+		int m_Height;	
 	};
-
 }

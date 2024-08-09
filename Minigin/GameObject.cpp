@@ -14,7 +14,6 @@ namespace dae {
 		,m_IslookingLeft{false}
 		, m_SetForRemoval{ false }
 		, m_Tag{ "" }
-		, m_SpriteIsFlipped{ false }
 	{
 	}
 

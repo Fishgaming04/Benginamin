@@ -45,7 +45,7 @@
     <ClCompile Include="JsonReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Minigin\LevelBuilder.cpp">
+    <ClCompile Include="LevelBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +59,7 @@
     <ClInclude Include="JsonReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Minigin\LevelBuilder.h">
+    <ClInclude Include="LevelBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

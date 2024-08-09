@@ -103,7 +103,9 @@ void load()
 	scene.Add(std::move(gameObj));
 
 
-	JsonReader reader;
+	JsonReader reader{480,480,4,12};
+	reader.setLevelLadder(recourceManager.LoadTexture( "../Data/BurgerTime/Ladders/Ladder1.png"));
+	reader.setLevelPlatform(recourceManager.LoadTexture( "../Data/BurgerTime/Platforms/Platform1.png"));
 	reader.readLevelJson("../Data/BurgerTime/Levels/Level1.json", scene);
 
 

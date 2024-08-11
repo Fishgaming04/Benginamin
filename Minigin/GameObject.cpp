@@ -4,6 +4,7 @@
 #include "Renderer.h"
 #include <iostream>
 #include "Components.h" 
+
 namespace dae {
 
 
@@ -66,6 +67,16 @@ namespace dae {
 		return m_IslookingLeft;
 	}
 
+	void GameObject::setIsLookingLeft(bool isLookingLeft)
+	{
+		m_IslookingLeft = isLookingLeft;
+	}
+
+	void GameObject::setFacingDirectionStatic(bool isStaticDirection)
+	{
+		m_IsFacingDirectionStatic = isStaticDirection;
+	}
+
 	void GameObject::setForRemoval()
 	{
 		m_SetForRemoval = true;
@@ -95,13 +106,16 @@ namespace dae {
 				m_PosPtr->SetWorldPosition(m_PosPtr->getLocalposition());
 			}
 			m_isDirty = false;
-			if (m_PosPtr->getWorldposition().x - perviousposition > 0)
-			{
-				m_IslookingLeft = false;
-			}
-			else if (m_PosPtr->getWorldposition().x - perviousposition < 0)
-			{
-				m_IslookingLeft = true;
+			if (!m_IsFacingDirectionStatic) {
+
+				if (m_PosPtr->getWorldposition().x - perviousposition > 0)
+				{
+					m_IslookingLeft = false;
+				}
+				else if (m_PosPtr->getWorldposition().x - perviousposition < 0)
+				{
+					m_IslookingLeft = true;
+				}
 			}
 		}
 	}

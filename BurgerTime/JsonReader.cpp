@@ -4,7 +4,8 @@
 #include <json.hpp>
 #include <vector>
 #include "LevelBuilder.h"
-
+#include <SDL.h>
+#include "Texture2D.h"
 
 namespace dae {
 
@@ -13,87 +14,198 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 	, m_ScreenHeight(screenHeight)
 	, m_NumberOfColumns(numberOfColumns)
 	, m_NumberOfRows(numberOfRows)
+	, m_PlatformColumnWidth( m_ScreenWidth / (m_NumberOfColumns + 1) )
+	, m_LadderColumnWidth(m_PlatformColumnWidth / 2)
+	, m_RowHeight(m_ScreenHeight / (m_NumberOfRows + 2))
 {
 }
 
-bool dae::JsonReader::readLevelJson(const std::string& filePath, Scene& scene)
-{
-	scene;
-	std::ifstream inputFile;
+	bool dae::JsonReader::readLevelJson(const std::string& filePath, Scene& scene)
+	{
+		scene;
+		std::ifstream inputFile;
 
-	inputFile.open(filePath, std::ios::in);
+		inputFile.open(filePath, std::ios::in);
 
-	if (!inputFile.is_open()) {
-		std::cout << "Failed to open " << filePath << "\n";
-		return false;
-	}
-
-	// Parse the JSON file
-	nlohmann::json doc;
-	inputFile >> doc;
-	for (const auto& obj : doc) {
-
-
-		// Extract the "type" and "loc" values
-		std::vector<int> Platforms = obj["Platforms"].get<std::vector<int>>();
-		std::vector<std::vector<int>> Ladders = obj["Ladders"].get<std::vector<std::vector<int>>>();
-
-
-
-
-		std::vector <std::vector<int>> LadderLocations;
-		std::vector <std::vector<int>> PlatformLocations;
-		int PlatformColumnWidth{ m_ScreenWidth / (m_NumberOfColumns + 1) };
-		int ladderColumnWidth{ PlatformColumnWidth / 2  };
-		int RowHeight{ m_ScreenHeight / (m_NumberOfRows + 2) };
-		for (std::vector<int> ladder : Ladders)
-		{
-			std::vector<int> ladderLocation;
-			ladderLocation.push_back((ladder[0] * ladderColumnWidth) + PlatformColumnWidth /2);
-			ladderLocation.push_back((ladder[1] + 1 ) * RowHeight);
-			LadderLocations.push_back(ladderLocation);
-		}	
-
-		for (int indexY = 0; indexY < m_NumberOfRows; indexY++)
-		{
-			for (int indexX = 0; indexX < m_NumberOfColumns; indexX++)
-			{
-				if (Platforms[indexY * m_NumberOfColumns + indexX] > 0)
-				{
-					std::vector<int> platformLocation;
-					platformLocation.push_back(indexX * PlatformColumnWidth + PlatformColumnWidth/2);
-					platformLocation.push_back((indexY + 1) * RowHeight);
-					PlatformLocations.push_back(platformLocation); 
-				}
-			}
+		if (!inputFile.is_open()) {
+			std::cout << "Failed to open " << filePath << "\n";
+			return false;
 		}
 
-		LevelBuilder builder;
-		builder.SetLevelTexture(m_LadderTexture);
-		builder.GenerateLevel(scene, LadderLocations, "Ladder", true);
-		builder.SetLevelTexture(m_PlatformTexture);
-		builder.GenerateLevel(scene, PlatformLocations, "Platform", true);
+		// Parse the JSON file
+		nlohmann::json doc;
+		inputFile >> doc;
+		for (const auto& obj : doc) {
+
+
+			// Extract the "type" and "loc" values
+			std::vector<int> Platforms = obj["Platforms"].get<std::vector<int>>();
+			std::vector<std::vector<int>> Ladders = obj["Ladders"].get<std::vector<std::vector<int>>>();
 
 
 
+			std::vector<bool>PlatterNeeded(m_NumberOfColumns, false);
+			std::vector <glm::vec3> PlatterLocations;
+			std::vector <glm::vec3> LadderLocations;
+			std::vector <glm::vec3> PlatformLocations;
+			Topping BurgerTopLocations;
+			Topping BurgerMeatLocations;
+			Topping BurgerLettuceLocations;
+			Topping BurgerCheeseLocations;
+			Topping BurgerTomatoLocations;
+			Topping BurgerBottomLocations;
+			for (std::vector<int> ladder : Ladders)
+			{
+				glm::vec3 ladderLocation;
+				ladderLocation.x = static_cast<float>((ladder[0] * m_LadderColumnWidth) + m_PlatformColumnWidth /2);
+				ladderLocation.y = static_cast<float>((ladder[1] + 1 ) * m_RowHeight);
+				LadderLocations.push_back(ladderLocation);
+			}	
+
+			for (int indexY = 0; indexY < m_NumberOfRows; indexY++)
+			{
+				for (int indexX = 0; indexX < m_NumberOfColumns; indexX++)
+				{
+					if (Platforms[indexY * m_NumberOfColumns + indexX] > 0)
+					{
+						glm::vec3 platformLocation;
+						platformLocation.x = static_cast<float>(indexX * m_PlatformColumnWidth + m_PlatformColumnWidth/2);
+						platformLocation.y = static_cast<float>((indexY + 1) * m_RowHeight);
+						PlatformLocations.push_back(platformLocation); 
+					}
+					if (Platforms[indexY * m_NumberOfColumns + indexX] > 1) {
+						PlatterNeeded[indexX] = true;
+						//burgerparts
+						switch (Platforms[indexY * m_NumberOfColumns + indexX])
+						{
+						case 2:
+						{
+							BurgerPartLocation(indexX, indexY, BurgerTopLocations);
+							break;
+						}
+						case 3:
+						{
+							BurgerPartLocation(indexX, indexY, BurgerMeatLocations);
+							break;
+						}
+						case 4:
+						{
+							BurgerPartLocation(indexX, indexY, BurgerLettuceLocations);
+							break;
+						}
+						case 5:
+						{
+							BurgerPartLocation(indexX, indexY, BurgerCheeseLocations);
+							break;
+						}
+						case 6:
+						{
+							BurgerPartLocation(indexX, indexY, BurgerTomatoLocations);
+							break;
+						}
+						case 7:
+						{
+							BurgerPartLocation(indexX, indexY, BurgerBottomLocations);
+							break;
+						}
+						default:
+							break;
+						}
+
+					}
 
 
+				}
+			}
 
+			for (size_t index{}; index < PlatterNeeded.size(); ++index)
+			{
+				if (PlatterNeeded[index])
+				{
+					glm::vec3 platterLocation;
+					platterLocation.x = static_cast<float>(index * m_PlatformColumnWidth + m_PlatformColumnWidth / 2 + (m_PlatformColumnWidth / 3));
+					platterLocation.y = static_cast<float>(m_RowHeight * m_NumberOfRows);
+					PlatterLocations.push_back(platterLocation);
+				}
+			}
 
-		//LevelCreater levelCreater;
-		//levelCreater.SetLevelTexture(m_BlockTexturePath);
-		//levelCreater.GenerateLevel(scene, levelData);
-		//EnemyCreater enemyCreater;
-		//enemyCreater.SetScene(&scene);
-		//if (m_Players.size() > 0) {
-		//	for (auto player : m_Players) {
-		//		enemyCreater.addPlayer(player);
-		//	}
-		//}
-		//enemyCreater.CreateEnemy(EnemyData);
+			LevelBuilder builder;
+			builder.SetLevelTexture(m_LadderTexture);
+			builder.GenerateLevel(scene, LadderLocations, "Ladder", true);
+			builder.SetLevelTexture(m_PlatformTexture);
+			builder.GenerateLevel(scene, PlatformLocations, "Platform", true);
+			builder.SetLevelTexture(m_PlatterTexture);
+			builder.GenerateLevel(scene, PlatterLocations, "Platter", true);
+
+			//BurgerTop
+			builder.SetLevelTexture(m_BurgerTopSideTexture);
+			builder.GenerateLevel(scene, BurgerTopLocations.Left, "Bun", false);
+			builder.GenerateLevel(scene, BurgerTopLocations.Right, "Bun", false, true);
+			builder.SetLevelTexture(m_BurgerTopMiddleTexture);
+			builder.GenerateLevel(scene, BurgerTopLocations.Middle, "Bun", false);
+			//BurgerMeat
+			builder.SetLevelTexture(m_BurgerMeatSideTexture);
+			builder.GenerateLevel(scene, BurgerMeatLocations.Left, "Topping", false);
+			builder.GenerateLevel(scene, BurgerMeatLocations.Right, "Topping", false, true);
+			builder.SetLevelTexture(m_BurgerMeatMiddleTexture);
+			builder.GenerateLevel(scene, BurgerMeatLocations.Middle, "Topping", false);
+			//BurgerLettuce
+			builder.SetLevelTexture(m_BurgerLettuceSideTexture);
+			builder.GenerateLevel(scene, BurgerLettuceLocations.Left, "Topping", false);
+			builder.GenerateLevel(scene, BurgerLettuceLocations.Right, "Topping", false, true);
+			builder.SetLevelTexture(m_BurgerLettuceMiddleTexture);
+			builder.GenerateLevel(scene, BurgerLettuceLocations.Middle, "Topping", false);
+			//BurgerCheese
+			builder.SetLevelTexture(m_BurgerCheeseSideTexture);
+			builder.GenerateLevel(scene, BurgerCheeseLocations.Left, "Topping", false);
+			builder.GenerateLevel(scene, BurgerCheeseLocations.Right, "Topping", false, true);
+			builder.SetLevelTexture(m_BurgerCheeseMiddleTexture);
+			builder.GenerateLevel(scene, BurgerCheeseLocations.Middle, "Topping", false);
+			//BurgerTomato
+			builder.SetLevelTexture(m_BurgerTomatoSideTexture);
+			builder.GenerateLevel(scene, BurgerTomatoLocations.Left, "Topping", false);
+			builder.GenerateLevel(scene, BurgerTomatoLocations.Right, "Topping", false, true);
+			builder.SetLevelTexture(m_BurgerTomatoMiddleTexture);
+			builder.GenerateLevel(scene, BurgerTomatoLocations.Middle, "Topping", false);
+			//BurgerBottom
+			builder.SetLevelTexture(m_BurgerBottomSideTexture);
+			builder.GenerateLevel(scene, BurgerBottomLocations.Left, "Bun", false);
+			builder.GenerateLevel(scene, BurgerBottomLocations.Right, "Bun", false, true);
+			builder.SetLevelTexture(m_BurgerBottomMiddleTexture);
+			builder.GenerateLevel(scene, BurgerBottomLocations.Middle, "Bun", false);
+
+		}
+		return true;
 	}
-	return true;
-}
+
+	void JsonReader::BurgerPartLocation(int X, int Y, Topping& Topping)
+	{
+		std::vector<glm::vec3> temp{ BurgerPartLocation(X, Y) };
+		Topping.Left.push_back(temp[0]);
+		Topping.Middle.push_back(temp[1]);
+		Topping.Middle.push_back(temp[2]);
+		Topping.Right.push_back(temp[3]);
+	}
+
+	std::vector <glm::vec3> JsonReader::BurgerPartLocation(int X, int Y)
+	{
+		std::vector <glm::vec3> BurgerPartLocations;
+		int widthMiddle;
+		int heightMiddle;		
+		SDL_QueryTexture(m_BurgerBottomMiddleTexture.get()->GetSDLTexture(), nullptr, nullptr, &widthMiddle, &heightMiddle);
+
+		for (int index{ -2 }; index < 2; index++)
+		{
+			glm::vec3 BurgerPartLocation;
+			BurgerPartLocation.x = static_cast<float>(X * m_PlatformColumnWidth + m_PlatformColumnWidth/2 + (2 * m_PlatformColumnWidth / 3 ) + widthMiddle * index);
+			BurgerPartLocation.y = static_cast<float>((Y + 1) * m_RowHeight - heightMiddle/2);
+			BurgerPartLocation.z = 1;
+			BurgerPartLocations.push_back(BurgerPartLocation);
+		}
+
+		return BurgerPartLocations;
+	}
+
 
 	void JsonReader::setLevelPlatform(const std::shared_ptr<Texture2D>& texture)
 	{
@@ -104,6 +216,11 @@ bool dae::JsonReader::readLevelJson(const std::string& filePath, Scene& scene)
 	void JsonReader::setLevelLadder(const std::shared_ptr<Texture2D>& texture)
 	{
 		m_LadderTexture = texture;
+	}
+
+	void JsonReader::setPlatterTexture(const std::shared_ptr<Texture2D>& texture)
+	{
+		m_PlatterTexture = texture;
 	}
 
 	void JsonReader::setLevelBurgerTopTexture(const std::shared_ptr<Texture2D>& TextureBurgerPartSide, const std::shared_ptr<Texture2D>& TextureBurgerPartMiddle)

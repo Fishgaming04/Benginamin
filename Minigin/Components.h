@@ -69,7 +69,7 @@ namespace dae {
         ObserverComponent(GameObject* obj);
         virtual ~ObserverComponent();
 
-        virtual void Update(double) {};
+        virtual void Update(double) override {};
         virtual void Render() const override {};
         virtual void OnNotify(Event event, Subject* subject, const std::any& args) = 0;
 

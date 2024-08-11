@@ -11,9 +11,8 @@ namespace dae
 	public:
 		LevelBuilder();
 
-		void GenerateLevel(Scene& scene, std::vector<std::vector<int>>lvl, std::string Tag, bool isStatic = true);
+		void GenerateLevel(Scene& scene, std::vector<glm::vec3>position, std::string Tag, bool isStatic = true, bool isFlipped = false);
 		void SetLevelTexture(const std::shared_ptr<Texture2D> texture);
-		void SetSize(int width, int height);
 
 		//rule of 5
 		~LevelBuilder() = default;
@@ -23,7 +22,5 @@ namespace dae
 		LevelBuilder& operator=(LevelBuilder&& other) = delete;
 	private:
 		std::shared_ptr<Texture2D> m_Texture;
-		int m_Width;
-		int m_Height;	
 	};
 }

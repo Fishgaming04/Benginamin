@@ -35,7 +35,7 @@
 #include "CollisionSubject.h"
 #include "TriggerSoundCommand.h"
 #include "JsonReader.h"
-
+#include "CollisionPlayerComponent.h"
 
 using namespace dae;
 
@@ -54,7 +54,7 @@ void load()
 
 	auto gameObj = std::make_unique<dae::GameObject>();
 
-	soundManager.PlayMusic("../Data/BurgerTime/Soundtrack.mp3", -1);
+	//soundManager.PlayMusic("../Data/BurgerTime/Soundtrack.mp3", -1);
 	int sound = soundManager.LoadSound("../Data/BurgerTime/Soundtrack.mp3");
 	soundManager.SetVolume(0);
 
@@ -81,8 +81,10 @@ void load()
 	Bub->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("BurgerTime/Sprites/Peter.png"));
 	Bub->AddComponent<dae::StateMachine>();
 	Bub->GetTransform()->SetSize(16, 16);
-	Bub->setLocalPosition(48, 432, 0);
+	Bub->setLocalPosition(48, 53, 0);
 	Bub->setTag("Player");
+	Bub->AddComponent<dae::CollisionPlayersComponent>();
+	CollsionSubject.AddObserver(Bub->GetComponent<dae::CollisionPlayersComponent>());
 	CollsionSubject.addMovingGameObject(Bub.get());
 	input.AddCommand(SDL_SCANCODE_A, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(-1, 0, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(1, 0, 0), 100.0f));
@@ -104,8 +106,15 @@ void load()
 
 
 	JsonReader reader{480,480,4,12};
-	reader.setLevelLadder(recourceManager.LoadTexture( "../Data/BurgerTime/Ladders/Ladder1.png"));
-	reader.setLevelPlatform(recourceManager.LoadTexture( "../Data/BurgerTime/Platforms/Platform1.png"));
+	reader.setLevelLadder				(recourceManager.LoadTexture( "../Data/BurgerTime/Ladders/Ladder1.png"));
+	reader.setLevelPlatform				(recourceManager.LoadTexture( "../Data/BurgerTime/Platforms/Platform1.png"));
+	reader.setPlatterTexture			(recourceManager.LoadTexture( "../Data/BurgerTime/Misc/Plate.png"));
+	reader.setLevelBurgerTopTexture		(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunTopSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunTopMiddle.png"));
+	reader.setLevelBurgerMeatTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/PattySide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/PattyMiddle.png"));
+	reader.setLevelBurgerLettuceTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/LettuceSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/LettuceMiddle.png"));
+	reader.setLevelBurgerCheeseTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/CheeseSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/CheeseMiddle.png"));
+	reader.setLevelBurgerTomatoTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/TomatoSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/TomatoMiddle.png"));
+	reader.setLevelBurgerBottomTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunBottomSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunBottomMiddle.png"));
 	reader.readLevelJson("../Data/BurgerTime/Levels/Level1.json", scene);
 
 

@@ -3,7 +3,7 @@
 
 namespace dae {
 
-	class JumpCommand final: public StateCommand
+	class JumpCommand final: public GameObjectCommand
 	{
 	public:
 		JumpCommand(GameObject* object, float jumpheight);

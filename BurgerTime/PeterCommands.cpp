@@ -7,7 +7,7 @@ namespace dae {
 
 	//PeterWalkStateCommand
 	PeterWalkStateCommand::PeterWalkStateCommand(GameObject* object)
-		: StateCommand(object)
+		: GameObjectCommand(object)
 	{
 	}
 
@@ -24,7 +24,7 @@ namespace dae {
 
 	//PeterClimbStateCommand
 	PeterClimbStateCommand::PeterClimbStateCommand(GameObject* object)
-		: StateCommand(object)
+		: GameObjectCommand(object)
 	{
 	}
 
@@ -41,7 +41,7 @@ namespace dae {
 
 	//PeterIdleStateCommand
 	PeterIdleStateCommand::PeterIdleStateCommand(GameObject* object)
-		: StateCommand(object)
+		: GameObjectCommand(object)
 	{
 	}
 

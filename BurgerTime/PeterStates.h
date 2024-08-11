@@ -5,7 +5,7 @@
 
 
 namespace dae {
-	class PeterIdleState : public State
+	class PeterIdleState final: public State
 	{
 	public:
 		PeterIdleState() = default;
@@ -18,7 +18,7 @@ namespace dae {
 
 	};
 
-	class PeterWalkingState : public State
+	class PeterWalkingState final : public State
 	{
 	public:
 		PeterWalkingState() = default;
@@ -32,7 +32,7 @@ namespace dae {
 	};
 
 
-	class PeterClimbingState : public State
+	class PeterClimbingState final : public State
 	{
 	public:
 		PeterClimbingState() = default;
@@ -46,7 +46,7 @@ namespace dae {
 	};
 
 
-	class PeterHitState : public State
+	class PeterHitState final : public State
 	{
 	public:
 		PeterHitState() = default;

@@ -3,7 +3,7 @@
 
 
 namespace dae {
-	class PeterWalkStateCommand : public StateCommand
+	class PeterWalkStateCommand final : public GameObjectCommand
 	{
 	public:
 		PeterWalkStateCommand(GameObject* object);
@@ -13,7 +13,7 @@ namespace dae {
 	};
 
 
-	class PeterClimbStateCommand : public StateCommand
+	class PeterClimbStateCommand final : public GameObjectCommand
 	{
 	public:
 		PeterClimbStateCommand(GameObject* object);
@@ -22,7 +22,7 @@ namespace dae {
 
 	};
 
-	class PeterIdleStateCommand : public StateCommand
+	class PeterIdleStateCommand final : public GameObjectCommand
 	{
 	public:
 		PeterIdleStateCommand(GameObject* object);

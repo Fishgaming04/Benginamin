@@ -4,7 +4,7 @@
 namespace dae
 {
 
-	class CollisionPlayersComponent : public ObserverComponent
+	class CollisionPlayersComponent final: public ObserverComponent
 	{
 	public:
 		CollisionPlayersComponent(GameObject* obj);

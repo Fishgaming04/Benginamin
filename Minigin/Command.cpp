@@ -30,20 +30,20 @@ namespace dae {
 		return m_GameObjPtr;
 	}
 
-	StateCommand::StateCommand(GameObject* object)
+	GameObjectCommand::GameObjectCommand(GameObject* object)
 		:Command()
 		, m_GameObjPtr{ object }
 	{
 
 	}
 
-	StateCommand::~StateCommand()
+	GameObjectCommand::~GameObjectCommand()
 	{
 		m_GameObjPtr = nullptr;
 	}
 
 
-	GameObject* StateCommand::GetGameObject()
+	GameObject* GameObjectCommand::GetGameObject()
 	{
 		return m_GameObjPtr;
 	}

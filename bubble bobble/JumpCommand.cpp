@@ -8,7 +8,7 @@ namespace dae
 {
 
 dae::JumpCommand::JumpCommand(GameObject* object, float jumpheight)
-	:StateCommand(object)
+	:GameObjectCommand(object)
 	, m_JumpHeight(jumpheight)
 {
 }

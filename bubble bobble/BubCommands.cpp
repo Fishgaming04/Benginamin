@@ -1,7 +1,7 @@
 #include "BubCommands.h"
 #include "BubbleManager.h"
 dae::BubWalkCommand::BubWalkCommand(GameObject* object)
-	: StateCommand(object)
+	: GameObjectCommand(object)
 {}
 
 
@@ -19,7 +19,7 @@ void dae::BubWalkCommand::Execute(float)
 }
 
 dae::BubJumpCommand::BubJumpCommand(GameObject* object)
-	: StateCommand(object)
+	: GameObjectCommand(object)
 {}
 
 
@@ -37,7 +37,7 @@ void dae::BubJumpCommand::Execute(float)
 }
 
 dae::BubShootCommand::BubShootCommand(GameObject* object)
-	: StateCommand(object)
+	: GameObjectCommand(object)
 {}
 
 dae::BubShootCommand::~BubShootCommand()
@@ -54,7 +54,7 @@ void dae::BubShootCommand::Execute(float)
 }
 
 dae::BubIdleCommand::BubIdleCommand(GameObject* object)
-	: StateCommand(object)
+	: GameObjectCommand(object)
 {}
 
 dae::BubIdleCommand::~BubIdleCommand()
@@ -71,7 +71,7 @@ void dae::BubIdleCommand::Execute(float)
 }
 
 dae::BubHitCommand::BubHitCommand(GameObject* object)
-	: StateCommand(object)
+	: GameObjectCommand(object)
 {}
 
 dae::BubHitCommand::~BubHitCommand()

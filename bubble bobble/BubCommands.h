@@ -7,7 +7,7 @@
 
 namespace dae {
 
-	class BubWalkCommand : public StateCommand
+	class BubWalkCommand : public GameObjectCommand
 	{
 	public:
 		BubWalkCommand(GameObject* object);
@@ -16,7 +16,7 @@ namespace dae {
 
 	};
 
-	class BubJumpCommand : public StateCommand
+	class BubJumpCommand : public GameObjectCommand
 	{
 	public:
 		BubJumpCommand(GameObject* object);
@@ -25,7 +25,7 @@ namespace dae {
 
 	};
 
-	class BubShootCommand : public StateCommand
+	class BubShootCommand : public GameObjectCommand
 	{
 	public:
 		BubShootCommand(GameObject* object);
@@ -34,7 +34,7 @@ namespace dae {
 
 	};
 
-	class BubIdleCommand : public StateCommand
+	class BubIdleCommand : public GameObjectCommand
 	{
 	public:
 		BubIdleCommand(GameObject* object);
@@ -43,7 +43,7 @@ namespace dae {
 
 	};
 
-	class BubHitCommand : public StateCommand
+	class BubHitCommand : public GameObjectCommand
 	{
 	public:
 		BubHitCommand(GameObject* object);

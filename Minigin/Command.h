@@ -21,11 +21,11 @@ namespace dae {
 
 	};
 
-	class StateCommand : public Command
+	class GameObjectCommand : public Command
 	{
 	public:
-		StateCommand(GameObject* object);
-		virtual ~StateCommand() override;
+		GameObjectCommand(GameObject* object);
+		virtual ~GameObjectCommand() override;
 		virtual void Execute(float) override = 0;
 	protected:
 		GameObject* GetGameObject();

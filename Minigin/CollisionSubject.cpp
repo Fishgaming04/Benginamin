@@ -137,7 +137,7 @@ namespace dae
 	}
 	bool CollisionSubject::IsBottomCollision(const Rect4f bounds, const Rect4f otherBounds)
 	{
-		return bounds.y > (otherBounds.y + otherBounds.height) && bounds.y + bounds.height > (otherBounds.y + otherBounds.height);
+		return bounds.y > otherBounds.y && bounds.y + bounds.height > (otherBounds.y + otherBounds.height);
 	}
 	bool CollisionSubject::IsTopCollision(const Rect4f bounds, const Rect4f otherBounds)
 	{

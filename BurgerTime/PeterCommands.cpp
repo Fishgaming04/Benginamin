@@ -17,7 +17,7 @@ namespace dae {
 
 	void PeterWalkStateCommand::Execute(float)
 	{
-		if (GetGameObject()->GetComponent<CollisionPlayersComponent>()->getCanWalk() && !dynamic_cast<PeterHitState*>(GetGameObject()->GetComponent<StateMachine>()->GetState()) ){
+		if (GetGameObject()->GetComponent<CollisionPlayersComponent>()->getCanWalk() && !dynamic_cast<PeterWalkingState*>(GetGameObject()->GetComponent<StateMachine>()->GetState()) && !dynamic_cast<PeterHitState*>(GetGameObject()->GetComponent<StateMachine>()->GetState()) ){
 			GetGameObject()->GetComponent<StateMachine>()->SetState(new PeterWalkingState{});
 		}
 	}
@@ -34,7 +34,7 @@ namespace dae {
 
 	void PeterClimbStateCommand::Execute(float)
 	{
-		if (GetGameObject()->GetComponent<CollisionPlayersComponent>()->getCanClimb() && !dynamic_cast<PeterHitState*>(GetGameObject()->GetComponent<StateMachine>()->GetState())) {
+		if (GetGameObject()->GetComponent<CollisionPlayersComponent>()->getCanClimb() && !dynamic_cast<PeterClimbingState*>(GetGameObject()->GetComponent<StateMachine>()->GetState()) && !dynamic_cast<PeterHitState*>(GetGameObject()->GetComponent<StateMachine>()->GetState())) {
 			GetGameObject()->GetComponent<StateMachine>()->SetState(new PeterClimbingState{});
 		}
 	}
@@ -53,6 +53,48 @@ namespace dae {
 	{
 		if (!dynamic_cast<PeterHitState*>(GetGameObject()->GetComponent<StateMachine>()->GetState())) {
 			GetGameObject()->GetComponent<StateMachine>()->SetState(new PeterIdleState{});
+		}
+	}
+
+	//PeterWalkCommand
+	PeterWalkCommand::PeterWalkCommand(GameObject* object, glm::vec3 direction, float speed)
+		: GameObjectCommand(object)
+		, m_MoveCommand(new MoveCommand(object, direction, speed))
+	{
+	}
+
+	PeterWalkCommand::~PeterWalkCommand()
+	{
+		delete m_MoveCommand;
+		m_MoveCommand = nullptr;
+	}
+
+	void PeterWalkCommand::Execute(float deltaTime)
+	{
+		if (dynamic_cast<PeterWalkingState*>(GetGameObject()->GetComponent<StateMachine>()->GetState()))
+		{
+			m_MoveCommand->Execute(deltaTime);
+		}
+	}
+
+	//PeterClimbCommand
+	PeterClimbCommand::PeterClimbCommand(GameObject* object, glm::vec3 direction, float speed)
+		: GameObjectCommand(object)
+		, m_MoveCommand(new MoveCommand(object, direction, speed))
+	{
+	}
+
+	PeterClimbCommand::~PeterClimbCommand()
+	{
+		delete m_MoveCommand;
+		m_MoveCommand = nullptr;
+	}
+
+	void PeterClimbCommand::Execute(float deltaTime)
+	{
+		if (dynamic_cast<PeterClimbingState*>(GetGameObject()->GetComponent<StateMachine>()->GetState()))
+		{
+			m_MoveCommand->Execute(deltaTime);
 		}
 	}
 }

@@ -27,7 +27,6 @@
 #include "FPSComponent.h"
 #include "OrbitParentComponent.h" 
 #include "InputManager.h"
-#include "Command.h"
 #include "CounterComponent.h"
 #include "CounterComponentObserver.h"
 #include "SoundSignleton.h"
@@ -36,6 +35,7 @@
 #include "TriggerSoundCommand.h"
 #include "JsonReader.h"
 #include "CollisionPlayerComponent.h"
+#include "PeterCommands.h"
 
 using namespace dae;
 
@@ -75,22 +75,32 @@ void load()
 
 
 	unsigned int controllerIndex = input.AddController();
-	auto Bub = std::make_unique<dae::GameObject>();
-	Bub = std::make_unique<dae::GameObject>();
-	Bub->AddComponent<dae::TextureComponent>();
-	Bub->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("BurgerTime/Sprites/Peter.png"));
-	Bub->AddComponent<dae::StateMachine>();
-	Bub->GetTransform()->SetSize(16, 16);
-	Bub->setLocalPosition(48, 53, 0);
-	Bub->setTag("Player");
-	Bub->AddComponent<dae::CollisionPlayersComponent>();
-	CollsionSubject.AddObserver(Bub->GetComponent<dae::CollisionPlayersComponent>());
-	CollsionSubject.addMovingGameObject(Bub.get());
-	input.AddCommand(SDL_SCANCODE_A, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(-1, 0, 0), 100.0f));
-	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(1, 0, 0), 100.0f));
+	auto Peter = std::make_unique<dae::GameObject>();
+	Peter = std::make_unique<dae::GameObject>();
+	Peter->AddComponent<dae::TextureComponent>();
+	Peter->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("BurgerTime/Sprites/Peter.png"));
+	Peter->AddComponent<dae::StateMachine>();
+	Peter->GetTransform()->SetSize(16, 16);
+	Peter->setLocalPosition(48, 53, 0);
+	Peter->setTag("Player");
+	Peter->AddComponent<dae::CollisionPlayersComponent>();
+	CollsionSubject.AddObserver(Peter->GetComponent<dae::CollisionPlayersComponent>());
+	CollsionSubject.addMovingGameObject(Peter.get());
+	input.AddCommand(SDL_SCANCODE_A, buttonState::down, std::make_unique<PeterWalkStateCommand>(Peter.get()));
+	input.AddCommand(SDL_SCANCODE_D, buttonState::down, std::make_unique<PeterWalkStateCommand>(Peter.get()));
+	input.AddCommand(SDL_SCANCODE_W, buttonState::down, std::make_unique<PeterClimbStateCommand>(Peter.get()));
+	input.AddCommand(SDL_SCANCODE_S, buttonState::down, std::make_unique<PeterClimbStateCommand>(Peter.get()));
+	input.AddCommand(SDL_SCANCODE_A, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(), glm::vec3(-1, 0, 0), 100.0f));
+	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(), glm::vec3(1, 0, 0), 100.0f));	
+	input.AddCommand(SDL_SCANCODE_W, buttonState::heldDown, std::make_unique<PeterClimbCommand>(Peter.get(), glm::vec3(0, -1, 0), 100.0f));
+	input.AddCommand(SDL_SCANCODE_S, buttonState::heldDown, std::make_unique<PeterClimbCommand>(Peter.get(), glm::vec3(0, 1, 0), 100.0f));
+	input.AddCommand(SDL_SCANCODE_A, buttonState::up, std::make_unique<PeterIdleStateCommand>(Peter.get()));
+	input.AddCommand(SDL_SCANCODE_D, buttonState::up, std::make_unique<PeterIdleStateCommand>(Peter.get()));
+	input.AddCommand(SDL_SCANCODE_W, buttonState::up, std::make_unique<PeterIdleStateCommand>(Peter.get()));
+	input.AddCommand(SDL_SCANCODE_S, buttonState::up, std::make_unique<PeterIdleStateCommand>(Peter.get()));
 	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound));
-	input.AddCommand(ControllerInput::controllerButtons::DPAD_LEFT, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(-1, 0, 0), 200.0f), controllerIndex);
-	input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(1, 0, 0), 200.0f), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_LEFT, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(), glm::vec3(-1, 0, 0), 200.0f), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(), glm::vec3(1, 0, 0), 200.0f), controllerIndex);
 
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
@@ -120,7 +130,7 @@ void load()
 
 
 
-	scene.Add(std::move(Bub));
+	scene.Add(std::move(Peter));
 }
 
 

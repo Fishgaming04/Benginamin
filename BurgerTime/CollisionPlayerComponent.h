@@ -15,8 +15,8 @@ namespace dae
 
 		virtual void OnNotify(Event event, Subject*, const std::any& args) override;
 
-		bool getCanClimb() const { return m_CanClimb; }
-		bool getCanWalk() const { return m_CanWalk; }
+		bool getCanClimb() const { return m_CanClimbLastFrame; }
+		bool getCanWalk() const { return m_CanWalkLastFrame; }
 
 		CollisionPlayersComponent(const CollisionPlayersComponent& other) = delete;
 		CollisionPlayersComponent(CollisionPlayersComponent&& other) = delete;
@@ -24,9 +24,12 @@ namespace dae
 		CollisionPlayersComponent& operator=(CollisionPlayersComponent&& other) = delete;
 	private:
 		glm::vec3 m_PreviousViablePosition;
+		int m_LadderOverlap;
 		bool m_CurrentPositionIsViable;
 		bool m_CanClimb;
 		bool m_CanWalk;
+		bool m_CanClimbLastFrame;
+		bool m_CanWalkLastFrame;
 	};
 
 }

@@ -110,10 +110,10 @@ void load()
 	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(1, 0, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_A, buttonState::down, std::make_unique<BubWalkCommand>( Bub.get()));
 	input.AddCommand(SDL_SCANCODE_D, buttonState::down, std::make_unique<BubWalkCommand>( Bub.get()));
-	input.AddCommand(SDL_SCANCODE_SPACE, buttonState::down, std::make_unique<JumpCommand>( Bub.get(), 2.5f));
-	input.AddCommand(SDL_SCANCODE_SPACE, buttonState::up  , std::make_unique<BubJumpCommand>(Bub.get()));
 	input.AddCommand(SDL_SCANCODE_D, buttonState::up,		std::make_unique<BubIdleCommand>( Bub.get()));
 	input.AddCommand(SDL_SCANCODE_A, buttonState::up,		std::make_unique<BubIdleCommand>( Bub.get()));
+	input.AddCommand(SDL_SCANCODE_SPACE, buttonState::down, std::make_unique<JumpCommand>( Bub.get(), 2.5f));
+	input.AddCommand(SDL_SCANCODE_SPACE, buttonState::up  , std::make_unique<BubJumpCommand>(Bub.get()));
 	input.AddCommand(SDL_SCANCODE_LSHIFT, buttonState::down,std::make_unique<BubShootCommand>(Bub.get()));
 	input.AddCommand(SDL_SCANCODE_X, buttonState::up,		std::make_unique<IncreaseCounter>(Bub.get(), "Lives", -1));
 	input.AddCommand(SDL_SCANCODE_X, buttonState::up,		std::make_unique<BubHitCommand>( Bub.get()));

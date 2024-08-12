@@ -12,6 +12,7 @@ namespace dae
 		LevelBuilder();
 
 		void GenerateLevel(Scene& scene, std::vector<glm::vec3>position, std::string Tag, bool isStatic = true, bool isFlipped = false);
+		std::vector<std::unique_ptr<GameObject>> GenerateLevel(std::vector<glm::vec3>position, std::string Tag, bool isStatic = true, bool isFlipped = false);
 		void SetLevelTexture(const std::shared_ptr<Texture2D> texture);
 
 		//rule of 5

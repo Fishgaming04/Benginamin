@@ -4,7 +4,7 @@
 #include "TextureComponent.h"
 #include "ResourceManager.h"
 #include "CollisionSubject.h"
-#include "iostream"
+//#include "iostream"
 #include "Texture2D.h"
 #include <SDL.h>
 
@@ -18,9 +18,22 @@ namespace dae {
 
 	void LevelBuilder::GenerateLevel(Scene& scene, std::vector<glm::vec3> position, std::string tag, bool isStatic, bool isFlipped)
 	{
+
+		//auto& recourceManager = dae::ResourceManager::GetInstance();
+		auto gameObjects{ GenerateLevel(position, tag, isStatic, isFlipped) };
+		for (auto& gameobject : gameObjects) {
+			scene.Add(std::move(gameobject));
+		}
+	}
+
+
+
+	std::vector<std::unique_ptr<GameObject>>  LevelBuilder::GenerateLevel(std::vector<glm::vec3> position, std::string tag, bool isStatic, bool isFlipped)
+	{
 		//auto& recourceManager = dae::ResourceManager::GetInstance();
 		int widthMiddle;
 		int heightMiddle;
+		std::vector<std::unique_ptr<GameObject>> Objects;
 		SDL_QueryTexture(m_Texture.get()->GetSDLTexture(), nullptr, nullptr, &widthMiddle, &heightMiddle);
 		auto& CollsionSubject = dae::CollisionSubject::GetInstance();
 		for (glm::vec3 pos : position)
@@ -33,7 +46,7 @@ namespace dae {
 			gameobject->setIsLookingLeft(isFlipped);
 			gameobject->setTag(tag);
 			gameobject->setFacingDirectionStatic(true);
-			std::cout << pos.x << " " << pos.y << " " << pos.z << "\n";
+			//std::cout << pos.x << " " << pos.y << " " << pos.z << "\n";
 
 			if (isStatic) {
 				CollsionSubject.addStaticGameObject(gameobject.get());
@@ -42,8 +55,10 @@ namespace dae {
 			{
 				CollsionSubject.addMovingGameObject(gameobject.get());
 			}
-			scene.Add(std::move(gameobject));
+			Objects.push_back(std::move(gameobject));
 		}
+		
+		return Objects;
 	}
 
 	void LevelBuilder::SetLevelTexture(const std::shared_ptr<Texture2D> texture)

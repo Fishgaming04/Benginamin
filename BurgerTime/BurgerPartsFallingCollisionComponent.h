@@ -1,0 +1,32 @@
+#pragma once
+#include "Components.h"
+
+namespace dae {
+	class BurgerPartsFallingCollisionComponent final : public ObserverComponent
+	{
+	public:
+		BurgerPartsFallingCollisionComponent(GameObject* obj);
+
+		void Update(double) override;
+
+		virtual ~BurgerPartsFallingCollisionComponent() {};
+
+		virtual void OnNotify(Event event, Subject*, const std::any& args) override;
+
+		BurgerPartsFallingCollisionComponent(const BurgerPartsFallingCollisionComponent& other) = delete;
+		BurgerPartsFallingCollisionComponent(BurgerPartsFallingCollisionComponent&& other) = delete;
+		BurgerPartsFallingCollisionComponent& operator=(const BurgerPartsFallingCollisionComponent& other) = delete;
+		BurgerPartsFallingCollisionComponent& operator=(BurgerPartsFallingCollisionComponent&& other) = delete;
+
+	private:
+
+		int m_FallPlatformCounter;
+		int m_FallEnemieCounter;
+
+		bool m_TouchingPlatform;
+		bool m_TouchingPlatformLastFrame;
+	};
+}
+
+
+

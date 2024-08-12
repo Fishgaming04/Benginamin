@@ -19,22 +19,30 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BurgerPartsFallingCollisionComponent.cpp" />
     <ClCompile Include="CollisionPlayerComponent.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
+    <ClCompile Include="IsPressedThenFallComponent.cpp" />
     <ClCompile Include="JsonReader.cpp" />
     <ClCompile Include="LevelBuilder.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PeterCommands.cpp" />
     <ClCompile Include="PeterStates.cpp" />
+    <ClCompile Include="PlatterComponent.cpp" />
+    <ClCompile Include="ToppingPartCollision.cpp" />
     <ClCompile Include="TriggerSoundCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BurgerPartsFallingCollisionComponent.h" />
     <ClInclude Include="CollisionPlayerComponent.h" />
     <ClInclude Include="FPSComponent.h" />
+    <ClInclude Include="IsPressedThenFallComponent.h" />
     <ClInclude Include="JsonReader.h" />
     <ClInclude Include="LevelBuilder.h" />
     <ClInclude Include="PeterCommands.h" />
     <ClInclude Include="PeterStates.h" />
+    <ClInclude Include="PlatterComponent.h" />
+    <ClInclude Include="ToppingPartCollision.h" />
     <ClInclude Include="TriggerSoundCommand.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -17,7 +17,6 @@ namespace dae {
 		,m_GameObjPtr{object}
 		,m_Speed{speed}
 	{
-		
 	}
 
 
@@ -34,7 +33,6 @@ namespace dae {
 		:Command()
 		, m_GameObjPtr{ object }
 	{
-
 	}
 
 	GameObjectCommand::~GameObjectCommand()

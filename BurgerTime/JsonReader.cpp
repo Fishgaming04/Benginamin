@@ -6,6 +6,11 @@
 #include "LevelBuilder.h"
 #include <SDL.h>
 #include "Texture2D.h"
+#include "CollisionSubject.h"
+#include "ToppingPartCollision.h"
+#include "IsPressedThenFallComponent.h"
+#include "BurgerPartsFallingCollisionComponent.h"
+#include "TextureComponent.h"
 
 namespace dae {
 
@@ -22,7 +27,6 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 
 	bool dae::JsonReader::readLevelJson(const std::string& filePath, Scene& scene)
 	{
-		scene;
 		std::ifstream inputFile;
 
 		inputFile.open(filePath, std::ios::in);
@@ -54,6 +58,7 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 			Topping BurgerCheeseLocations;
 			Topping BurgerTomatoLocations;
 			Topping BurgerBottomLocations;
+
 			for (std::vector<int> ladder : Ladders)
 			{
 				glm::vec3 ladderLocation;
@@ -113,8 +118,6 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 						}
 
 					}
-
-
 				}
 			}
 
@@ -137,42 +140,56 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 			builder.SetLevelTexture(m_PlatterTexture);
 			builder.GenerateLevel(scene, PlatterLocations, "Platter", true);
 
+
+
 			//BurgerTop
 			builder.SetLevelTexture(m_BurgerTopSideTexture);
-			builder.GenerateLevel(scene, BurgerTopLocations.Left, "Bun", false);
-			builder.GenerateLevel(scene, BurgerTopLocations.Right, "Bun", false, true);
+			auto left{ builder.GenerateLevel( BurgerTopLocations.Left, "Bun", false) };
+			auto right{ builder.GenerateLevel( BurgerTopLocations.Right, "Bun", false, true) };
 			builder.SetLevelTexture(m_BurgerTopMiddleTexture);
-			builder.GenerateLevel(scene, BurgerTopLocations.Middle, "Bun", false);
+			auto middle{ builder.GenerateLevel( BurgerTopLocations.Middle, "Bun", false) };
+
+			CombineTopping(left, middle, right, scene);
 			//BurgerMeat
 			builder.SetLevelTexture(m_BurgerMeatSideTexture);
-			builder.GenerateLevel(scene, BurgerMeatLocations.Left, "Topping", false);
-			builder.GenerateLevel(scene, BurgerMeatLocations.Right, "Topping", false, true);
+			left  =	builder.GenerateLevel( BurgerMeatLocations.Left, "Topping", false);
+			right = builder.GenerateLevel(BurgerMeatLocations.Right, "Topping", false, true);
 			builder.SetLevelTexture(m_BurgerMeatMiddleTexture);
-			builder.GenerateLevel(scene, BurgerMeatLocations.Middle, "Topping", false);
+			middle = builder.GenerateLevel( BurgerMeatLocations.Middle, "Topping", false);
+
+			CombineTopping(left, middle, right, scene);
 			//BurgerLettuce
 			builder.SetLevelTexture(m_BurgerLettuceSideTexture);
-			builder.GenerateLevel(scene, BurgerLettuceLocations.Left, "Topping", false);
-			builder.GenerateLevel(scene, BurgerLettuceLocations.Right, "Topping", false, true);
+			left = builder.GenerateLevel( BurgerLettuceLocations.Left, "Topping", false);
+			right = builder.GenerateLevel( BurgerLettuceLocations.Right, "Topping", false, true);
 			builder.SetLevelTexture(m_BurgerLettuceMiddleTexture);
-			builder.GenerateLevel(scene, BurgerLettuceLocations.Middle, "Topping", false);
+			middle = builder.GenerateLevel(BurgerLettuceLocations.Middle, "Topping", false);
+
+			CombineTopping(left, middle, right, scene);
 			//BurgerCheese
 			builder.SetLevelTexture(m_BurgerCheeseSideTexture);
-			builder.GenerateLevel(scene, BurgerCheeseLocations.Left, "Topping", false);
-			builder.GenerateLevel(scene, BurgerCheeseLocations.Right, "Topping", false, true);
+			left  = builder.GenerateLevel(BurgerCheeseLocations.Left, "Topping", false);
+			right = builder.GenerateLevel( BurgerCheeseLocations.Right, "Topping", false, true);
 			builder.SetLevelTexture(m_BurgerCheeseMiddleTexture);
-			builder.GenerateLevel(scene, BurgerCheeseLocations.Middle, "Topping", false);
+			middle = builder.GenerateLevel( BurgerCheeseLocations.Middle, "Topping", false);
+
+			CombineTopping(left, middle, right, scene);
 			//BurgerTomato
 			builder.SetLevelTexture(m_BurgerTomatoSideTexture);
-			builder.GenerateLevel(scene, BurgerTomatoLocations.Left, "Topping", false);
-			builder.GenerateLevel(scene, BurgerTomatoLocations.Right, "Topping", false, true);
+			left = builder.GenerateLevel( BurgerTomatoLocations.Left, "Topping", false);
+			right = builder.GenerateLevel( BurgerTomatoLocations.Right, "Topping", false, true);
 			builder.SetLevelTexture(m_BurgerTomatoMiddleTexture);
-			builder.GenerateLevel(scene, BurgerTomatoLocations.Middle, "Topping", false);
+			middle = builder.GenerateLevel( BurgerTomatoLocations.Middle, "Topping", false);
+
+			CombineTopping(left, middle, right, scene);
 			//BurgerBottom
 			builder.SetLevelTexture(m_BurgerBottomSideTexture);
-			builder.GenerateLevel(scene, BurgerBottomLocations.Left, "Bun", false);
-			builder.GenerateLevel(scene, BurgerBottomLocations.Right, "Bun", false, true);
+			left = builder.GenerateLevel( BurgerBottomLocations.Left, "Bun", false);
+			right = builder.GenerateLevel( BurgerBottomLocations.Right, "Bun", false, true);
 			builder.SetLevelTexture(m_BurgerBottomMiddleTexture);
-			builder.GenerateLevel(scene, BurgerBottomLocations.Middle, "Bun", false);
+			middle = builder.GenerateLevel( BurgerBottomLocations.Middle, "Bun", false);
+
+			CombineTopping(left, middle, right, scene);
 
 		}
 		return true;
@@ -204,6 +221,57 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 		}
 
 		return BurgerPartLocations;
+	}
+
+	void JsonReader::CombineTopping(std::vector<std::unique_ptr<GameObject>>& left, std::vector<std::unique_ptr<GameObject>>& middle, std::vector<std::unique_ptr<GameObject>>& right, Scene& scene)
+	{
+		//auto& recourceManager = dae::ResourceManager::GetInstance();
+		auto& CollsionSubject = dae::CollisionSubject::GetInstance();
+		for (size_t index{}; index < left.size(); ++index) {
+			auto leftObject			= left[index].get();
+			auto middleLeftObject		= middle[index *2].get();
+			auto middleRightObject		= middle[index*2 +1].get();
+			auto rightObject			= right[index].get();
+
+
+
+			std::unique_ptr Parent = std::make_unique<GameObject>();
+			Parent->setLocalPosition(leftObject->GetTransform()->getLocalposition()) ;
+			auto size{ leftObject->GetTransform()->getSize() };
+			Parent.get()->GetTransform()->SetSize(size.x * 4, size.y);
+			Parent.get()->setTag("ParentTopping");
+			CollsionSubject.addMovingGameObject(Parent.get());
+			Parent.get()->AddComponent<IsPressedThenFallComponent>();
+			Parent.get()->GetComponent<IsPressedThenFallComponent>()->SetPressDistance(3);
+			Parent.get()->GetComponent<IsPressedThenFallComponent>()->SetFallingSpeed(10);
+			///Parent.get()->AddComponent<TextureComponent>();
+			//Parent.get()->GetComponent<TextureComponent>()->SetTexture(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/ParentDebugTexture.png"));
+
+			leftObject->SetParent(Parent.get(), true);
+			middleLeftObject->SetParent(Parent.get(), true);
+			middleRightObject->SetParent(Parent.get(), true);
+			rightObject->SetParent(Parent.get(), true);
+
+			Parent.get()->AddComponent<BurgerPartsFallingCollisionComponent>();
+			leftObject->AddComponent<ToppingPartCollision>();
+			middleLeftObject->AddComponent<ToppingPartCollision>();
+			middleRightObject->AddComponent<ToppingPartCollision>();
+			rightObject->AddComponent<ToppingPartCollision>();
+
+
+			CollsionSubject.AddObserver(Parent.get()->GetComponent<BurgerPartsFallingCollisionComponent>());
+			CollsionSubject.AddObserver(leftObject->GetComponent<ToppingPartCollision>());
+			CollsionSubject.AddObserver(middleLeftObject->GetComponent<ToppingPartCollision>());
+			CollsionSubject.AddObserver(middleRightObject->GetComponent<ToppingPartCollision>());
+			CollsionSubject.AddObserver(rightObject->GetComponent<ToppingPartCollision>());
+
+			scene.Add(std::move(left[index]));
+			scene.Add(std::move(middle[index * 2]));
+			scene.Add(std::move(middle[index * 2 + 1]));
+			scene.Add(std::move(right[index]));
+			scene.Add(std::move(Parent));
+
+		}
 	}
 
 

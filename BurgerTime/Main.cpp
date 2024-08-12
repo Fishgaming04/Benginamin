@@ -80,8 +80,8 @@ void load()
 	Peter->AddComponent<dae::TextureComponent>();
 	Peter->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("BurgerTime/Sprites/Peter.png"));
 	Peter->AddComponent<dae::StateMachine>();
-	Peter->GetTransform()->SetSize(16, 16);
-	Peter->setLocalPosition(48, 53, 0);
+	Peter->GetTransform()->SetSize(16, 18);
+	Peter->setLocalPosition(60, 53, 0);
 	Peter->setTag("Player");
 	Peter->AddComponent<dae::CollisionPlayersComponent>();
 	CollsionSubject.AddObserver(Peter->GetComponent<dae::CollisionPlayersComponent>());
@@ -126,8 +126,6 @@ void load()
 	reader.setLevelBurgerTomatoTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/TomatoSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/TomatoMiddle.png"));
 	reader.setLevelBurgerBottomTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunBottomSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunBottomMiddle.png"));
 	reader.readLevelJson("../Data/BurgerTime/Levels/Level1.json", scene);
-
-
 
 
 	scene.Add(std::move(Peter));

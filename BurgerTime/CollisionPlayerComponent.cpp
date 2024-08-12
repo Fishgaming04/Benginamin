@@ -21,7 +21,7 @@ namespace dae {
 
 		if (!m_CurrentPositionIsViable)
 		{
-			auto pos = GetGameObject()->GetTransform()->getLocalposition();
+			//auto pos = GetGameObject()->GetTransform()->getLocalposition();
 			GetGameObject()->GetTransform()->SetLocalPosition(m_PreviousViablePosition);
 
 			//std::cout << "old: " << pos.x << " " << pos.y << " " << pos.z << "\n";
@@ -56,7 +56,7 @@ namespace dae {
 					//std::cout << info.overlapPercentage.x << " " << info.overlapPercentage.y << " " << info.overlapPercentage.Total << "\n";
 
 					if (info.CollisionDirection.x == 0) {
-						if (info.overlapPercentage.y <= 0.2f && info.overlapPercentage.y > 0.0f) {
+						if (info.overlapPercentage.y <= 0.5f && info.overlapPercentage.y > 0.1f) {
 							m_CurrentPositionIsViable = true;
 							m_PreviousViablePosition = GetGameObject()->GetTransform()->getLocalposition();
 							m_CanWalk = true;

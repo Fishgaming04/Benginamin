@@ -42,6 +42,9 @@ namespace dae
 		std::vector <glm::vec3> BurgerPartLocation(int X, int Y);
 		std::vector<std::vector <glm::vec3>> m_PlatformLocations;
 
+
+		void CombineTopping(std::vector<std::unique_ptr<GameObject>>& left, std::vector<std::unique_ptr<GameObject>>& middle, std::vector<std::unique_ptr<GameObject>>& right, Scene& scene);
+
 		int m_ScreenWidth;
 		int m_ScreenHeight;
 		int m_NumberOfColumns;

@@ -38,7 +38,7 @@ namespace dae
 		void RemoveObserver(Observer* observer);
 
 		GameObject* GetParent() const;
-		void SetParent(GameObject* parent, bool keepLocationChilderen = false);
+		void SetParent(GameObject* parent, bool keepLocation = false);
 		int GetChildCount();
 		GameObject* GetChildAtIndex(int index) const ;
 		void setLocalPosition(float x, float y, float z = 0.0f);

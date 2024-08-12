@@ -26,11 +26,11 @@ namespace dae {
 			Comp = nullptr;
 		}
 		for (GameObject* child : m_Childeren) {
-			child->SetParent(nullptr, true);
+			child->SetParent(nullptr, false);
 		}
 		if (m_Parent)
 		{
-			m_Parent->removeChild(this, true);
+			m_Parent->removeChild(this, false);
 		}
 	};
 
@@ -146,22 +146,27 @@ namespace dae {
 		}
 	}
 
-	void GameObject::SetParent(GameObject* parent, bool keepLocationChilderen) {
+	void GameObject::SetParent(GameObject* parent, bool KeepLocation) {
 		if (parent != m_Parent && parentNotChildCheck(parent) && parent != this) {
 			if (m_Parent)
 			{
-				m_Parent->removeChild(this, keepLocationChilderen);
+				m_Parent->removeChild(this, KeepLocation);
+			}
+			if (KeepLocation) {
+				if (parent) {
+					setLocalPosition(GetTransform()->getWorldposition() - parent->GetTransform()->getWorldposition());
+				}
 			}
 			m_Parent = parent;
-			UpdatePos();
+			UpdatePos(); 
 			if (parent) {
 				parent->addChild(this);
-			};
+			}
 		}
 	}
 	
 	void GameObject::addChild(GameObject* child) {
-		if (!child && child != m_Parent) {
+		if (child && child != m_Parent) {
 			for (unsigned int index{}; index < m_Childeren.size(); ++index) {
 				if (m_Childeren[index] == child) {
 					return;
@@ -181,7 +186,7 @@ namespace dae {
 					else {
 						m_Childeren[index]->SetDirty();
 					}
-					m_Childeren[index]->SetParent(nullptr);
+					//m_Childeren[index]->SetParent(nullptr);
 					m_Childeren.erase(m_Childeren.begin() + index);
 					return;
 				}
@@ -199,7 +204,7 @@ namespace dae {
 	}
 
 	int GameObject::GetChildCount() {
-		return int(m_Childeren.size());
+		return static_cast<int>(m_Childeren.size());
 	}
 
 	GameObject* GameObject::GetChildAtIndex(int index) const {

@@ -184,10 +184,10 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 			CombineTopping(left, middle, right, scene);
 			//BurgerBottom
 			builder.SetLevelTexture(m_BurgerBottomSideTexture);
-			left = builder.GenerateLevel( BurgerBottomLocations.Left, "Bun", false);
-			right = builder.GenerateLevel( BurgerBottomLocations.Right, "Bun", false, true);
+			left = builder.GenerateLevel( BurgerBottomLocations.Left, "Topping", false);
+			right = builder.GenerateLevel( BurgerBottomLocations.Right, "Topping", false, true);
 			builder.SetLevelTexture(m_BurgerBottomMiddleTexture);
-			middle = builder.GenerateLevel( BurgerBottomLocations.Middle, "Bun", false);
+			middle = builder.GenerateLevel( BurgerBottomLocations.Middle, "Topping", false);
 
 			CombineTopping(left, middle, right, scene);
 

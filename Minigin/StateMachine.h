@@ -7,8 +7,7 @@ namespace dae {
 	{
 	public:
 		virtual ~State() = default;
-		//virtual State* handleInput(GameObject& gameObject) {};
-		virtual State* update(GameObject& ) = 0;
+		virtual State* update(GameObject& , double deltaTime) = 0;
 		virtual void enter(GameObject& ) = 0;
 		virtual void exit(GameObject&) = 0;
 	};
@@ -17,9 +16,8 @@ namespace dae {
 	class StateMachine : public UpdatingComponent
 	{
 	public:
-		//virtual void handleInput(GameObject& gameObject);
 		StateMachine(GameObject* GameObj);
-		virtual void Update(double) override;
+		virtual void Update(double deltaTime) override;
 		void SetState(State* state);
 		State* GetState();
 		~StateMachine();

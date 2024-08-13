@@ -20,8 +20,9 @@ namespace dae
 		CounterUpdate,
 		collision
 	};
+
+
 	class Subject;
-	class GameObject;
 	class Observer 
 	{
 	public:

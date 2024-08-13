@@ -4,7 +4,7 @@
 #include "Scene.h"
 namespace dae
 {
-	struct EnemiesSpawning {
+	struct EnemysSpawning {
 		std::string name;
 		int amount;
 	};
@@ -20,12 +20,12 @@ namespace dae
 		EnemyCreater& operator=(const EnemyCreater& other) = delete;
 		EnemyCreater& operator=(EnemyCreater&& other) = delete;
 
-		void CreateEnemy(EnemiesSpawning Spawning);
+		void CreateEnemy(EnemysSpawning Spawning);
 		void SetScene(Scene* scene) { m_Scene = scene; }
 		void addPlayer(GameObject* player);
 
 	private:
-		std::vector<GameObject*> m_Enemies;
+		std::vector<GameObject*> m_Enemys;
 		Scene* m_Scene;
 		std::vector<GameObject*> m_Players;
 

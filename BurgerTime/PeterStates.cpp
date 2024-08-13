@@ -2,12 +2,12 @@
 #include "ResourceManager.h"
 #include "TextureComponent.h"
 
-
-
 namespace dae {
 	//idle
-	State* PeterIdleState::update(GameObject&)
+	State* PeterIdleState::update(GameObject&, double)
 	{
+
+
 		return nullptr;
 	}
 
@@ -15,14 +15,16 @@ namespace dae {
 	{
 		auto& recourceManager = dae::ResourceManager::GetInstance();
 		gameObject.GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("BurgerTime/Sprites/Peter.png"));
+
+		
 	}
 
-	void PeterIdleState::exit(GameObject&)
+	void PeterIdleState::exit(GameObject&) 
 	{
 	}
 
 	//walking
-	State* PeterWalkingState::update(GameObject&)
+	State* PeterWalkingState::update(GameObject&, double)
 	{
 		return nullptr;
 	}
@@ -39,7 +41,7 @@ namespace dae {
 
 
 	//climbing
-	State* PeterClimbingState::update(GameObject&)
+	State* PeterClimbingState::update(GameObject&, double )
 	{
 		return nullptr;
 	}
@@ -55,14 +57,15 @@ namespace dae {
 	}
 
 	//hit
-	State* PeterHitState::update(GameObject&)
+	State* PeterHitState::update(GameObject&, double)
 	{
 		return nullptr;
 	}
 
 	void PeterHitState::enter(GameObject& gameObject)
 	{
-		gameObject;
+		auto& recourceManager = dae::ResourceManager::GetInstance();
+		gameObject.GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("BurgerTime/Sprites/Peter.png"));
 	}
 
 	void PeterHitState::exit(GameObject&)

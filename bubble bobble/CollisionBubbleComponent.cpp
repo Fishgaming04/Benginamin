@@ -38,7 +38,7 @@ namespace dae {
 				GetGameObject()->GetComponent<BubbleCompenent>()->setMoveToSide(true);
 			}
 		}
-		else if (HitByBubble->getTag() == "Enemie") {
+		else if (HitByBubble->getTag() == "Enemy") {
 
 		}
 	}

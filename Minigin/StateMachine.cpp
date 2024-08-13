@@ -18,11 +18,11 @@ dae::StateMachine::StateMachine(GameObject* GameObj)
 {
 }
 
-void dae::StateMachine::Update(double)
+void dae::StateMachine::Update(double deltatime)
 {
 	if (m_State)
 	{
-		State* state = m_State->update(*GetGameObject());
+		State* state = m_State->update(*GetGameObject(), deltatime);
 		if (state)
 		{
 			m_State->exit(*GetGameObject());

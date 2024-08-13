@@ -9,7 +9,7 @@
 #include "EnemyCollisionObserver.h"
 
 namespace dae {
-	void dae::EnemyCreater::CreateEnemy(EnemiesSpawning Spawning)
+	void dae::EnemyCreater::CreateEnemy(EnemysSpawning Spawning)
 	{
 		auto& recourceManager = dae::ResourceManager::GetInstance();
 		auto& CollsionSubject = dae::CollisionSubject::GetInstance();

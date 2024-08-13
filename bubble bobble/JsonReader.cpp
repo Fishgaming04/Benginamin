@@ -29,7 +29,7 @@ bool dae::JsonReader::readLevelJson(const std::string& filePath, Scene& scene)
 		for (const auto& obj : doc) {
 			// Extract the "type" and "loc" values
 			std::vector<std::vector<int>> levelData = obj["Blocks"].get<std::vector<std::vector<int>>>();
-			EnemiesSpawning EnemyData;
+			EnemysSpawning EnemyData;
 			EnemyData.name = obj["EnemyType"];
 			EnemyData.amount = obj["Amount"];
 

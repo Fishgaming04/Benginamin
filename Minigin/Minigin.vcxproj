@@ -189,7 +189,6 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="ControllerInput.h" />
-    <ClInclude Include="CounterComponentObserver.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />

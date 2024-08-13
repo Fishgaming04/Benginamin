@@ -18,6 +18,7 @@ namespace dae
 		LevelEnd,
 		LevelReset,
 		CounterUpdate,
+		UpdateCounter,
 		collision
 	};
 
@@ -38,7 +39,7 @@ namespace dae
 			
 		void AddObserver(Observer* observer);
 		void RemoveObserver(Observer* observer);
-		void Notify(Event event, Subject* subjec,const std::any& args);
+		void Notify(Event event, Subject* subject,const std::any& args);
 	private:
 		std::vector<Observer*> m_Observers;
 	};

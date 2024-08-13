@@ -1,7 +1,7 @@
 #include "Command.h"
 #include <glm/glm.hpp>
 #include <iostream>
-#include "CounterComponent.h"
+//#include "CounterComponent.h"
 
 namespace dae {
 

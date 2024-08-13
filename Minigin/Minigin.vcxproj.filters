@@ -99,9 +99,6 @@
     <ClInclude Include="Command.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="CounterComponentObserver.h">
-      <Filter>Header Files\Observers</Filter>
-    </ClInclude>
     <ClInclude Include="SoundSignleton.h">
       <Filter>Header Files\Singletons</Filter>
     </ClInclude>

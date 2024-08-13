@@ -1,5 +1,5 @@
 #include "CounterIncreaseObserver.h"
-//#include "CounterComponent.h"
+#include "CounterComponent.h"
 #include "GameObject.h"
 
 namespace dae {
@@ -16,9 +16,9 @@ namespace dae {
 
 			if (counter.counterName == m_CounterName)
 			{
-				//if (!GetGameObject()->GetComponent<CounterComponent>()) {
-					//GetGameObject()->AddComponent<CounterComponent>();
-				//}
+				if (!GetGameObject()->GetComponent<CounterComponent>()) {
+					GetGameObject()->AddComponent<CounterComponent>();
+				}
 				GetGameObject()->GetComponent<CounterComponent>()->SetCounter(m_CounterName, counter.IncreaseAmount);
 			}
 		}

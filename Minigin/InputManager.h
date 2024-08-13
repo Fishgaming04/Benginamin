@@ -9,7 +9,7 @@
 #include "KeyboardInput.h"
 #include <memory>
 #include "StateMachine.h"
-#pragma comment(lib, "xinput.lib")
+//#pragma comment(lib, "xinput.lib")
 
 
 namespace dae

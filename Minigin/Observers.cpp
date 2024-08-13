@@ -1,6 +1,6 @@
 #include "Observers.h"
 
-
+#include <iostream>
 namespace dae {
 
 
@@ -40,7 +40,10 @@ namespace dae {
 	{
 		for (auto& observer : m_Observers)
 		{
-			observer->OnNotify(event, subject, args);
+			if (observer) {	
+				observer->OnNotify(event, subject, args);
+
+			}
 		}
 	}
 

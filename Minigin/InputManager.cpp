@@ -22,7 +22,7 @@ bool dae::InputManager::ProcessInput(float deltaTime)
 
 				if (command.first.second == buttonState::heldDown)
 				{
-					if (controller->IsPressed(command.first.first.second))
+ 					if (controller->IsPressed(command.first.first.second))
 					{
 						command.second->Execute(deltaTime);
 					}
@@ -120,10 +120,10 @@ void dae::InputManager::RemoveCommand(const SDL_Scancode key, const buttonState 
 
 unsigned int dae::InputManager::AddController()
 {
-	if (m_Controllers.size() >= m_MaxControllers)
+	if (m_Controllers.size() < m_MaxControllers)
 	{
-		m_Controllers.push_back(std::make_unique<ControllerInput>( static_cast<unsigned int>(m_Controllers.size()-1)));
-		return static_cast<unsigned int>(m_Controllers.size() - 2);
+		m_Controllers.push_back(std::make_unique<ControllerInput>( static_cast<unsigned int>(m_Controllers.size())));
+		return static_cast<unsigned int>(m_Controllers.size()-1);
 	}
 	return 100;
 }

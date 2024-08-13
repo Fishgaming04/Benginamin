@@ -45,7 +45,7 @@ namespace dae
 				state->SetSpeed(m_Speed);
 				state->SetTexture(m_TextureWalking);
 				GetGameObject()->setLocalPosition(m_SpawnPosition);
-				m_Subject->Notify(Event::UpdateCounter, m_Subject, UpdateCounterEvent{ "Points", m_Points });
+				m_Subject->Notify(Event::UpdateCounter, m_Subject.get(), UpdateCounterEvent{"Points", m_Points});
 				m_HitTimer = 0;
 			}
 			else if(!GetGameObject()->GetParent() || GetGameObject()->GetParent()->getTag() != "ParentTopping")
@@ -78,6 +78,7 @@ namespace dae
 		m_StateMachine->SetState(new EnemyHitState());
 		if (!GetGameObject()->GetParent() || GetGameObject()->GetParent()->getTag() != "ParentTopping") {
 			GetGameObject()->setLocalPosition(m_SpawnPosition);
+			m_Subject->Notify(Event::UpdateCounter, m_Subject.get(), UpdateCounterEvent{ "Points", m_Points });
 		}
 		dynamic_cast<EnemyHitState*>(m_StateMachine->GetState())->SetTexture(m_TextureHit);
 	}

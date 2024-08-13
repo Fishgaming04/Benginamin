@@ -7,7 +7,7 @@ namespace dae
 
 	CounterComponent::CounterComponent(GameObject* obj)
 		:UpdatingComponent(obj)
-		, m_Subject(new Subject())
+		, m_Subject()
 	{
 	}
 
@@ -29,10 +29,10 @@ namespace dae
 
 		for (auto& counts : m_Counters)
 		{
-			if (counts.first == name)
+			if (counts.first == name && m_Subject.get())
 			{
 				counts.second += value;
-				m_Subject->Notify(Event::CounterUpdate, m_Subject, UpdateCounterEvent{name, counts.second });
+				m_Subject->Notify(Event::CounterUpdate, m_Subject.get(), UpdateCounterEvent{name, counts.second});
 				return;
 			}
 		}

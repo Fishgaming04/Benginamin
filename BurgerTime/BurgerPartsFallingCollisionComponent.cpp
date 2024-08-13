@@ -96,7 +96,7 @@ namespace dae {
 								points *= 2;
 							}
 						}
-						m_Subject->Notify(Event::UpdateCounter, m_Subject, UpdateCounterEvent{ "Points", points });
+						m_Subject->Notify(Event::UpdateCounter, m_Subject.get(), UpdateCounterEvent{ "Points", points });
 						m_FallPlatformCounter = 0;
 						m_FallEnemyCounter = 0;
 					}

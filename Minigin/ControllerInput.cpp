@@ -1,7 +1,8 @@
 #include "ControllerInput.h"
 #include <Windows.h>
 #include <Xinput.h>
-#pragma comment(lib, "xinput.lib")
+#include <iostream>
+//#pragma comment(lib, "xinput.lib")
 namespace dae {
 	
 	//ControllerInputImpl
@@ -23,44 +24,6 @@ namespace dae {
 			ControllerInputImpl(ControllerInputImpl&& other) = delete;
 			ControllerInputImpl& operator=(const ControllerInputImpl& other) = delete;
 			ControllerInputImpl& operator=(ControllerInputImpl&& other) = delete;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		private:
 			const unsigned int m_ControllerIndex;
@@ -89,6 +52,7 @@ namespace dae {
 		CopyMemory(&previousState, &currentState, sizeof(XINPUT_STATE));
 		ZeroMemory(&currentState, sizeof(XINPUT_STATE));
 		XInputGetState(m_ControllerIndex, &currentState);
+
 		auto buttonChanges = currentState.Gamepad.wButtons ^ previousState.Gamepad.wButtons;
 		buttonsPressedThisFrame = buttonChanges & currentState.Gamepad.wButtons;
 		buttonsReleasedThisFrame = buttonChanges & (~currentState.Gamepad.wButtons);

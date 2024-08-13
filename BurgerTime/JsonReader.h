@@ -30,7 +30,7 @@ namespace dae
 		void setLevelBurgerTomatoTexture	(const std::shared_ptr<Texture2D>& TextureBurgerPartSide, const std::shared_ptr<Texture2D>& TextureBurgerPartMiddle);
 		void setLevelBurgerBottomTexture	(const std::shared_ptr<Texture2D>& TextureBurgerPartSide, const std::shared_ptr<Texture2D>& TextureBurgerPartMiddle);
 
-		void setSubject(Subject* subject) { m_Subject = subject; }
+		void setSubject(std::shared_ptr<Subject> subject) { m_Subject = subject; }
 		//rule of 5
 		~JsonReader() = default;
 		JsonReader(const JsonReader& other) = delete;
@@ -82,7 +82,7 @@ namespace dae
 		std::shared_ptr<Texture2D> m_BurgerBottomSideTexture;
 		std::shared_ptr<Texture2D> m_BurgerBottomMiddleTexture;
 		
-		Subject* m_Subject;
+		std::shared_ptr<Subject> m_Subject;
 	};
 }
 

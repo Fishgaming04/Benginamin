@@ -28,7 +28,7 @@
 #include "OrbitParentComponent.h" 
 #include "InputManager.h"
 #include "CounterComponent.h"
-#include "CounterComponentObserver.h"
+#include "CounterIncreaseObserver.h"
 #include "SoundSignleton.h"
 #include "StateMachine.h"
 #include "CollisionSubject.h"
@@ -60,24 +60,31 @@ void load()
 	//soundManager.PlayMusic("../Data/BurgerTime/Soundtrack.mp3", -1);
 	int sound = soundManager.LoadSound("../Data/BurgerTime/Soundtrack.mp3");
 	soundManager.SetVolume(0);
-	Subject* subject = new Subject();
-	Subject* CounterSubject = new Subject();
-
+	auto subject = std::make_shared<Subject>();
+	auto  CounterSubject = std::make_shared<Subject>();
+		
 	auto Counter = std::make_unique<dae::GameObject>();
-	Counter->AddComponent<dae::CounterComponent>();
-	Counter->AddComponent<dae::CounterComponentObserver>();
 
-	subject->AddObserver(Counter->GetComponent<dae::CounterComponentObserver>());
+	Counter->AddComponent<dae::CounterComponent>();
+	Counter->AddComponent<dae::CounterIncreaseObserver>();
+	Counter->GetComponent<dae::CounterIncreaseObserver>()->setCounterName("Points");
+
+	subject->AddObserver(Counter->GetComponent<dae::CounterIncreaseObserver>());
 
 	auto Text = std::make_unique<dae::GameObject>();
 	Text->AddComponent<dae::TextureComponent>();
 	Text->AddComponent<dae::TextComponent>();
+	Text->GetComponent<dae::TextComponent>()->SetText("Points: 0");
 	Text->GetComponent<dae::TextComponent>()->SetFont(recourceManager.LoadFont("Lingua.otf", 36));
-	Text->GetComponent<dae::TextComponent>()->SetText("Score: ");
 	Text->GetComponent<dae::TextComponent>()->SetColor(SDL_Color{ 255, 0, 0, 255 });
-	Text->setLocalPosition(20, 20, 0);
+	Text->setLocalPosition(20, 80, 0);
 	Text->AddComponent<dae::CounterDisplay>();
+	Text->GetComponent<dae::CounterDisplay>()->SetCounter("Points");
+	Text->GetComponent<dae::CounterDisplay>()->SetPrefix("Points: ");
+
+
 	CounterSubject->AddObserver(Text->GetComponent<dae::CounterDisplay>());
+	Counter->GetComponent<dae::CounterComponent>()->setSubject(CounterSubject);
 
 	
 
@@ -123,6 +130,7 @@ void load()
 
 
 	unsigned int controllerIndex = input.AddController();
+	std::cout << "main controller: " << controllerIndex << std::endl;
 	auto Peter = std::make_unique<dae::GameObject>();
 	Peter = std::make_unique<dae::GameObject>();
 	Peter->AddComponent<dae::TextureComponent>();
@@ -138,17 +146,29 @@ void load()
 	input.AddCommand(SDL_SCANCODE_D, buttonState::down, std::make_unique<PeterWalkStateCommand>(Peter.get()));
 	input.AddCommand(SDL_SCANCODE_W, buttonState::down, std::make_unique<PeterClimbStateCommand>(Peter.get()));
 	input.AddCommand(SDL_SCANCODE_S, buttonState::down, std::make_unique<PeterClimbStateCommand>(Peter.get()));
-	input.AddCommand(SDL_SCANCODE_A, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(), glm::vec3(-1, 0, 0), 100.0f));
-	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(), glm::vec3(1, 0, 0), 100.0f));	
+	input.AddCommand(SDL_SCANCODE_A, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(),  glm::vec3(-1, 0, 0), 100.0f));
+	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(),  glm::vec3(1,  0, 0), 100.0f));	
 	input.AddCommand(SDL_SCANCODE_W, buttonState::heldDown, std::make_unique<PeterClimbCommand>(Peter.get(), glm::vec3(0, -1, 0), 100.0f));
-	input.AddCommand(SDL_SCANCODE_S, buttonState::heldDown, std::make_unique<PeterClimbCommand>(Peter.get(), glm::vec3(0, 1, 0), 100.0f));
+	input.AddCommand(SDL_SCANCODE_S, buttonState::heldDown, std::make_unique<PeterClimbCommand>(Peter.get(), glm::vec3(0,  1, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_A, buttonState::up, std::make_unique<PeterIdleStateCommand>(Peter.get()));
 	input.AddCommand(SDL_SCANCODE_D, buttonState::up, std::make_unique<PeterIdleStateCommand>(Peter.get()));
 	input.AddCommand(SDL_SCANCODE_W, buttonState::up, std::make_unique<PeterIdleStateCommand>(Peter.get()));
 	input.AddCommand(SDL_SCANCODE_S, buttonState::up, std::make_unique<PeterIdleStateCommand>(Peter.get()));
 	input.AddCommand(SDL_SCANCODE_F, buttonState::up, std::make_unique<TriggerSound>(sound));
-	input.AddCommand(ControllerInput::controllerButtons::DPAD_LEFT, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(), glm::vec3(-1, 0, 0), 200.0f), controllerIndex);
-	input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(), glm::vec3(1, 0, 0), 200.0f), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_LEFT	, buttonState::down, std::make_unique<PeterWalkStateCommand>(Peter.get()), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT	, buttonState::down, std::make_unique<PeterWalkStateCommand>(Peter.get()), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_UP	, buttonState::down, std::make_unique<PeterClimbStateCommand>(Peter.get()), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_DOWN	, buttonState::down, std::make_unique<PeterClimbStateCommand>(Peter.get()), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_LEFT	, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(), glm::vec3(-1, 0, 0), 100.0f), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT	, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(), glm::vec3(1, 0, 0), 100.0f), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_UP	, buttonState::heldDown, std::make_unique<PeterClimbCommand>(Peter.get(), glm::vec3(0, -1, 0), 100.0f), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_DOWN	, buttonState::heldDown, std::make_unique<PeterClimbCommand>(Peter.get(), glm::vec3(0,  1, 0), 100.0f), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_LEFT	, buttonState::up, std::make_unique<PeterIdleStateCommand>(Peter.get()), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT	, buttonState::up, std::make_unique<PeterIdleStateCommand>(Peter.get()), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_UP	, buttonState::up, std::make_unique<PeterIdleStateCommand>(Peter.get()), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::DPAD_DOWN	, buttonState::up, std::make_unique<PeterIdleStateCommand>(Peter.get()), controllerIndex);
+	input.AddCommand(ControllerInput::controllerButtons::LEFT_SHOULDER, buttonState::down, std::make_unique<TriggerSound>(sound), controllerIndex);
+
 
 
 
@@ -185,7 +205,7 @@ void load()
 
 
 
-
+	scene.Add(std::move(Counter));
 	scene.Add(std::move(Text));
 	scene.Add(std::move(Peter));
 	scene.Add(std::move(Enemy));

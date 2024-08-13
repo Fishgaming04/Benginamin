@@ -18,6 +18,7 @@ namespace dae {
 			auto counter{ std::any_cast<UpdateCounterEvent>(args) };
 			if(GetGameObject()->GetComponent<TextComponent>() && counter.counterName == m_Counter)
 			{
+				std::string text{ m_Prefix + std::to_string(counter.IncreaseAmount) };
 				GetGameObject()->GetComponent<TextComponent>()->SetText(m_Prefix + std::to_string(counter.IncreaseAmount));
 			}
 		}

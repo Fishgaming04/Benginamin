@@ -32,7 +32,7 @@ namespace dae
 	};
 
 
-	class Subject
+	class Subject 
 	{
 	public:
 		Subject() = default;

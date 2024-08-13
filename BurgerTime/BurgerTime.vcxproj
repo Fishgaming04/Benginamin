@@ -21,6 +21,9 @@
   <ItemGroup>
     <ClCompile Include="BurgerPartsFallingCollisionComponent.cpp" />
     <ClCompile Include="CollisionPlayerComponent.cpp" />
+    <ClCompile Include="EnemyCollisionComponent.cpp" />
+    <ClCompile Include="EnemyComponent.cpp" />
+    <ClCompile Include="EnemyStates.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="IsPressedThenFallComponent.cpp" />
     <ClCompile Include="JsonReader.cpp" />
@@ -35,6 +38,9 @@
   <ItemGroup>
     <ClInclude Include="BurgerPartsFallingCollisionComponent.h" />
     <ClInclude Include="CollisionPlayerComponent.h" />
+    <ClInclude Include="EnemyCollisionComponent.h" />
+    <ClInclude Include="EnemyComponent.h" />
+    <ClInclude Include="EnemyStates.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="IsPressedThenFallComponent.h" />
     <ClInclude Include="JsonReader.h" />

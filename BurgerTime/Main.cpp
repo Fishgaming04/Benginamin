@@ -36,6 +36,8 @@
 #include "JsonReader.h"
 #include "CollisionPlayerComponent.h"
 #include "PeterCommands.h"
+#include "EnemyComponent.h"
+#include "EnemyCollisionComponent.h"
 
 using namespace dae;
 
@@ -59,6 +61,29 @@ void load()
 	soundManager.SetVolume(0);
 
 
+	JsonReader reader{480,480,4,12};
+	reader.setLevelLadder				(recourceManager.LoadTexture( "../Data/BurgerTime/Ladders/Ladder1.png"));
+	reader.setLevelPlatform				(recourceManager.LoadTexture( "../Data/BurgerTime/Platforms/Platform1.png"));
+	reader.setPlatterTexture			(recourceManager.LoadTexture( "../Data/BurgerTime/Misc/Plate.png"));
+	reader.setLevelBurgerTopTexture		(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunTopSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunTopMiddle.png"));
+	reader.setLevelBurgerMeatTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/PattySide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/PattyMiddle.png"));
+	reader.setLevelBurgerLettuceTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/LettuceSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/LettuceMiddle.png"));
+	reader.setLevelBurgerCheeseTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/CheeseSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/CheeseMiddle.png"));
+	reader.setLevelBurgerTomatoTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/TomatoSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/TomatoMiddle.png"));
+	reader.setLevelBurgerBottomTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunBottomSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunBottomMiddle.png"));
+	reader.readLevelJson("../Data/BurgerTime/Levels/Level1.json", scene);
+
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	gameObj = std::make_unique<GameObject>();
+	gameObj->AddComponent<dae::TextureComponent>();
+	gameObj->AddComponent<dae::TextComponent>();
+	gameObj->GetComponent<dae::TextComponent>()->SetFont(font);
+	gameObj->AddComponent<dae::FPSComponent>();
+	gameObj->GetComponent<dae::TextComponent>()->SetText(std::to_string(gameObj->GetComponent<dae::FPSComponent>()->GetFps()));
+	gameObj->GetComponent<dae::TextComponent>()->SetColor(SDL_Color{ 255, 0, 0, 255 });
+	gameObj->setLocalPosition(20, 20, 0);
+	scene.Add(std::move(gameObj));
+
 	//auto Bob = std::make_unique<dae::GameObject>();
 	//Bob = std::make_unique<dae::GameObject>();
 	//Bob->AddComponent<dae::TextureComponent>();
@@ -81,7 +106,7 @@ void load()
 	Peter->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("BurgerTime/Sprites/Peter.png"));
 	Peter->AddComponent<dae::StateMachine>();
 	Peter->GetTransform()->SetSize(16, 18);
-	Peter->setLocalPosition(60, 53, 0);
+	Peter->setLocalPosition(240, 53, 0);
 	Peter->setTag("Player");
 	Peter->AddComponent<dae::CollisionPlayersComponent>();
 	CollsionSubject.AddObserver(Peter->GetComponent<dae::CollisionPlayersComponent>());
@@ -103,32 +128,43 @@ void load()
 	input.AddCommand(ControllerInput::controllerButtons::DPAD_RIGHT, buttonState::heldDown, std::make_unique<PeterWalkCommand>(Peter.get(), glm::vec3(1, 0, 0), 200.0f), controllerIndex);
 
 
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	gameObj = std::make_unique<GameObject>();
-	gameObj->AddComponent<dae::TextureComponent>();
-	gameObj->AddComponent<dae::TextComponent>();
-	gameObj->GetComponent<dae::TextComponent>()->SetFont(font);
-	gameObj->AddComponent<dae::FPSComponent>();
-	gameObj->GetComponent<dae::TextComponent>()->SetText(std::to_string(gameObj->GetComponent<dae::FPSComponent>()->GetFps()));
-	gameObj->GetComponent<dae::TextComponent>()->SetColor(SDL_Color{ 255, 0, 0, 255 });
-	gameObj->setLocalPosition(20, 20, 0);
-	scene.Add(std::move(gameObj));
 
 
-	JsonReader reader{480,480,4,12};
-	reader.setLevelLadder				(recourceManager.LoadTexture( "../Data/BurgerTime/Ladders/Ladder1.png"));
-	reader.setLevelPlatform				(recourceManager.LoadTexture( "../Data/BurgerTime/Platforms/Platform1.png"));
-	reader.setPlatterTexture			(recourceManager.LoadTexture( "../Data/BurgerTime/Misc/Plate.png"));
-	reader.setLevelBurgerTopTexture		(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunTopSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunTopMiddle.png"));
-	reader.setLevelBurgerMeatTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/PattySide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/PattyMiddle.png"));
-	reader.setLevelBurgerLettuceTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/LettuceSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/LettuceMiddle.png"));
-	reader.setLevelBurgerCheeseTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/CheeseSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/CheeseMiddle.png"));
-	reader.setLevelBurgerTomatoTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/TomatoSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/TomatoMiddle.png"));
-	reader.setLevelBurgerBottomTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunBottomSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunBottomMiddle.png"));
-	reader.readLevelJson("../Data/BurgerTime/Levels/Level1.json", scene);
+	auto Enemy = std::make_unique<dae::GameObject>();
+	std::shared_ptr<Texture2D> walkingTexture{recourceManager.LoadTexture("BurgerTime/Sprites/HotdogWalk.png")};
+	std::shared_ptr<Texture2D> climbingTexture{recourceManager.LoadTexture("BurgerTime/Sprites/HotdogClimb.png")};
+	std::shared_ptr<Texture2D> hitTexture{recourceManager.LoadTexture("BurgerTime/Sprites/HotdogStunned.png")};
+	float speed{ 50.f };
+	int points{ 100 };
+	int hitDuration{ 2 };
+	Enemy->AddComponent<dae::TextureComponent>();
+	Enemy->GetComponent<dae::TextureComponent>()->SetTexture(walkingTexture);
+	Enemy->AddComponent<dae::StateMachine>();
+	Enemy->AddComponent<dae::EnemyComponent>();
+	Enemy->GetComponent<dae::EnemyComponent>()->SetTextureWalking(walkingTexture);
+	Enemy->GetComponent<dae::EnemyComponent>()->SetTextureClimb(climbingTexture);
+	Enemy->GetComponent<dae::EnemyComponent>()->SetTextureHit(hitTexture);
+	Enemy->GetComponent<dae::EnemyComponent>()->SetPlayer(Peter.get());
+	Enemy->GetComponent<dae::EnemyComponent>()->SetSpeed(speed);
+	Enemy->GetComponent<dae::EnemyComponent>()->SetPoints(points);
+	Enemy->GetComponent<dae::EnemyComponent>()->SetHitDuration(hitDuration);
+	Enemy->GetComponent<dae::EnemyComponent>()->SetSpawnPosition(glm::vec3(-40, 18, 0));
+	Enemy->GetComponent<dae::EnemyComponent>()->TouchingGround();
+	Enemy->AddComponent<dae::CollisionEnemyComponent>();
+	Enemy->GetTransform()->SetSize(16, 18);
+	Enemy->setTag("Enemy");
+	CollsionSubject.addMovingGameObject(Enemy.get());
+	CollsionSubject.AddObserver(Enemy->GetComponent<dae::CollisionEnemyComponent>());
+
+
+
+
+
+
 
 
 	scene.Add(std::move(Peter));
+	scene.Add(std::move(Enemy));
 }
 
 

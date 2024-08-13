@@ -38,6 +38,7 @@
 #include "PeterCommands.h"
 #include "EnemyComponent.h"
 #include "EnemyCollisionComponent.h"
+#include "CounterDisplay.h"
 
 using namespace dae;
 
@@ -59,9 +60,29 @@ void load()
 	//soundManager.PlayMusic("../Data/BurgerTime/Soundtrack.mp3", -1);
 	int sound = soundManager.LoadSound("../Data/BurgerTime/Soundtrack.mp3");
 	soundManager.SetVolume(0);
+	Subject* subject = new Subject();
+	Subject* CounterSubject = new Subject();
 
+	auto Counter = std::make_unique<dae::GameObject>();
+	Counter->AddComponent<dae::CounterComponent>();
+	Counter->AddComponent<dae::CounterComponentObserver>();
+
+	subject->AddObserver(Counter->GetComponent<dae::CounterComponentObserver>());
+
+	auto Text = std::make_unique<dae::GameObject>();
+	Text->AddComponent<dae::TextureComponent>();
+	Text->AddComponent<dae::TextComponent>();
+	Text->GetComponent<dae::TextComponent>()->SetFont(recourceManager.LoadFont("Lingua.otf", 36));
+	Text->GetComponent<dae::TextComponent>()->SetText("Score: ");
+	Text->GetComponent<dae::TextComponent>()->SetColor(SDL_Color{ 255, 0, 0, 255 });
+	Text->setLocalPosition(20, 20, 0);
+	Text->AddComponent<dae::CounterDisplay>();
+	CounterSubject->AddObserver(Text->GetComponent<dae::CounterDisplay>());
+
+	
 
 	JsonReader reader{480,480,4,12};
+	reader.setSubject(subject);
 	reader.setLevelLadder				(recourceManager.LoadTexture( "../Data/BurgerTime/Ladders/Ladder1.png"));
 	reader.setLevelPlatform				(recourceManager.LoadTexture( "../Data/BurgerTime/Platforms/Platform1.png"));
 	reader.setPlatterTexture			(recourceManager.LoadTexture( "../Data/BurgerTime/Misc/Plate.png"));
@@ -72,6 +93,8 @@ void load()
 	reader.setLevelBurgerTomatoTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/TomatoSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/TomatoMiddle.png"));
 	reader.setLevelBurgerBottomTexture	(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunBottomSide.png"), recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/BunBottomMiddle.png"));
 	reader.readLevelJson("../Data/BurgerTime/Levels/Level1.json", scene);
+
+
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	gameObj = std::make_unique<GameObject>();
@@ -150,6 +173,7 @@ void load()
 	Enemy->GetComponent<dae::EnemyComponent>()->SetHitDuration(hitDuration);
 	Enemy->GetComponent<dae::EnemyComponent>()->SetSpawnPosition(glm::vec3(-40, 18, 0));
 	Enemy->GetComponent<dae::EnemyComponent>()->TouchingGround();
+	Enemy->GetComponent<dae::EnemyComponent>()->SetSubject(subject);
 	Enemy->AddComponent<dae::CollisionEnemyComponent>();
 	Enemy->GetTransform()->SetSize(16, 18);
 	Enemy->setTag("Enemy");
@@ -162,7 +186,7 @@ void load()
 
 
 
-
+	scene.Add(std::move(Text));
 	scene.Add(std::move(Peter));
 	scene.Add(std::move(Enemy));
 }

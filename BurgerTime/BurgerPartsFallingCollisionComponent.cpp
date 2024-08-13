@@ -5,7 +5,7 @@
 #include <iostream>
 #include "PlatterComponent.h"
 #include "EnemyComponent.h"
-
+#include "CounterIncreaseObserver.h"
 
 
 namespace dae {
@@ -84,6 +84,19 @@ namespace dae {
 								child->SetParent(nullptr, false);
 							}
 						}
+						int points = 0;
+						if (m_FallEnemyCounter == 0)
+						{
+							points = 50;
+						}
+						else {
+							points = 500;
+							for (int index{}; index < m_FallEnemyCounter; ++index)
+							{
+								points *= 2;
+							}
+						}
+						m_Subject->Notify(Event::UpdateCounter, m_Subject, UpdateCounterEvent{ "Points", points });
 						m_FallPlatformCounter = 0;
 						m_FallEnemyCounter = 0;
 					}

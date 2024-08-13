@@ -264,7 +264,7 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 			middleLeftObject->AddComponent<ToppingPartCollision>();
 			middleRightObject->AddComponent<ToppingPartCollision>();
 			rightObject->AddComponent<ToppingPartCollision>();
-
+			Parent.get()->GetComponent<BurgerPartsFallingCollisionComponent>()->setSubject(m_Subject);
 			CollsionSubject.AddObserver(Parent.get()->GetComponent<BurgerPartsFallingCollisionComponent>());
 			CollsionSubject.AddObserver(leftObject->GetComponent<ToppingPartCollision>());
 			CollsionSubject.AddObserver(middleLeftObject->GetComponent<ToppingPartCollision>());

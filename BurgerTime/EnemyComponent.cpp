@@ -1,7 +1,7 @@
 #include "EnemyComponent.h"
 #include "EnemyStates.h"
 #include <iostream>
-
+#include "CounterIncreaseObserver.h"
 namespace dae
 {
 	EnemyComponent::EnemyComponent(GameObject* obj)
@@ -45,6 +45,7 @@ namespace dae
 				state->SetSpeed(m_Speed);
 				state->SetTexture(m_TextureWalking);
 				GetGameObject()->setLocalPosition(m_SpawnPosition);
+				m_Subject->Notify(Event::UpdateCounter, m_Subject, UpdateCounterEvent{ "Points", m_Points });
 				m_HitTimer = 0;
 			}
 			else if(!GetGameObject()->GetParent() || GetGameObject()->GetParent()->getTag() != "ParentTopping")
@@ -52,8 +53,8 @@ namespace dae
 				m_HitTimer += elapsedTime;
 			}
 		}
-		std::cout << "Global: " << GetGameObject()->GetTransform()->getWorldposition().x << " " << GetGameObject()->GetTransform()->getWorldposition().y << " " << GetGameObject()->GetTransform()->getWorldposition().z << std::endl;
-		std::cout << "Local: " << GetGameObject()->GetTransform()->getLocalposition().x << " " << GetGameObject()->GetTransform()->getLocalposition().y << " " << GetGameObject()->GetTransform()->getLocalposition().z << std::endl;
+		//std::cout << "Global: " << GetGameObject()->GetTransform()->getWorldposition().x << " " << GetGameObject()->GetTransform()->getWorldposition().y << " " << GetGameObject()->GetTransform()->getWorldposition().z << std::endl;
+		//std::cout << "Local: " << GetGameObject()->GetTransform()->getLocalposition().x << " " << GetGameObject()->GetTransform()->getLocalposition().y << " " << GetGameObject()->GetTransform()->getLocalposition().z << std::endl;
 	}
 
 	void dae::EnemyComponent::TurnAround()

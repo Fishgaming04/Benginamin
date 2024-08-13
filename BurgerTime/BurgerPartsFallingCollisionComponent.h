@@ -1,6 +1,6 @@
 #pragma once
 #include "Components.h"
-
+#include "Observers.h"
 namespace dae {
 	class BurgerPartsFallingCollisionComponent final : public ObserverComponent
 	{
@@ -12,6 +12,8 @@ namespace dae {
 		virtual ~BurgerPartsFallingCollisionComponent() {};
 
 		virtual void OnNotify(Event event, Subject*, const std::any& args) override;
+		void setSubject(Subject* subject) { m_Subject = subject; }
+
 
 		BurgerPartsFallingCollisionComponent(const BurgerPartsFallingCollisionComponent& other) = delete;
 		BurgerPartsFallingCollisionComponent(BurgerPartsFallingCollisionComponent&& other) = delete;
@@ -25,6 +27,8 @@ namespace dae {
 
 		bool m_TouchingPlatform;
 		bool m_TouchingPlatformLastFrame;
+
+		Subject* m_Subject;
 	};
 }
 

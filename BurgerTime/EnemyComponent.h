@@ -3,6 +3,7 @@
 #include "Texture2D.h"
 #include "StateMachine.h"
 #include "GameObject.h"
+#include "Observers.h"
 namespace dae
 {
 
@@ -28,6 +29,8 @@ namespace dae
 		void TurnAround();
         void Hit();
 		void TouchingGround();
+
+		void SetSubject(Subject* subject) { m_Subject = subject; }
 
         void SetTextureClimb(const std::shared_ptr<Texture2D>& texture);
         void SetTextureWalking(const std::shared_ptr<Texture2D>& texture);
@@ -59,6 +62,8 @@ namespace dae
 
 		glm::vec3 m_SpawnPosition;
 		GameObject* m_Player;
+
+		Subject* m_Subject;
     };
 }
 

@@ -40,9 +40,6 @@ namespace dae {
 		m_CanWalk = 0;
 	}
 
-
-
-
 	void CollisionEnemyComponent::OnNotify(Event event, Subject*, const std::any& args)
 	{
 		if (event == Event::collision)

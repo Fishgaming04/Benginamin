@@ -44,7 +44,7 @@ void PrintSDLVersion()
 }
 
 dae::Minigin::Minigin(const std::string &dataPath)
-	: m_MsPerUpdate{6}
+	: m_MsPerUpdate{16}
 	, m_Lag{0.0}
 {
 	PrintSDLVersion();
@@ -88,7 +88,6 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& collisionHandler = CollisionSubject::GetInstance();
 	auto& input = InputManager::GetInstance();
-
 
 
 	bool doContinue = true;

@@ -157,6 +157,7 @@ namespace dae {
 					setLocalPosition(GetTransform()->getWorldposition() - parent->GetTransform()->getWorldposition());
 				}
 			}
+			SetDirty();
 			m_Parent = parent;
 			UpdatePos(); 
 			if (parent) {

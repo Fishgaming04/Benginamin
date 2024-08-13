@@ -11,6 +11,7 @@
 #include "IsPressedThenFallComponent.h"
 #include "BurgerPartsFallingCollisionComponent.h"
 #include "TextureComponent.h"
+#include "PlatterComponent.h"
 
 namespace dae {
 
@@ -45,8 +46,6 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 			// Extract the "type" and "loc" values
 			std::vector<int> Platforms = obj["Platforms"].get<std::vector<int>>();
 			std::vector<std::vector<int>> Ladders = obj["Ladders"].get<std::vector<std::vector<int>>>();
-
-
 
 			std::vector<bool>PlatterNeeded(m_NumberOfColumns, false);
 			std::vector <glm::vec3> PlatterLocations;
@@ -138,9 +137,9 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 			builder.SetLevelTexture(m_PlatformTexture);
 			builder.GenerateLevel(scene, PlatformLocations, "Platform", true);
 			builder.SetLevelTexture(m_PlatterTexture);
-			builder.GenerateLevel(scene, PlatterLocations, "Platter", true);
+			auto platters{ builder.GenerateLevel(PlatterLocations, "Platter", true) };
 
-
+			Platter(platters, scene);
 
 			//BurgerTop
 			builder.SetLevelTexture(m_BurgerTopSideTexture);
@@ -223,6 +222,16 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 		return BurgerPartLocations;
 	}
 
+	void JsonReader::Platter(std::vector<std::unique_ptr<GameObject>>& platters, Scene& scene)
+	{
+		for (auto& platter : platters)
+		{
+			platter->AddComponent<PlatterComponent>();
+			//platter->GetComponent<PlatterComponent>()->addObserver();
+			scene.Add(std::move(platter));
+		}
+	}
+
 	void JsonReader::CombineTopping(std::vector<std::unique_ptr<GameObject>>& left, std::vector<std::unique_ptr<GameObject>>& middle, std::vector<std::unique_ptr<GameObject>>& right, Scene& scene)
 	{
 		//auto& recourceManager = dae::ResourceManager::GetInstance();
@@ -233,8 +242,6 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 			auto middleRightObject		= middle[index*2 +1].get();
 			auto rightObject			= right[index].get();
 
-
-
 			std::unique_ptr Parent = std::make_unique<GameObject>();
 			Parent->setLocalPosition(leftObject->GetTransform()->getLocalposition()) ;
 			auto size{ leftObject->GetTransform()->getSize() };
@@ -243,8 +250,8 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 			CollsionSubject.addMovingGameObject(Parent.get());
 			Parent.get()->AddComponent<IsPressedThenFallComponent>();
 			Parent.get()->GetComponent<IsPressedThenFallComponent>()->SetPressDistance(3);
-			Parent.get()->GetComponent<IsPressedThenFallComponent>()->SetFallingSpeed(10);
-			///Parent.get()->AddComponent<TextureComponent>();
+			Parent.get()->GetComponent<IsPressedThenFallComponent>()->SetFallingSpeed(50);
+			//Parent.get()->AddComponent<TextureComponent>();
 			//Parent.get()->GetComponent<TextureComponent>()->SetTexture(recourceManager.LoadTexture("../Data/BurgerTime/Ingredients/ParentDebugTexture.png"));
 
 			leftObject->SetParent(Parent.get(), true);
@@ -257,7 +264,6 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 			middleLeftObject->AddComponent<ToppingPartCollision>();
 			middleRightObject->AddComponent<ToppingPartCollision>();
 			rightObject->AddComponent<ToppingPartCollision>();
-
 
 			CollsionSubject.AddObserver(Parent.get()->GetComponent<BurgerPartsFallingCollisionComponent>());
 			CollsionSubject.AddObserver(leftObject->GetComponent<ToppingPartCollision>());
@@ -273,7 +279,6 @@ dae::JsonReader::JsonReader(int screenWidth, int screenHeight, int numberOfColum
 
 		}
 	}
-
 
 	void JsonReader::setLevelPlatform(const std::shared_ptr<Texture2D>& texture)
 	{

@@ -38,11 +38,12 @@ namespace dae
 		JsonReader& operator=(JsonReader&& other) = delete;
 
 	private:
+
 		void BurgerPartLocation(int X, int Y, Topping& Topping);
 		std::vector <glm::vec3> BurgerPartLocation(int X, int Y);
 		std::vector<std::vector <glm::vec3>> m_PlatformLocations;
 
-
+		void Platter(std::vector<std::unique_ptr<GameObject>>& platters, Scene& scene);
 		void CombineTopping(std::vector<std::unique_ptr<GameObject>>& left, std::vector<std::unique_ptr<GameObject>>& middle, std::vector<std::unique_ptr<GameObject>>& right, Scene& scene);
 
 		int m_ScreenWidth;

@@ -17,32 +17,34 @@ namespace dae {
 	void IsPressedThenFallComponent::Update(double deltatime)
 	{
 
-		if (m_IsFalling)
-		{
-			GetGameObject()->setLocalPosition(GetGameObject()->GetTransform()->getLocalposition() + glm::vec3(0, m_FallingSpeed * deltatime, 0));
-		}
-		else
-		{
-
-			for (int index{}; index < GetGameObject()->GetChildCount(); ++index)
+		if (!m_IsOnPlatter) {
+			if (m_IsFalling)
 			{
-				auto child = GetGameObject()->GetChildAtIndex(index);
-				if (child->getTag() == "Topping" || child->getTag() == "Bun")
+				GetGameObject()->setLocalPosition(GetGameObject()->GetTransform()->getLocalposition() + glm::vec3(0, m_FallingSpeed * deltatime, 0));
+			}
+			else
+			{
+
+				for (int index{}; index < GetGameObject()->GetChildCount(); ++index)
 				{
-					auto topping = child->GetComponent<ToppingPartCollision>();
-					if (topping->getIsPressed())
+					auto child = GetGameObject()->GetChildAtIndex(index);
+					if (child->getTag() == "Topping" || child->getTag() == "Bun")
 					{
-						if (!m_IsPressed[index])
+						auto topping = child->GetComponent<ToppingPartCollision>();
+						if (topping->getIsPressed())
 						{
-							m_IsPressed[index] = true;
-							child->setLocalPosition(child->GetTransform()->getLocalposition() + glm::vec3(0, m_Pressdistance, 0));
+							if (!m_IsPressed[index])
+							{
+								m_IsPressed[index] = true;
+								child->setLocalPosition(child->GetTransform()->getLocalposition() + glm::vec3(0, m_Pressdistance, 0));
+							}
 						}
 					}
 				}
-			}
-			if (m_IsPressed[0] && m_IsPressed[1] && m_IsPressed[2] && m_IsPressed[3])
-			{
-				m_IsFalling = true;
+				if (m_IsPressed[0] && m_IsPressed[1] && m_IsPressed[2] && m_IsPressed[3])
+				{
+					m_IsFalling = true;
+				}
 			}
 		}
 	}
@@ -50,11 +52,13 @@ namespace dae {
 
 	void IsPressedThenFallComponent::HitByTopping()
 	{
-		for (int index{}; index < GetGameObject()->GetChildCount(); ++index) {
-			auto child = GetGameObject()->GetChildAtIndex(index);
-			if (child->getTag() == "Topping" || child->getTag() == "Bun")
-			{
-				child->GetComponent<ToppingPartCollision>()->setIsPressed(true);
+		if (!m_IsOnPlatter) {
+			for (int index{}; index < GetGameObject()->GetChildCount(); ++index) {
+				auto child = GetGameObject()->GetChildAtIndex(index);
+				if (child->getTag() == "Topping" || child->getTag() == "Bun")
+				{
+					child->GetComponent<ToppingPartCollision>()->setIsPressed(true);
+				}
 			}
 		}
 	}
@@ -73,5 +77,11 @@ namespace dae {
 			}
 		}
 
+	}
+	void IsPressedThenFallComponent::SetIsFalling(bool isFalling)
+	{
+		if (!m_IsOnPlatter){
+			m_IsFalling = isFalling;
+		}
 	}
 }

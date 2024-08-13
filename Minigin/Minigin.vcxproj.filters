@@ -115,7 +115,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CollisionSubject.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Singletons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -68,7 +68,7 @@ namespace dae {
 					//std::cout << "\n\nLadder\n";
 					//std::cout << info.CollisionDirection.x << " " << info.CollisionDirection.y << "\n";
 					//std::cout << info.overlapPercentage.x << " " << info.overlapPercentage.y << " " << info.overlapPercentage.Total << "\n";
-
+					//std::cout << GetGameObject()->GetTransform()->getWorldposition().x << " " << GetGameObject()->GetTransform()->getWorldposition().y << " " << GetGameObject()->GetTransform()->getWorldposition().z << "\n";
 					if (info.CollisionDirection.x == 0){
 						m_CanClimb = true;
 						if (info.CollisionDirection.y == 1) {

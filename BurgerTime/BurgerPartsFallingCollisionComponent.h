@@ -21,7 +21,7 @@ namespace dae {
 	private:
 
 		int m_FallPlatformCounter;
-		int m_FallEnemieCounter;
+		int m_FallEnemyCounter;
 
 		bool m_TouchingPlatform;
 		bool m_TouchingPlatformLastFrame;

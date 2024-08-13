@@ -42,7 +42,7 @@ namespace dae {
 		void ReportCollision( GameObject* moving,  GameObject* staticObj);
 
 
-		//Code From Jolan Plaum slighty modified to work in this project
+		//Inspired on Code from Jolan Plaum has been rewriten a few times and changed to fit the needs of this project
 		bool IsLeftCollision(const Rect4f bounds, const Rect4f otherBounds);
 		bool IsRightCollision(const Rect4f bounds, const Rect4f otherBounds);
 		bool IsBottomCollision(const Rect4f bounds, const Rect4f otherBounds);
@@ -51,7 +51,7 @@ namespace dae {
 		float OverlapPercentageX(const Rect4f bounds, const Rect4f otherBounds);
 		float OverlapPercentageY(const Rect4f bounds, const Rect4f otherBounds);
 		float OverlapPercentageTotal(const Rect4f bounds, const Rect4f otherBounds);
-		//End of code from Jolan Plaum
+		//End of code 
 
 
 		std::vector<GameObject*> m_StaticObjects;

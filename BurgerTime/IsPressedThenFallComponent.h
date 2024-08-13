@@ -19,10 +19,9 @@ namespace dae
 
 		void SetPressDistance(int distance) { m_Pressdistance = distance; }
 		void SetFallingSpeed(int speed) { m_FallingSpeed = speed; }
-		void SetIsFalling(bool isFalling) { m_IsFalling = isFalling; }
+		void SetIsOnPlatter(bool isOnPlatter) { m_IsOnPlatter = isOnPlatter; }
+        void SetIsFalling(bool isFalling);
 		bool GetIsFalling() const { return m_IsFalling; }
-
-        
 
         IsPressedThenFallComponent(const IsPressedThenFallComponent& other) = delete;
         IsPressedThenFallComponent(IsPressedThenFallComponent&& other) = delete;
@@ -32,7 +31,7 @@ namespace dae
         int m_Pressdistance;
         int m_FallingSpeed; 
         bool m_IsFalling;
-
+		bool m_IsOnPlatter;
 
 		std::vector<bool> m_IsPressed;
     };

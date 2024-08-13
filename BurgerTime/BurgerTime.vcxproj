@@ -19,10 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Minigin\CounterIncreaseObserver.cpp" />
     <ClCompile Include="BurgerPartsFallingCollisionComponent.cpp" />
     <ClCompile Include="CollisionPlayerComponent.cpp" />
+    <ClCompile Include="CounterComponent.cpp" />
     <ClCompile Include="CounterDisplay.cpp" />
+    <ClCompile Include="CounterIncreaseObserver.cpp" />
     <ClCompile Include="CounterSubject.cpp" />
     <ClCompile Include="EnemyCollisionComponent.cpp" />
     <ClCompile Include="EnemyComponent.cpp" />
@@ -39,10 +40,11 @@
     <ClCompile Include="TriggerSoundCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Minigin\CounterIncreaseObserver.h" />
     <ClInclude Include="BurgerPartsFallingCollisionComponent.h" />
     <ClInclude Include="CollisionPlayerComponent.h" />
+    <ClInclude Include="CounterComponent.h" />
     <ClInclude Include="CounterDisplay.h" />
+    <ClInclude Include="CounterIncreaseObserver.h" />
     <ClInclude Include="CounterSubject.h" />
     <ClInclude Include="EnemyCollisionComponent.h" />
     <ClInclude Include="EnemyComponent.h" />

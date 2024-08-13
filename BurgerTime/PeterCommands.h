@@ -1,7 +1,7 @@
 #pragma once
 #include "Command.h"
-
-
+#include "Sound.h"
+#include "SoundSignleton.h"
 namespace dae {
 	class PeterWalkStateCommand final : public GameObjectCommand
 	{
@@ -50,7 +50,18 @@ namespace dae {
 	private:
 		MoveCommand* m_MoveCommand;
 	};
+	
 
+	class MuteMusicbCommand final : public GameObjectCommand
+	{
+	public:
+		MuteMusicbCommand();
+		virtual ~MuteMusicbCommand() override;
+		virtual void Execute(float) override;
+	private:
+		bool m_IsMuted;
+		Sound& m_Sound;
+	};
 
 }
 

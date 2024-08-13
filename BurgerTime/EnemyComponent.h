@@ -19,6 +19,7 @@ namespace dae
 		bool GetIsGoingLeft() const { return m_IsGoingLeft; }
 		bool GetIsHit() const { return m_IsHit; }
 
+		void Reset();
 
 		//ladderDirections: 
         // 1 = up

@@ -1,8 +1,8 @@
 #include "EnemyCollisionComponent.h"
 #include "CollisionSubject.h"
 #include "EnemyComponent.h"
-#include <iostream>
-
+//#include <iostream>
+#include "PeterStates.h"
 namespace dae {
 
 	dae::CollisionEnemyComponent::CollisionEnemyComponent(GameObject* obj)
@@ -118,8 +118,8 @@ namespace dae {
 			}
 			else if (HitObject->getTag() == "Player")
 			{
-				std::cout << "Player hit\n";
-				//player hit
+				//std::cout << "Player hit\n";
+				HitObject->GetComponent<StateMachine>()->SetState(new PeterHitState);
 			}
 
 		}

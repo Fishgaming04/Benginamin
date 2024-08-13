@@ -2,7 +2,7 @@
 #include "CollisionPlayerComponent.h"
 #include "StateMachine.h"
 #include "PeterStates.h"
-
+#include <iostream>
 namespace dae {
 
 	//PeterWalkStateCommand
@@ -95,6 +95,30 @@ namespace dae {
 		if (dynamic_cast<PeterClimbingState*>(GetGameObject()->GetComponent<StateMachine>()->GetState()))
 		{
 			m_MoveCommand->Execute(deltaTime);
+		}
+	}
+	MuteMusicbCommand::MuteMusicbCommand()
+		: GameObjectCommand(nullptr)
+		, m_IsMuted(false)
+		, m_Sound(dae::SoundSingleton::getAudio())
+	{
+
+	}
+	MuteMusicbCommand::~MuteMusicbCommand()
+	{
+	}
+	void MuteMusicbCommand::Execute(float)
+	{
+		std::cout << "Button Pressed\n";
+		if (m_IsMuted)
+		{
+			m_Sound.ResumeMusic();
+			m_IsMuted = false;
+		}
+		else
+		{
+			m_Sound.PauseMusic();
+			m_IsMuted = true;
 		}
 	}
 }

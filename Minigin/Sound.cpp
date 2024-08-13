@@ -25,6 +25,7 @@ namespace dae {
 
 	private:
 		std::vector<Mix_Chunk*> m_pSound;
+		bool m_isMuted{ false };
 	};
 
 

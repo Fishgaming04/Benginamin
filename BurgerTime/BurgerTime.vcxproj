@@ -36,6 +36,8 @@
     <ClCompile Include="PeterCommands.cpp" />
     <ClCompile Include="PeterStates.cpp" />
     <ClCompile Include="PlatterComponent.cpp" />
+    <ClCompile Include="PlayerComponent.cpp" />
+    <ClCompile Include="PlayerObserver.cpp" />
     <ClCompile Include="ToppingPartCollision.cpp" />
     <ClCompile Include="TriggerSoundCommand.cpp" />
   </ItemGroup>
@@ -56,6 +58,8 @@
     <ClInclude Include="PeterCommands.h" />
     <ClInclude Include="PeterStates.h" />
     <ClInclude Include="PlatterComponent.h" />
+    <ClInclude Include="PlayerComponent.h" />
+    <ClInclude Include="PlayerObserver.h" />
     <ClInclude Include="ToppingPartCollision.h" />
     <ClInclude Include="TriggerSoundCommand.h" />
   </ItemGroup>

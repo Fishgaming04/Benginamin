@@ -57,6 +57,16 @@ namespace dae
 		//std::cout << "Local: " << GetGameObject()->GetTransform()->getLocalposition().x << " " << GetGameObject()->GetTransform()->getLocalposition().y << " " << GetGameObject()->GetTransform()->getLocalposition().z << std::endl;
 	}
 
+	void EnemyComponent::Reset()
+	{
+		m_IsHit = false;
+		m_HitTimer = 0;
+		SetSpawnPosition(m_SpawnPosition);
+		GetGameObject()->SetParent(nullptr);
+		TouchingGround();
+
+	}
+
 	void dae::EnemyComponent::TurnAround()
 	{
 		m_IsGoingLeft = !m_IsGoingLeft;

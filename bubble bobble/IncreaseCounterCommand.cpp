@@ -11,8 +11,8 @@ namespace dae{
 
 	void IncreaseCounter::Execute(float)
 	{
-		int count = GetGameObject()->GetComponent<CounterComponent>()->GetCounter(m_Counter);
-		GetGameObject()->GetComponent<CounterComponent>()->SetCounter(m_Counter, count + m_CounterIncreaseStep);
+		int count = GetGameObject()->GetComponent<CountingComponent>()->GetCounter(m_Counter);
+		GetGameObject()->GetComponent<CountingComponent>()->SetCounter(m_Counter, count + m_CounterIncreaseStep);
 	}
 
 	GameObject* IncreaseCounter::GetGameObject()

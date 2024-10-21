@@ -86,7 +86,7 @@ void load()
 	Bub = std::make_unique<dae::GameObject>();
 	Bub->AddComponent<dae::TextureComponent>();
 	Bub->GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("Character2.png"));
-	Bub->AddComponent<dae::CounterComponent>();
+	Bub->AddComponent<dae::CountingComponent>();
 	Bub->AddComponent<dae::StateMachine>();
 	Bub->AddComponent<dae::CollisionPlayerComponent>();
 	Bub->AddComponent<dae::BubbleManager>();
@@ -104,8 +104,8 @@ void load()
 	CollsionSubject.addMovingGameObject(Bub.get());
 	CollsionSubject.AddObserver(Bub->GetComponent<dae::CollisionPlayerComponent>());
 	Bub->GetComponent<dae::StateMachine>()->SetState(new BubIdleState{});
-	Bub->GetComponent<dae::CounterComponent>()->SetCounter("Lives", 3);
-	Bub->GetComponent<dae::CounterComponent>()->SetCounter("Points", 0);
+	Bub->GetComponent<dae::CountingComponent>()->SetCounter("Lives", 3);
+	Bub->GetComponent<dae::CountingComponent>()->SetCounter("Points", 0);
 	input.AddCommand(SDL_SCANCODE_A, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(-1, 0, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_D, buttonState::heldDown, std::make_unique<MoveCommand>(Bub.get(), glm::vec3(1, 0, 0), 100.0f));
 	input.AddCommand(SDL_SCANCODE_A, buttonState::down, std::make_unique<BubWalkCommand>( Bub.get()));
@@ -140,7 +140,7 @@ void load()
 	gameObj->AddComponent<dae::TextComponent>();
 	gameObj->GetComponent<dae::TextComponent>()->SetFont(font);
 	std::string prefix = "Lives: ";
-	gameObj->GetComponent<dae::TextComponent>()->SetText(prefix + std::to_string(Bub->GetComponent<dae::CounterComponent>()->GetCounter("Lives")));
+	gameObj->GetComponent<dae::TextComponent>()->SetText(prefix + std::to_string(Bub->GetComponent<dae::CountingComponent>()->GetCounter("Lives")));
 	gameObj->GetComponent<dae::TextComponent>()->SetColor(SDL_Color{ 0, 255, 0, 255 });
 	gameObj->AddComponent<dae::CounterComponentObserver>();
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetCounter("Lives");
@@ -155,7 +155,7 @@ void load()
 	gameObj->AddComponent<dae::TextComponent>();
 	gameObj->GetComponent<dae::TextComponent>()->SetFont(font);
 	std::string prefixExp = "Points: ";
-	gameObj->GetComponent<dae::TextComponent>()->SetText(prefixExp + std::to_string(Bub->GetComponent<dae::CounterComponent>()->GetCounter("Points")));
+	gameObj->GetComponent<dae::TextComponent>()->SetText(prefixExp + std::to_string(Bub->GetComponent<dae::CountingComponent>()->GetCounter("Points")));
 	gameObj->GetComponent<dae::TextComponent>()->SetColor(SDL_Color{ 0, 255, 0, 255 });
 	gameObj->AddComponent<dae::CounterComponentObserver>();
 	gameObj->GetComponent<dae::CounterComponentObserver>()->SetCounter("Points");

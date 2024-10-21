@@ -98,7 +98,7 @@ namespace dae{
 	State* BubDeadState::update(GameObject& gameObject)
 	{
 
-		int count = gameObject.GetComponent<CounterComponent>()->GetCounter("Lives");
+		int count = gameObject.GetComponent<CountingComponent>()->GetCounter("Lives");
 		if (count >= 0) {
 			gameObject.GetComponent<StateMachine>()->SetState(new BubIdleState());
 		}
@@ -117,9 +117,9 @@ namespace dae{
 	{
 		auto& recourceManager = dae::ResourceManager::GetInstance();
 		gameObject.GetComponent<dae::TextureComponent>()->SetTexture(recourceManager.LoadTexture("BubHit.png"));
-		int count = gameObject.GetComponent<CounterComponent>()->GetCounter("Lives");
+		int count = gameObject.GetComponent<CountingComponent>()->GetCounter("Lives");
 		if (count > 0){
-		gameObject.GetComponent<CounterComponent>()->SetCounter("Lives", count - 1);
+		gameObject.GetComponent<CountingComponent>()->SetCounter("Lives", count - 1);
 		gameObject.setLocalPosition(48, 432, 0);
 		}
 		else

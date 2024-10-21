@@ -42,9 +42,6 @@
     <ClCompile Include="..\Minigin\OrbitParentComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Minigin\CounterComponent.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="TriggerSoundCommand.cpp">
       <Filter>Source Files\Commands</Filter>
     </ClCompile>
@@ -107,9 +104,6 @@
     <ClInclude Include="CollisionPlayerComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Minigin\CounterComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="LevelCreater.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -148,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="IncreaseCounterCommand.h">
       <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\CounterComponentObserver.h">
+      <Filter>Header Files\Observers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

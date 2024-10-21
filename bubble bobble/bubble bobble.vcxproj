@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Minigin\CounterComponent.cpp" />
     <ClCompile Include="..\Minigin\CounterComponentObserver.cpp" />
     <ClCompile Include="..\Minigin\FPSComponent.cpp" />
     <ClCompile Include="..\Minigin\OrbitParentComponent.cpp" />
@@ -41,7 +40,7 @@
     <ClCompile Include="TriggerSoundCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Minigin\CounterComponent.h" />
+    <ClInclude Include="..\Minigin\CounterComponentObserver.h" />
     <ClInclude Include="..\Minigin\FPSComponent.h" />
     <ClInclude Include="..\Minigin\OrbitParentComponent.h" />
     <ClInclude Include="BubbleCompenent.h" />
